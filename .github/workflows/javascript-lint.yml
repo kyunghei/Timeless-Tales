@@ -36,6 +36,6 @@ jobs:
         
       # Runs ESLint
       - name: Lint JavaScript Files
-        run: npx eslint . # Assuming ESLint is set up to run with npx
+        run: npm run lint
         working-directory: ./frontend
         
