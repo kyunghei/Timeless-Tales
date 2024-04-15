@@ -1,4 +1,4 @@
-import math, sys;
+import math
 
 def example_function(x, y):
     # Example function with several PEP 8 style issues
