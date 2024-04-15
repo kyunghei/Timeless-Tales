@@ -36,4 +36,3 @@ class MyClass():
 some_value = True
 if some_value is True:
     print("some_value is True")
-
