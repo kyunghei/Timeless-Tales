@@ -8,6 +8,10 @@ on:
     branches: [ "main" ]
     paths:
       - 'backend/**'
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'backend/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
