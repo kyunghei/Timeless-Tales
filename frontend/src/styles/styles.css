@@ -1,0 +1,22 @@
+.navbar-brand {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-nav {
+    justify-content: flex-start;
+    margin-left: 20px;
+}
+
+/* Push main section below fixed navigation bar to avoid overlap */
+main {
+    padding-top: 100px;
+}
+
+#flex-container {
+    display:flex;
+}
+
+#title {
+    font-size: 50px;
+    text-align: center;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/styles/styles.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html"><h1>Timeless Tales</h1></a>
+
+                <!-- Button that expands the offcanvas navigation menu -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <!-- offcanvas navigation menu -->
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel">
+                    <!-- Header and close button -->
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title id=offcanvasNavbarLabel">Untitled</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <!-- Body of navigation menu -->
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav flex-grow-1 pe-3">
+                            <!-- <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="">Home</a>
+                            </li> -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Customize Options</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="">Genre</a></li>
+                                    <li><a class="dropdown-item" href="">Length</a></li>
+                                    <li><a class="dropdown-item" href="">Character</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Help Page</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>  
+        </nav>
+    </header>
+
+    <main>
+        <div class="container" id="flex-container">
+            <div>
+                <div class="container" id="title">
+                    <p>Choose Your Adventure, Craft Your Destiny</p>
+                </div>
+                <div class="container">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A beatae delectus quod totam iure, sed, facere aspernatur vel minus doloribus nesciunt ullam quasi expedita alias laborum numquam consequuntur sequi eos.</p>
+                </div>
+                <div class="container">
+                    <p>What Will Your Story Be?</p>
+                    <button>Get Started</button>
+                </div>
+            </div>
+            <img src="images/logo.webp" alt="Timeless Tales logo" height="300px" width="300px">
+        </div>
+        
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>
