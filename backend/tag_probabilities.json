@@ -1,0 +1,100 @@
+{
+    "regular": {
+        "regular": 50,
+        "gain_life": 75,
+        "lose_life": 75,
+        "resolve": 75,
+        "raise_intensity": 75,
+        "lower_intensity": 75,
+        "climax": 25,
+        "false_calm": 10,
+        "foreshadow": 90,
+        "dilemma": 50,
+        "challenge": 25,
+        "opportunity": 25
+    },
+    "gain_life": {
+        "resolve": 10,
+        "challenge": 50,
+        "opportunity": 35
+    },
+    "lose_life": {
+        "raise_intensity": 25,
+        "climax": 25,
+        "false_calm": 90,
+        "dilemma": 10,
+        "challenge": 50
+    },
+    "resolve": {
+        "gain_life": 25,
+        "lose_life": 50,
+        "lower_intensity": 50,
+        "dilemma": 75,
+        "challenge": 50,
+        "opportunity": 25
+    },
+    "raise_intensity": {
+        "regular": 5,
+        "gain_life": 5,
+        "lose_life": 25,
+        "false_calm": 100,
+        "foreshadow": 5,
+        "dilemma": 25,
+        "challenge": 35,
+        "opportunity": 5
+    },
+    "lower_intensity": {
+        "regular": 15,
+        "gain_life": 15,
+        "lose_life": 25,
+        "resolve": 100,
+        "climax": 10,
+        "dilemma": 25,
+        "challenge": 35,
+        "opportunity": 15
+    },
+    "climax": {},
+    "false_calm": {
+        "regular": 75,
+        "gain_life": 5,
+        "resolve": 10,
+        "raise_intensity": 10,
+        "lower_intensity": 10,
+        "climax": 10,
+        "foreshadow": 10,
+        "dilemma": 5,
+        "opportunity": 5
+    },
+    "foreshadow": {
+        "regular": 75,
+        "resolve": 5,
+        "raise_intensity": 15,
+        "lower_intensity": 10,
+        "foreshadow": 5,
+        "opportunity": 25
+    },
+    "dilemma": {
+        "regular": 75,
+        "lose_life": 10,
+        "raise_intensity": 10,
+        "climax": 50,
+        "false_calm": 25,
+        "opportunity": 25
+    },
+    "challenge": {
+        "regular": 75,
+        "raise_intensity": 10,
+        "climax": 50,
+        "false_calm": 25,
+        "dilemma": 50,
+        "opportunity": 25
+    },
+    "opportunity": {
+        "regular": 75,
+        "resolve": 15,
+        "raise_intensity": 10,
+        "lower_intensity": 15,
+        "foreshadow": 5,
+        "dilemma": 50
+    }
+}
