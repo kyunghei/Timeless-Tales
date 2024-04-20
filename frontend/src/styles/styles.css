@@ -1,0 +1,48 @@
+/* Cosmetic spacing of navigation items */
+.navbar-nav {
+    justify-content: flex-start;
+    margin-left: 20px;
+}
+
+.navbar-brand {
+    margin-left: 20px;
+}
+
+.nav-item {
+    margin-left: 15px;
+}
+
+/* Push main section below fixed navigation bar to avoid overlap */
+main {
+    padding-top: 100px;
+}
+
+
+#flex-container-index {
+    display: flex;
+}
+
+#title {
+    font-size: 50px;
+    text-align: center;
+}
+
+/* Centers genre image & genre labels */
+#genre-form img {
+    display: block;
+    margin: auto;
+}
+
+#genre-form label {
+    display: inline-block;
+    text-align: center;
+}
+
+.container {
+    margin: 2%;
+}
+
+#length-step,
+#character-step {
+    display: none;
+}
