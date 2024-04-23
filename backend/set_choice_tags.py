@@ -1,7 +1,6 @@
 import json
 import random
 import os
-print("Files available:", os.listdir())
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 json_path = os.path.join(script_dir, 'tags.json')
@@ -47,19 +46,44 @@ def get_choice_tags(current_tags: list[str], num_choices):
 # TODO
 # Create two test functions
 # Test function 1 - tests 1000s of stories and lists tag frequency across all 10k
-def bulk_test_results(num_iterations, iteration_length, num_choices):
+def bulk_test_results(num_iterations, story_length, num_choices):
     """During each iteration, pick a random choice and generate next batch based on selection.
     Returns a count of each selected tag."""
-    pass
+    print("BULK")
+    frequency = dict()
+    i = 0
+    while i < num_iterations:
+        print("ITERATION")
+        n = 0
+        current_tags = {"regular"}
+        while n < story_length:
+            for tag in current_tags:
+                if tag in frequency:
+                    frequency[tag] += 1
+                else:
+                    frequency[tag] = 0
+            # Add current tags to dict that tracks number
+            choices = get_choice_tags(current_tags, num_choices)
+            current_tags = choices[random.randint(0,2)]
+            n += 1
+        i += 1
+    print(frequency)
+    
+        
 # Test function 2- tests a single story and the flow of tags
 def test_story_flow(story_length):
     """Print out the flow of tags in order, starting with a regular decision."""
     n = 0
     current_tags = {"regular"}
+    print("LOOP")
     while n < story_length:
         print(n+1, current_tags)
         choices = get_choice_tags(current_tags, 3)
         current_tags = choices[random.randint(0,2)]
         n += 1
 
+bulk_test_results(10, 10, 3)        
 test_story_flow(10)
+
+# TODO - Account for climax and other variables
+# TODO - Adjust values
