@@ -7,8 +7,6 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 json_path = os.path.join(script_dir, 'tags.json')
 
 
-# TODO
-# Generate choice tags
 def get_choice_tags(current_tags: list[str], num_choices):
     """Given a list of the tags associated with most recent choice.
     Returns num_tag lists containing tags for future choices."""
@@ -41,24 +39,27 @@ def get_choice_tags(current_tags: list[str], num_choices):
         all_choices.append(set(single_choice))  # Remove duplicates before saving
     
     return all_choices
+    # TODO - First tag is always regular.  Climax tag automatically inserted based on story length
+                     
+# print(get_choice_tags(["regular"], 3))
 
-                
-
-                
-            
-        
-    
-    # Anything with 100% of greater chance is guranteed to occur (Add these at end if they weren't already selected selected.)
-   
-    # TODO - Use story length variables to assign climax tag
-
-print(get_choice_tags(["regular"], 3))
-
-# TODO
-# Function that removes the tags from the API's response.
-# We need method to store the tags associated with the user's choice as well
 
 # TODO
 # Create two test functions
 # Test function 1 - tests 1000s of stories and lists tag frequency across all 10k
+def bulk_test_results(num_iterations, iteration_length, num_choices):
+    """During each iteration, pick a random choice and generate next batch based on selection.
+    Returns a count of each selected tag."""
+    pass
 # Test function 2- tests a single story and the flow of tags
+def test_story_flow(story_length):
+    """Print out the flow of tags in order, starting with a regular decision."""
+    n = 0
+    current_tags = {"regular"}
+    while n < story_length:
+        print(n+1, current_tags)
+        choices = get_choice_tags(current_tags, 3)
+        current_tags = choices[random.randint(0,2)]
+        n += 1
+
+test_story_flow(10)
