@@ -10,42 +10,53 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 json_path = os.path.join(script_dir, 'tags.json')
 
 
-def get_choice_tags(current_tags: list[str], num_choices):
+def get_choice_tags(current_tags: list[str], num_choices) -> list[set[str]]:
     """ This function is utilized to determine the tags options for next story beat.
-    Given the list of tags, returns a list of num_choices sets of tags."""
+    Given a singular list of tags, returns a list with multiple sets of tags."""
     # TODO - Here is where JSON needs to be reimplemented
+    # Prepare JSON Data
     with open(json_path, 'r') as file:
         json_data = json.load(file)
     
-    # Determine Weight of Each Option
-    tag_weights = dict()
+    # Determine the combined weight of all options
+    result_weight = dict()  
     for tag in current_tags:
-        value_dict = json_data[tag]
-        for value_key in value_dict:
-            if value_key in tag_weights:
-                tag_weights[value_key] += value_dict[value_key]
-            else:
-                tag_weights[value_key] = value_dict[value_key]         
-    
+        # Each current tag has its own base_weight dict giving the base odds of each result
+        base_weight = json_data[tag]  
+        result_weight = _adjust_weight(base_weight, result_weight)
+   
     # Determine Resulting Tags
     all_choices = []
-    keys = list(tag_weights.keys())
-    weights = list(tag_weights.values())
+    keys = list(result_weight.keys())
+    weights = list(result_weight.values())
     for _ in range(num_choices):
-        single_choice = []
-        single_choice.append(random.choices(keys, weights=weights, k=1)[0])
-        # Lower chance for multi-tags
-        if random.randint(1, 100) <= 25:
-            single_choice.append(random.choices(keys, weights=weights, k=1)[0])
-        if random.randint(1, 100) <= 5:
-            single_choice.append(random.choices(keys, weights=weights, k=1)[0])
-        all_choices.append(set(single_choice))  # Remove duplicates before saving
-    
+        all_choices.append(_generate_choice(keys, weights))   
+
     return all_choices
-    # TODO - First tag is always regular.  Climax tag automatically inserted based on story length
-                     
-def _function():
-    pass
+
+
+def _adjust_weight(base_weight, result_weight):
+    """Helper that determines the resulting weights of all tags combined"""
+    for tag_name in base_weight:
+        if tag_name in result_weight:
+            result_weight[tag_name] += base_weight[tag_name]
+        else:
+            result_weight[tag_name] = base_weight[tag_name]
+    
+    return result_weight    
+
+                 
+def _generate_choice(keys, weights) -> set:
+    """Helper function that returns the tag(s) for ONE choice."""
+    choice = []
+    # Pick first tag
+    choice.append(random.choices(keys, weights=weights, k=1)[0])
+    # Pick additional tags at increasingly lower chances
+    if random.randint(1, 100) <= 25:
+        choice.append(random.choices(keys, weights=weights, k=1)[0])
+    if random.randint(1, 100) <= 5:
+        choice.append(random.choices(keys, weights=weights, k=1)[0])
+    return set(choice)
 
 
 def test_tag_frequency(num_iterations, story_length, num_choices):
@@ -63,8 +74,10 @@ def test_tag_frequency(num_iterations, story_length, num_choices):
             n += 1
         i += 1
     print(frequency_count)
+
     
 def _update_frequency(frequency_count, current_tags):
+    """Helper that counts how often tag appears."""
     for tag in current_tags:
         if tag in frequency_count:
             frequency_count[tag] += 1
