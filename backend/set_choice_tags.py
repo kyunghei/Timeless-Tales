@@ -1,3 +1,7 @@
+# TODO - Adjust tag values
+# TODO - Save json instead of reloading each time
+# TODO - Tests don't consider climax or tags added by other means
+
 import json
 import random
 import os
@@ -7,13 +11,13 @@ json_path = os.path.join(script_dir, 'tags.json')
 
 
 def get_choice_tags(current_tags: list[str], num_choices):
-    """Given a list of the tags associated with most recent choice.
-    Returns num_tag lists containing tags for future choices."""
-    # TODO - We only need to open JSON once.  This could be tied into backend instead of function.
+    """ This function is utilized to determine the tags options for next story beat.
+    Given the list of tags, returns a list of num_choices sets of tags."""
+    # TODO - Here is where JSON needs to be reimplemented
     with open(json_path, 'r') as file:
         json_data = json.load(file)
     
-    # Determine Probabilities
+    # Determine Weight of Each Option
     tag_weights = dict()
     for tag in current_tags:
         value_dict = json_data[tag]
@@ -40,50 +44,55 @@ def get_choice_tags(current_tags: list[str], num_choices):
     return all_choices
     # TODO - First tag is always regular.  Climax tag automatically inserted based on story length
                      
-# print(get_choice_tags(["regular"], 3))
+def _function():
+    pass
 
 
-# TODO
-# Create two test functions
-# Test function 1 - tests 1000s of stories and lists tag frequency across all 10k
-def bulk_test_results(num_iterations, story_length, num_choices):
-    """During each iteration, pick a random choice and generate next batch based on selection.
-    Returns a count of each selected tag."""
-    print("BULK")
-    frequency = dict()
+def test_tag_frequency(num_iterations, story_length, num_choices):
+    """Counts the number of times each tag appears in multiple simulated stories."""
+    frequency_count = dict()
     i = 0
     while i < num_iterations:
-        print("ITERATION")
         n = 0
         current_tags = {"regular"}
         while n < story_length:
-            for tag in current_tags:
-                if tag in frequency:
-                    frequency[tag] += 1
-                else:
-                    frequency[tag] = 0
-            # Add current tags to dict that tracks number
+            frequency_count = _update_frequency(frequency_count, current_tags)
+            # Determine next choice
             choices = get_choice_tags(current_tags, num_choices)
             current_tags = choices[random.randint(0,2)]
             n += 1
         i += 1
-    print(frequency)
+    print(frequency_count)
     
-        
-# Test function 2- tests a single story and the flow of tags
-def test_story_flow(story_length):
-    """Print out the flow of tags in order, starting with a regular decision."""
+def _update_frequency(frequency_count, current_tags):
+    for tag in current_tags:
+        if tag in frequency_count:
+            frequency_count[tag] += 1
+        else:
+            frequency_count[tag] = 0
+    return frequency_count
+    
+
+def test_tag_selection(story_length, num_choices):
+    """Prints out a potential set of tags in the order they were selected."""
     n = 0
     current_tags = {"regular"}
-    print("LOOP")
     while n < story_length:
         print(n+1, current_tags)
-        choices = get_choice_tags(current_tags, 3)
-        current_tags = choices[random.randint(0,2)]
+        choices = get_choice_tags(current_tags, num_choices)
+        current_tags = choices[random.randint(0, num_choices-1)]
         n += 1
 
-bulk_test_results(10, 10, 3)        
-test_story_flow(10)
 
-# TODO - Account for climax and other variables
-# TODO - Adjust values
+def main():
+    """Allows for tag testing when this file run directly."""
+    iterations = 10
+    story_length = 10
+    num_choices = 3
+    
+    test_tag_frequency(iterations, story_length, num_choices)        
+    test_tag_selection(story_length, num_choices)
+    
+
+if __name__ == "__main__":
+    main()
