@@ -1,25 +1,16 @@
-// .eslintrc.js
+import globals from "globals";
 
-export default {
-  languageOptions: {
-    ecmaVersion: 2021,
-    sourceType: 'module',
-    globals: {
-      nextCustomizeStep: 'readonly', // Mark the function as globally accessible and not to be modified
-      submitCustomization: 'readonly'
-    }
-  },
-  rules: {
-    eqeqeq: 'error',
-    curly: 'error',
-    quotes: ['error', 'single', { avoidEscape: true }],
-    semi: 'off',
-    'no-unused-vars': ['warn'],
-    indent: ['error', 2],
-    'no-multi-spaces': 'error',
-    'space-before-function-paren': ['error', 'never']
-  },
-  linterOptions: {
-    reportUnusedDisableDirectives: true
-  }
-};
+import path from "path";
+import { fileURLToPath } from "url";
+import { FlatCompat } from "@eslint/eslintrc";
+import pluginJs from "@eslint/js";
+
+// mimic CommonJS variables -- not needed if using CommonJS
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({baseDirectory: __dirname, recommendedConfig: pluginJs.configs.recommended});
+
+export default [
+  {languageOptions: { globals: globals.browser }},
+  ...compat.extends("airbnb"),
+];

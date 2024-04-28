@@ -1,4 +1,5 @@
-// Visually indicate which step (genre, length, character) of the form the user is on.
+import PropTypes from 'prop-types';
+
 /**
  * Display a progress indicator for the multi-step form.
  * Highlights the box corresponding to the current step.
@@ -49,3 +50,7 @@ function ProgressIndicator({ currentStep }) {
 }
 
 export default ProgressIndicator
+
+ProgressIndicator.propTypes = {
+    currentStep: PropTypes.number.isRequired
+}
