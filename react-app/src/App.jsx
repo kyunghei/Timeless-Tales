@@ -13,6 +13,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomeContent />} />
           <Route path='/customization' element={<CustomizePage />} />
+          <Route path='/story' />
         </Routes>
       </div>
     </Router>

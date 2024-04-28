@@ -9,9 +9,10 @@ import PropTypes from 'prop-types';
 function LengthStep({ selectedLength, onLengthSelect }) {
 
     // Handles changes made to the slider and notifies the parent component.
-    const handleChangeLength = (e) => {
+    function handleChangeLength(e) {
         onLengthSelect(parseInt(e.target.value, 10));
     }
+
     return (
         <form onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', padding: '20px' }}>
             <h2>How Long Will Your Adventure Last?</h2>

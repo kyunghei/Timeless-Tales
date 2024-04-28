@@ -6,9 +6,9 @@ import logo from '../../assets/logo.webp';
 function HomeContent() {
     let navigate = useNavigate(); // Hook for navigation
 
-    const goToCustomization = () => {
+    function goToCustomization() {
         navigate('/customization');
-    };
+    }
 
     return (
         <main>
