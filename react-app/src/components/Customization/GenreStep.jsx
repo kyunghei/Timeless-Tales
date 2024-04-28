@@ -1,39 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import logo from '../../assets/logo.webp';
-import NextButton from './NextButton'
 
 /**
  * Represents the genre selection step in the mutli-step customization form.
  * Allows the user to choose a genre.
- * 
- * @param {Function} onNextStep, once called, will proceed to next step of form.
+ * @param {string} selectedGenre The genre currently selected by the user, used to highlight the selected option.
+ * @param {Function} onGenreSelect Passed from parent component to handle genre selection.
  */
 
-function GenreStep({ onNextStep }) {
-    const [selectedGenre, setSelectedGenre] = useState('');
-
-    // Handles the setting of the selected genre
-    const handleSelectGenre = (genre) => {
-        setSelectedGenre(genre);
-    };
-
-    //Disable the button if user did not choose genre option
-    const isNextButtonDisabled = !selectedGenre;
+function GenreStep({ selectedGenre, onGenreSelect }) {
 
     return (
         <form onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', padding: '20px' }}>
             <h3>What Kind of Story Will You Tell?</h3>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: '20px' }}>
-                <GenreOption genre='Fantasy' isSelected={selectedGenre === 'Fantasy'} onSelectGenre={handleSelectGenre} />
-                <GenreOption genre='Western' isSelected={selectedGenre === 'Western'} onSelectGenre={handleSelectGenre} />
-                <GenreOption genre='Sci-Fi' isSelected={selectedGenre === 'Sci-Fi'} onSelectGenre={handleSelectGenre} />
+                <GenreOption genre='Fantasy' isSelected={selectedGenre === 'Fantasy'} onSelectGenre={onGenreSelect} />
+                <GenreOption genre='Western' isSelected={selectedGenre === 'Western'} onSelectGenre={onGenreSelect} />
+                <GenreOption genre='Sci-Fi' isSelected={selectedGenre === 'Sci-Fi'} onSelectGenre={onGenreSelect} />
             </div>
-            <NextButton onClick={onNextStep} disabled={isNextButtonDisabled} />
 
         </form>
-
-
     );
 }
 
@@ -79,5 +66,6 @@ GenreOption.propTypes = {
 }
 
 GenreStep.propTypes = {
-    onNextStep: PropTypes.func.isRequired
+    selectedGenre: PropTypes.string.isRequired,
+    onGenreSelect: PropTypes.func.isRequired
 }
