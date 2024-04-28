@@ -19,43 +19,69 @@ class StoryContext:
     new_tags: list[str]
 
     intensity: int = 0
-    climax_occured: bool
+    climax: bool
 
 
 def get_story_prompt(context: StoryContext):
     """Generates a prompt to feed the API to generate next paragrpah."""
-
+    # TODO - Adjust the prompt phrasing potentially
     # Construct the narrative context
-    narrative_context = f"After the events of '{context.previous_paragraph}',our story continues in the genre of {context},"
-    narrative_context += f" reaching a pivotal moment at beat {context.current_beat} of {context.max_beats},"
-    narrative_context += f" with the current intensity described as {intensity_scale[context.intensity]}."
+    narrative = (
+        f"After the events of '{context.previous_paragraph}', "
+        f"our story continues in the genre of {context.genre}, "
+        f"reaching a pivotal moment at beat {context.current_beat} of "
+        f"{context.max_beats}, with the current intensity described as "
+        f"{intensity_scale[context.intensity]}."
+    )
 
-    # Detail the story's progression and status of the climax
-    if context.intensity >= 4 or context.max_beats/2 + 1 > context.current_beat:
-        for tag_list in context.new_tags:
-            tag_list.append("climax")
-    climax_status = "has already occurred." if context.climax_occured else "has not occurred yet."
+    # Construct the choice options
+    # TODO - Consider translating tag phrasing for this section
+    choices = ""
+    for i in range(3):
+        option = (
+            f"{i+1}. A choice that features elements related to "
+            f"'{', '.join(context.new_tags[i])}', "
+        )
+        choices += option
+
+    # Construct the climax status
+    if context.climax:
+        climax_status = "This should be constructed as a climactic moment."
+    else:
+        climax_status = ""
 
     # Combine the elements into a cohesive prompt
-    prompt = (f"{narrative_context} The scene is influenced by these themes: {', '.join(context.previous_tags)}. "
-              f"The climax {climax_status} "
-              "Craft a scene that includes the following three choices: "
-              f"1. A choice that features elements related to '{', '.join(context.new_tags[0])}', "
-              f"2. A choice that features elements related to '{', '.join(context.new_tags[1])}', "
-              f"3. A choice that features elements related to '{', '.join(context.new_tags[2])}'.")
-    
+    prompt = (
+        f"{narrative} The scene is influenced by these themes: "
+        f"{', '.join(context.previous_tags)}. {climax_status} "
+        "Craft a scene that includes the following three choices: "
+        f"{choices}"
+    )
+
     return prompt
 
 
-def get_image_prompt(current_beat, genre):
-    prompt = (f"Create a visual image prompt based on the current narrative: '{current_beat}'. "
-              f"This scene is set in a {genre} context.")
+def get_image_prompt(context: StoryContext, current_paragraph):
+    """Given current paragraph, u"""
+    prompt = (f"Create an image in the {context.genre} style "
+              f"based on the narrative:'{current_paragraph}'.")
+
     return prompt
 
-def check_climax(context: StoryContext):
-    """Updates information about climax independently from other funcs."""
-    
 
+def update_climax_tags(context: StoryContext):
+    """Use AFTER new tags generated to determine
+    if climax tags need to be adjusted."""
+    climax_ready = (context.max_beats * 3 / 4) > context.current_beat
+    # Turn off climax if it already happened
+    if context.climax is True:
+        context.climax = False
+    # Otherwise check if it should be activated
+    elif climax_ready:
+        for tag_set in context.new_tags:
+            tag_set.append("climax")
+        context.climax = True
+    # TODO: Consider a climax pending tag as well?
 
-# TODO - Consider using alternative wording for each tag to better prompt ChatGPT?
-# TODO - Update climax occured in main
+# Note - Remember to update previous_paragraph after current_paragraph used
+# Not currently built in to avoid func tweaking vars at wrong time.
