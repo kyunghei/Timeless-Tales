@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import GenreStep from './GenreStep';
 import LengthStep from './LengthStep';
 import NextButton from './NextButton';
