@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import logo from '../../assets/logo.webp';
 
@@ -13,7 +12,7 @@ function GenreStep({ selectedGenre, onGenreSelect }) {
 
     return (
         <form onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', padding: '20px' }}>
-            <h3>What Kind of Story Will You Tell?</h3>
+            <h2>What Kind of Story Will You Tell?</h2>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: '20px' }}>
                 <GenreOption genre='Fantasy' isSelected={selectedGenre === 'Fantasy'} onSelectGenre={onGenreSelect} />
                 <GenreOption genre='Western' isSelected={selectedGenre === 'Western'} onSelectGenre={onGenreSelect} />
