@@ -6,3 +6,6 @@
 
 # My local Python file for testing code
 dk_scratch.py
+
+# node_modules should be ignored
+node_modules

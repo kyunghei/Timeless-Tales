@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import GenreStep from './GenreStep';
 import LengthStep from './LengthStep';
 import NextButton from './NextButton';
@@ -6,6 +6,8 @@ import PreviousButton from './PreviousButton';
 import CharacterStep from './CharacterStep';
 import { useNavigate } from 'react-router-dom';
 import ProgressIndicator from './ProgressIndicator';
+import PropTypes from 'prop-types';
+
 
 /**
  * CustomizationPage component serves as the container for the multi-step customization form.
@@ -21,16 +23,15 @@ function CustomizationPage() {
 
     const navigate = useNavigate(); // Hook for navigation
 
-    /**
-     * Asynchronously submits all customization data to the backend. On success, navigates user to the story page. 
-     */
+
+    // Asynchronously submits all customization data to the backend. On success, navigates user to the story page. 
     async function handleStart() {
-        const formData = {
-            genre: selectedGenre,
-            storyLength: selectedLength,
-            avatar: selectedAvatar,
-            name: selectedName
-        }
+        // const formData = {
+        //     genre: selectedGenre,
+        //     storyLength: selectedLength,
+        //     avatar: selectedAvatar,
+        //     name: selectedName
+        // }
 
         // Send the data to the backend
 
@@ -112,3 +113,8 @@ function StartButton({ onClick, disabled }) {
 }
 
 export default CustomizationPage;
+
+StartButton.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired
+}
