@@ -1,0 +1,8 @@
+# This is a local folder that is automatically created in PyCharm IDE
+.idea/
+
+# Local file within 'backend/app/' directory to hold your API token
+.env
+
+# My local Python file for testing code
+dk_scratch.py
