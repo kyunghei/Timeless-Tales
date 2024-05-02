@@ -32,6 +32,6 @@ function LengthStep({ selectedLength, onLengthSelect }) {
 export default LengthStep;
 
 LengthStep.propTypes = {
-    selectedLength: PropTypes.string.isRequired,
+    selectedLength: PropTypes.number.isRequired,
     onLengthSelect: PropTypes.func.isRequired
 }
