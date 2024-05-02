@@ -1,23 +1,34 @@
 import PropTypes from 'prop-types';
-import logo from '../../assets/logo.webp';
+
+// Map genre to respective avatar image paths
+const avatars = {
+    Western: ['public/avatars/western1.webp', 'public/avatars/western2.webp', 'public/avatars/western3.webp'],
+    SciFi: ['public/avatars/scifi1.webp', 'public/avatars/scifi2.webp', 'public/avatars/scifi3.webp'],
+    Fantasy: ['public/avatars/fantasy1.webp', 'public/avatars/fantasy2.webp', 'public/avatars/fantasy3.webp']
+}
 
 /**
  * Represents the character step in the mutli-step customization form.
  * Allows the user to choose an avatar and character name.
+ * @param {string} selectedGenre User selected genre which will determine which avatars to display.
  * @param {string} selectedAvatar The avatar currently selected by the user, used to highlight the selected option.
  * @param {Function} onAvatarSelect Passed from parent component to handle avatar selection.
  * @param {string} selectedName The name currently inputted by the user, used to save what user wrote.
  * @param {Function} onNameSelect Passed from parent component to handle character name inputted.
  */
-function CharacterStep({ selectedAvatar, onAvatarSelect, selectedName, onNameSelect }) {
+function CharacterStep({ selectedGenre, selectedAvatar, onAvatarSelect, selectedName, onNameSelect }) {
+
+    // Get the three avatars based on user select genre 
+    const genreAvatars = avatars[selectedGenre];
+
     return (
         <>
             <form onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', padding: '20px' }}>
                 <h2>Who Will You Be?</h2>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: '20px' }}>
-                    <AvatarOption avatar='1' isSelected={selectedAvatar === '1'} onSelectAvatar={onAvatarSelect} />
-                    <AvatarOption avatar='2' isSelected={selectedAvatar === '2'} onSelectAvatar={onAvatarSelect} />
-                    <AvatarOption avatar='3' isSelected={selectedAvatar === '3'} onSelectAvatar={onAvatarSelect} />
+                    <AvatarOption avatar={genreAvatars[0]} isSelected={selectedAvatar === genreAvatars[0]} onSelectAvatar={onAvatarSelect} />
+                    <AvatarOption avatar={genreAvatars[1]} isSelected={selectedAvatar === genreAvatars[1]} onSelectAvatar={onAvatarSelect} />
+                    <AvatarOption avatar={genreAvatars[2]} isSelected={selectedAvatar === genreAvatars[2]} onSelectAvatar={onAvatarSelect} />
                 </div>
                 <label htmlFor="character-name">Name:</label>
                 <br />
@@ -50,7 +61,7 @@ function AvatarOption({ avatar, isSelected, onSelectAvatar }) {
     return (
         <>
             <div style={style} onClick={() => onSelectAvatar(avatar)}>
-                <img src={logo} alt="avatar option" width='300px' height='300px' />
+                <img src={avatar} alt="avatar option" width='300px' height='300px' />
             </div>
 
         </>
@@ -62,6 +73,7 @@ function AvatarOption({ avatar, isSelected, onSelectAvatar }) {
 export default CharacterStep;
 
 CharacterStep.propTypes = {
+    selectedGenre: PropTypes.string.isRequired,
     selectedAvatar: PropTypes.string.isRequired,
     onAvatarSelect: PropTypes.func.isRequired,
     selectedName: PropTypes.string.isRequired,

@@ -92,7 +92,7 @@ function CustomizationPage() {
             <ProgressIndicator currentStep={currentStep} />
             {currentStep === 1 && <GenreStep selectedGenre={selectedGenre} onGenreSelect={handleGenreSelection} />}
             {currentStep === 2 && <LengthStep selectedLength={selectedLength} onLengthSelect={handleLengthSelection} />}
-            {currentStep === 3 && <CharacterStep selectedAvatar={selectedAvatar} onAvatarSelect={handleAvatarSelection} selectedName={selectedName} onNameSelect={handleNameSelection} />}
+            {currentStep === 3 && <CharacterStep selectedGenre={selectedGenre} selectedAvatar={selectedAvatar} onAvatarSelect={handleAvatarSelection} selectedName={selectedName} onNameSelect={handleNameSelection} />}
             <div style={{ textAlign: 'center', padding: '20px' }}>
                 {/* Previous button displayed except on the first step */}
                 {currentStep > 1 && <PreviousButton onClick={handlePreviousStep} disabled={currentStep === 1} />}
