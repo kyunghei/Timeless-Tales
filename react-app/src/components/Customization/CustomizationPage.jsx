@@ -7,7 +7,7 @@ import CharacterStep from './CharacterStep';
 import { useNavigate } from 'react-router-dom';
 import ProgressIndicator from './ProgressIndicator';
 import PropTypes from 'prop-types';
-
+import axios from 'axios';
 
 /**
  * CustomizationPage component serves as the container for the multi-step customization form.
@@ -26,17 +26,23 @@ function CustomizationPage() {
 
     // Asynchronously submits all customization data to the backend. On success, navigates user to the story page. 
     async function handleStart() {
-        // const formData = {
-        //     genre: selectedGenre,
-        //     storyLength: selectedLength,
-        //     avatar: selectedAvatar,
-        //     name: selectedName
-        // }
+        const formData = {
+            genre: selectedGenre,
+            storyLength: selectedLength,
+            avatar: selectedAvatar,
+            name: selectedName
+        }
 
-        // Send the data to the backend
-
-        // Navigate to the story page if successful
-        navigate('/story');
+        try {
+            const res = await axios.post('/customization-data', formData);
+            if (res.status === 200) {
+                navigate('/story');
+            } else {
+                console.error("Couldn't post form data:", res.status);
+            }
+        } catch (error) {
+            console.error("Error submitting the form data");
+        }
     }
 
     // Total number of steps in the form
