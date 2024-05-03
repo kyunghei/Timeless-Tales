@@ -1,7 +1,8 @@
 import openai
 import os
 from dotenv import load_dotenv
-from .. import prompt_generator
+from .. import prompt_generator, StoryContext, update_climax_tags
+from .. import get_choice_tags
 
 # from .. import set_choice_tags
 # import webbrowser
@@ -85,6 +86,10 @@ if __name__ == "__main__":
                            f"This introduction shall not "
                            f"exceed {context.max_text_length}.")
 
+    # Initial tags to start story
+    initial_tags = [{"regular"}, {"regular"}, {"regular"}]
+    context.previous_tags = initial_tags
+
     # Get text introduction for the story
     introduction = get_story_part(initial_text_prompt, story_history)
 
@@ -104,6 +109,11 @@ if __name__ == "__main__":
     # Loops until story is over
     # TODO: Need conditions of loop termination
     while True:
+        # Generate next set of tags
+        context.new_tags = get_choice_tags(context.previous_tags, 3)
+        # Check if climax tags needed
+        update_climax_tags(context)
+        
         # Get prompt for next story part
         prompt = prompt_generator.get_story_prompt(context)
 
