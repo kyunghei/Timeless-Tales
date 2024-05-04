@@ -32,6 +32,7 @@ class StoryContext:
     story_history: list[str] = "No previous data"
     previous_prompt: str = "No previous data"
 
+    # Stores the tag weight JSON file into StoryContext
     def __post_init__(self):
         try:
             directory = os.path.dirname(os.path.abspath(__file__))
@@ -46,33 +47,25 @@ class StoryContext:
         except Exception as e:
             print(f"Unexpected error occurred: {e}")
 
+
 # **************************************************
 #                    Tags
 # **************************************************
-script_dir = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(script_dir, 'tags.json')
-
-
-def get_choice_tags(current_tags: list[str], num_choices) -> list[set[str]]:
+def get_choice_tags(context: StoryContext) -> list[set[str]]:
     """ Determines the tag options for next story beat."""
-    # TODO - Here is where JSON needs to be reimplemented
-    # Prepare JSON Data
-    with open(json_path, 'r') as file:
-        json_data = json.load(file)
-
     # Determine the combined weight of all options
     result_weight = dict()
-    for tag in current_tags:
+    for tag in context.current_tags:
         # Each current tag has its own base_weight dict
         # This gives base odds of each result
-        base_weight = json_data[tag]
+        base_weight = context.tag_weights[tag]
         result_weight = _adjust_weight(base_weight, result_weight)
 
     # Determine Resulting Tags
     all_choices = []
     keys = list(result_weight.keys())
     weights = list(result_weight.values())
-    for _ in range(num_choices):
+    for _ in range(context.num_of_choices):
         all_choices.append(_generate_choice(keys, weights))
 
     return all_choices
@@ -100,7 +93,6 @@ def _generate_choice(keys, weights) -> set:
     if random.randint(1, 100) <= 5:
         choice.append(random.choices(keys, weights=weights, k=1)[0])
     return set(choice)
-
 
 
 # **************************************************
