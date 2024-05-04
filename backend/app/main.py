@@ -1,7 +1,7 @@
 import openai
 import os
 from dotenv import load_dotenv
-from .. import prompt_generator, StoryContext, update_climax_tags
+from .. import prompt_generator
 from .. import get_choice_tags
 
 # from .. import set_choice_tags
@@ -112,8 +112,8 @@ if __name__ == "__main__":
         # Generate next set of tags
         context.new_tags = get_choice_tags(context.previous_tags, 3)
         # Check if climax tags needed
-        update_climax_tags(context)
-        
+        prompt_generator.update_climax_tags(context)
+
         # Get prompt for next story part
         prompt = prompt_generator.get_story_prompt(context)
 

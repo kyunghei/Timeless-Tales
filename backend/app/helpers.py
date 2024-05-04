@@ -52,7 +52,7 @@ class StoryContext:
 #                    Tags
 # **************************************************
 def get_choice_tags(context: StoryContext) -> list[set[str]]:
-    """ Determines the tag options for next story beat."""
+    """Returns the tag options to be used in next story beat."""
     # Determine the combined weight of all options
     result_weight = dict()
     for tag in context.current_tags:
@@ -71,7 +71,7 @@ def get_choice_tags(context: StoryContext) -> list[set[str]]:
     return all_choices
 
 
-def _adjust_weight(base_weight, result_weight):
+def _adjust_weight(base_weight, result_weight) -> int:
     """Helper that determines the resulting weights of all tags combined"""
     for tag_name in base_weight:
         if tag_name in result_weight:
@@ -98,12 +98,12 @@ def _generate_choice(keys, weights) -> set:
 # **************************************************
 #                    Prompts
 # **************************************************
-def get_story_prompt(context: StoryContext):
+def get_story_prompt(context: StoryContext) -> str:
     """Generates a prompt to feed the API to generate next paragrpah."""
     # TODO - Adjust the prompt phrasing potentially
     # Construct the narrative context
     narrative = (
-        f"After the events of '{context.previous_paragraph}', "
+        f"After the events of '{context.previous_prompt}', "
         f"our story continues in the genre of {context.genre}, "
         f"reaching a pivotal moment at beat {context.current_beat} of "
         f"{context.max_beats}, with the current intensity described as "
