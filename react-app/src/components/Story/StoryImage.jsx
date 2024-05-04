@@ -14,6 +14,6 @@ function StoryImage({ imageUrl }) {
 
 export default StoryImage;
 
-// StoryImage.propTypes = {
-//     imageUrl: PropTypes.url.isRequired
-// }
+StoryImage.propTypes = {
+    imageUrl: PropTypes.url.isRequired
+}
