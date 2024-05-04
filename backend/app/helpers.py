@@ -68,6 +68,9 @@ def get_choice_tags(context: StoryContext) -> list[set[str]]:
     for _ in range(context.num_of_choices):
         all_choices.append(_generate_choice(keys, weights))
 
+    # Consider Climax
+    _update_climax_status(context)
+
     return all_choices
 
 
@@ -93,6 +96,23 @@ def _generate_choice(keys, weights) -> set:
     if random.randint(1, 100) <= 5:
         choice.append(random.choices(keys, weights=weights, k=1)[0])
     return set(choice)
+
+
+def _update_climax_status(context: StoryContext):
+    """Use AFTER new tags generated.  Determines if climax should be used.
+    Updates the tags AND internal variables in StoryContext"""
+    climax_ready = (context.max_beats * 3 / 4) > context.current_beat
+    # Turn off climax if it already happened
+    if context.climax is True:
+        context.climax = False
+    # Otherwise check if it should be activated
+    elif climax_ready:
+        for tag_set in context.new_tags:
+            tag_set.append("climax")
+        context.climax = True
+    # TODO: Consider a climax pending tag as well?
+    # TODO: Do we really want to tweak the class here?
+    # It's convenient but sort of hides the changes two functions deep
 
 
 # **************************************************
@@ -145,22 +165,6 @@ def get_image_prompt(context: StoryContext, current_paragraph):
     return prompt
 
 
-def update_climax_tags(context: StoryContext):
-    """Use AFTER new tags generated to determine
-    if climax tags need to be adjusted."""
-    climax_ready = (context.max_beats * 3 / 4) > context.current_beat
-    # Turn off climax if it already happened
-    if context.climax is True:
-        context.climax = False
-    # Otherwise check if it should be activated
-    elif climax_ready:
-        for tag_set in context.new_tags:
-            tag_set.append("climax")
-        context.climax = True
-    # TODO: Consider a climax pending tag as well?
-
 # Note - Remember to update previous_paragraph after current_paragraph used
-# Not currently built in to avoid func tweaking vars at wrong time.
-
+# TODO - Add functions to handle class updates as needed.
 # TODO - Adjust tag values
-# TODO - Save json instead of reloading each time

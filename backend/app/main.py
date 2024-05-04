@@ -111,8 +111,6 @@ if __name__ == "__main__":
     while True:
         # Generate next set of tags
         context.new_tags = get_choice_tags(context.previous_tags, 3)
-        # Check if climax tags needed
-        prompt_generator.update_climax_tags(context)
 
         # Get prompt for next story part
         prompt = prompt_generator.get_story_prompt(context)
