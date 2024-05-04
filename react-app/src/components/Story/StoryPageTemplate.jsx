@@ -1,9 +1,9 @@
-import StoryBeat from './StoryBeat';
-import StoryImage from './StoryImage';
+// import StoryBeat from './StoryBeat';
+// import StoryImage from './StoryImage';
 import AvatarDisplay from './AvatarDisplay';
 import AvatarHealth from './AvatarHealth';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+// import { useState, useEffect } from 'react';
+// import axios from 'axios';
 
 function StoryPageTemplate() {
 
