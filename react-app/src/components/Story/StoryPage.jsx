@@ -1,5 +1,7 @@
 import StoryBeat from './StoryBeat';
 import StoryImage from './StoryImage';
+import AvatarDisplay from './AvatarDisplay';
+import AvatarHealth from './AvatarHealth';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -35,6 +37,8 @@ function StoryPage() {
         <div>
             <StoryBeat text={currentBeatData.text} />
             <StoryImage imageUrl={currentBeatData.image} />
+            <AvatarDisplay/>
+            <AvatarHealth/>
             <button onClick={handleNext}>Next</button>
         </div>
     );
