@@ -1,7 +1,13 @@
+#from flask import Flask
 import openai
 import os
 from dotenv import load_dotenv
 from .. import prompt_generator
+
+
+
+#set up flask
+# app = Flask(__name__)
 
 # from .. import set_choice_tags
 # import webbrowser
