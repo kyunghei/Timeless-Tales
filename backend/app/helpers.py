@@ -3,13 +3,16 @@ import random
 import os
 from dataclasses import dataclass
 
-
+# **************************************************
+#                    Data
+# **************************************************
 default_tags = [{"regular"}, {"regular"}, "regular"]
-# TODO - Convert intensity scale to dict.  Will require update elsewhere
-intensity_scale = ["gentle, serene",
-                   "normal",
-                   "high stakes requiring careful choices",
-                   "climatic moments"]
+
+intensity_descriptor = {0: "gentle, serene",
+                        1: "normal",
+                        2: "high stakes requiring careful choices",
+                        3: "climatic moments"}
+
 
 @dataclass
 class StoryContext:
@@ -17,6 +20,7 @@ class StoryContext:
     genre: str = "Neutral"
     max_beats: int = 10
     max_text_length: int = 1000
+    num_of_choices = 3
     # Story Status
     current_beat: int = 0
     intensity: int = 0
@@ -28,8 +32,23 @@ class StoryContext:
     story_history: list[str] = "No previous data"
     previous_prompt: str = "No previous data"
 
+    def __post_init__(self):
+        try:
+            directory = os.path.dirname(os.path.abspath(__file__))
+            # TODO - Should file name be hardcoded like this?
+            json_path = os.path.join(directory, 'tags.json')
+            with open(json_path, 'r') as file:
+                self.tag_weights = json.load(file)
+        except FileNotFoundError:
+            print(f"Error: File {json_path} not found.")
+        except json.JSONDecodeError:
+            print(f"Error: Failed to decode JSON in {json_path}.")
+        except Exception as e:
+            print(f"Unexpected error occurred: {e}")
 
-
+# **************************************************
+#                    Tags
+# **************************************************
 script_dir = os.path.dirname(os.path.abspath(__file__))
 json_path = os.path.join(script_dir, 'tags.json')
 
@@ -83,66 +102,10 @@ def _generate_choice(keys, weights) -> set:
     return set(choice)
 
 
-def test_tag_frequency(num_iterations, story_length, num_choices):
-    """Counts frequency of each tag appears in multiple simulated stories."""
-    frequency_count = dict()
-    i = 0
-    while i < num_iterations:
-        n = 0
-        current_tags = {"regular"}
-        while n < story_length:
-            frequency_count = _update_frequency(frequency_count, current_tags)
-            # Determine next choice
-            choices = get_choice_tags(current_tags, num_choices)
-            current_tags = choices[random.randint(0, 2)]
-            n += 1
-        i += 1
-    print(frequency_count)
 
-
-def _update_frequency(frequency_count, current_tags):
-    """Helper that counts how often tag appears."""
-    for tag in current_tags:
-        if tag in frequency_count:
-            frequency_count[tag] += 1
-        else:
-            frequency_count[tag] = 0
-    return frequency_count
-
-
-def test_tag_selection(story_length, num_choices):
-    """Prints out a potential set of tags in the order they were selected."""
-    n = 0
-    current_tags = {"regular"}
-    while n < story_length:
-        print(n+1, current_tags)
-        choices = get_choice_tags(current_tags, num_choices)
-        current_tags = choices[random.randint(0, num_choices-1)]
-        n += 1
-
-
-def main():
-    """Allows for tag testing when this file run directly."""
-    iterations = 10
-    story_length = 10
-    num_choices = 3
-
-    test_tag_frequency(iterations, story_length, num_choices)
-    test_tag_selection(story_length, num_choices)
-
-
-if __name__ == "__main__":
-    main()
-
-
-
-
-
-
-
-
-
-
+# **************************************************
+#                    Prompts
+# **************************************************
 def get_story_prompt(context: StoryContext):
     """Generates a prompt to feed the API to generate next paragrpah."""
     # TODO - Adjust the prompt phrasing potentially
@@ -152,7 +115,7 @@ def get_story_prompt(context: StoryContext):
         f"our story continues in the genre of {context.genre}, "
         f"reaching a pivotal moment at beat {context.current_beat} of "
         f"{context.max_beats}, with the current intensity described as "
-        f"{intensity_scale[context.intensity]}."
+        f"{intensity_descriptor[context.intensity]}."
     )
 
     # Construct the choice options

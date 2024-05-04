@@ -1,3 +1,5 @@
+# TODO - Most of file redundant consider removing
+
 # TODO - Adjust tag values
 # TODO - Save json instead of reloading each time
 # TODO - Tests don't consider climax or tags added by other means
