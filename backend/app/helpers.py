@@ -14,6 +14,10 @@ intensity_descriptor = {0: "gentle, serene",
                         3: "climatic moments"}
 
 
+# TODO - At this point, why even use a data class?
+# Set up a page with a lot of default variables at top
+# Init class using those as references
+# Makes the whole thinge easier to tweak
 @dataclass
 class StoryContext:
     # Constants
@@ -26,14 +30,22 @@ class StoryContext:
     intensity: int = 0
     climax: bool = False
     # Story Tags
-    current_tags: list[str] = default_tags
-    new_tags: list[str] = default_tags
+    current_tags: list[str] = None
+    new_tags: list[str] = None
     # Story History
-    story_history: list[str] = "No previous data"
+    story_history: list[str] = None
     previous_prompt: str = "No previous data"
+
+    tag_weights = None
+    user_name = "User"
 
     # Stores the tag weight JSON file into StoryContext
     def __post_init__(self):
+        # Set up mutable defaults
+        self.current_tags = default_tags
+        self.new_tags = default_tags
+        self.story_history = ["No previous data"]
+        # Save JSON file into StoryContext
         try:
             directory = os.path.dirname(os.path.abspath(__file__))
             # TODO - Should file name be hardcoded like this?
