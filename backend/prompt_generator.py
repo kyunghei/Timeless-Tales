@@ -1,3 +1,5 @@
+# TODO - Most of file redundant consider removing
+
 from dataclasses import dataclass
 
 intensity_scale = ["gentle, serene",
