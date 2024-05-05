@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 
 const health = {
     Western: '/healthbars/westernHealth.png',
-    Scifi: '/healthbars/westernHealth.png',
+    SciFi: '/healthbars/westernHealth.png',
     Fantasy: '/healthbars/westernHealth.png'
 }
 
 const healthLost = {
     Western: '/healthbars/westernHealthLost.png',
-    Scifi: '/healthbars/westernHealthLost.png',
+    SciFi: '/healthbars/westernHealthLost.png',
     Fantasy: '/healthbars/westernHealthLost.png'
 }
 

@@ -5,6 +5,7 @@ import StoryButton from './StoryButton';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
 import AvatarLife from './AvatarLife';
+import ProgressBar from './ProgressBar';
 import { useState } from 'react';
 // import axios from 'axios';
 
@@ -15,7 +16,7 @@ function StoryPageTemplate() {
         avatar: 1,
         genre: "Western",
         name: "Doobs",
-        lives: 3,
+        lives: 0,
         gpt_text: 
         "velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus",
         max_beat: 12,
@@ -58,6 +59,7 @@ function StoryPageTemplate() {
             <StoryButton genre={currentBeatData.genre} lives={currentBeatData.lives}/>
             <StoryBeatImage imageUrl={currentBeatData.gpt_img}/>
             <StoryBeatText story={currentBeatData.gpt_text}/>
+            <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
 
             {/* <button onClick={handleNext}>Next</button> */}
         </div>
