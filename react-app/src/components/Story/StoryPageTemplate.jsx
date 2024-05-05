@@ -13,15 +13,16 @@ function StoryPageTemplate() {
 
     // // State to save the current story beat data (text, possible choices, images) sent from backend
     const [currentBeatData, setCurrentBeatData] = useState({
-        avatar: 1,
+        avatar: 2,
         genre: "Western",
         name: "Doobs",
-        lives: 0,
+        lives: 2,
         gpt_text: 
         "velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus",
         max_beat: 12,
         current_beat: 2,
-        gpt_img: "https://drlauravarnam.files.wordpress.com/2018/06/you-got-this-meme.jpg"
+        gpt_img: "https://drlauravarnam.files.wordpress.com/2018/06/you-got-this-meme.jpg",
+        //choices
     });
 
     console.log(setCurrentBeatData);

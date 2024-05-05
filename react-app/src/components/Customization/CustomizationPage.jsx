@@ -33,8 +33,10 @@ function CustomizationPage() {
             name: selectedName
         }
 
+        console.log(formData);
         try {
             const res = await axios.post('/customization-data', formData);
+            
             if (res.status === 200) {
                 console.log("form submission successful");
                 navigate('/story');
