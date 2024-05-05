@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
  * Displays the story image.
  * @param {url} imageUrl  
  */
-function StoryImage({ imageUrl }) {
+function StoryBackgroundImage({ imageUrl }) {
     return (
         <div>
             {imageUrl && <img src={imageUrl} alt="Story Image" />}
@@ -12,8 +12,8 @@ function StoryImage({ imageUrl }) {
     );
 }
 
-export default StoryImage;
+export default StoryBackgroundImage;
 
-StoryImage.propTypes = {
+StoryBackgroundImage.propTypes = {
     imageUrl: PropTypes.url.isRequired
 }
