@@ -1,6 +1,6 @@
 # from flask import Flask
-import openai
 import os
+import openai
 from dotenv import load_dotenv
 from .. import prompt_generator
 
