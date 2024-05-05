@@ -1,7 +1,7 @@
 // import StoryBeat from './StoryBeat';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
-import AvatarHealth from './AvatarHealth';
+import AvatarLife from './AvatarLife';
 import { useState } from 'react';
 // import axios from 'axios';
 
@@ -12,7 +12,7 @@ function StoryPageTemplate() {
         avatar: 1,
         genre: "Western",
         name: "Toast",
-        lives: 3,
+        lives: 2,
         gpt_text: "hello hi bye yay wooooooo"
         //genre
         //story_length
@@ -50,7 +50,7 @@ function StoryPageTemplate() {
             {/* <StoryBeat text={currentBeatData.text} /> */}
             <StoryBackgroundImage genre={currentBeatData.genre} />
             <AvatarDisplay name ={currentBeatData.name} avatar={currentBeatData.avatar} genre={currentBeatData.genre}/>
-            <AvatarHealth/>
+            <AvatarLife genre={currentBeatData.genre} lives={currentBeatData.lives}/>
             {/* <button onClick={handleNext}>Next</button> */}
         </div>
     );

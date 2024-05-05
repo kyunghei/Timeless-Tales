@@ -1,7 +1,7 @@
 import StoryBeat from './StoryBeat';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
-import AvatarHealth from './AvatarHealth';
+import AvatarHealth from './AvatarLife';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
