@@ -20,6 +20,8 @@ function StoryPageTemplate() {
         //bg_img
     });
 
+    console.log(setCurrentBeatData);
+
     // // Bool state that controls whether to show story text or story choices
     // const [showChoices, setShowChoices] = useState(false);
 
