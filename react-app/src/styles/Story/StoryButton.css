@@ -1,0 +1,17 @@
+button{
+    font-size: 30px;
+}
+
+.western{
+    background-color: brown;
+    border: 3px solid #E6C485;
+}
+
+.sciFi{
+    background: #FF4AED;
+
+}
+
+.fantasy{
+    background-color: yellow;
+}
