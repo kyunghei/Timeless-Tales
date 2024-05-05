@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 function StoryButton({ genre, lives }) {
 
     const buttonDisplay = [];
+    console.log(genre);
 
     if(lives == 0){
         buttonDisplay.push(<button key={0}>Play Again?</button>)
