@@ -1,4 +1,7 @@
 // import StoryBeat from './StoryBeat';
+import StoryBeatText from './StoryBeatText';
+import StoryBeatImage from './StoryBeatImage';
+import StoryButton from './StoryButton';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
 import AvatarLife from './AvatarLife';
@@ -11,13 +14,13 @@ function StoryPageTemplate() {
     const [currentBeatData, setCurrentBeatData] = useState({
         avatar: 1,
         genre: "Western",
-        name: "Toast",
-        lives: 2,
-        gpt_text: "hello hi bye yay wooooooo"
-        //genre
-        //story_length
-        //gpt_img:
-        //bg_img
+        name: "Doobs",
+        lives: 3,
+        gpt_text: 
+        "velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus",
+        max_beat: 12,
+        current_beat: 2,
+        gpt_img: "https://drlauravarnam.files.wordpress.com/2018/06/you-got-this-meme.jpg"
     });
 
     console.log(setCurrentBeatData);
@@ -48,9 +51,14 @@ function StoryPageTemplate() {
     return (
         <div>
             {/* <StoryBeat text={currentBeatData.text} /> */}
+            
             <StoryBackgroundImage genre={currentBeatData.genre} />
             <AvatarDisplay name ={currentBeatData.name} avatar={currentBeatData.avatar} genre={currentBeatData.genre}/>
             <AvatarLife genre={currentBeatData.genre} lives={currentBeatData.lives}/>
+            <StoryButton genre={currentBeatData.genre} lives={currentBeatData.lives}/>
+            <StoryBeatImage imageUrl={currentBeatData.gpt_img}/>
+            <StoryBeatText story={currentBeatData.gpt_text}/>
+
             {/* <button onClick={handleNext}>Next</button> */}
         </div>
     );

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  */
 
 const background = {
-    Western: '/background/westernBg.webp',
+    Western: '/background/westernBg.png',
     SciFi: '/background/scifiBg.webp',
     Fantasy: '/background/fantasyBg.webp'
 }
