@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 /**
  * Displays the story background image given genre
- * @param {string} text 
+ * @param {string} genre 
  */
 
 const background = {
@@ -13,7 +13,7 @@ const background = {
 
 function StoryBackgroundImage({ genre }) {
 
-    const imageBgUrl = background[genre]
+    const imageBgUrl = background[genre];
 
     return (
         <div>

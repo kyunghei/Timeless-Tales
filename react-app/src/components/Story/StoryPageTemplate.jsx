@@ -2,16 +2,8 @@
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
 import AvatarHealth from './AvatarHealth';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 // import axios from 'axios';
-
-const avatars = {
-    Western: ['/avatars/western1.webp', '/avatars/western2.webp', '/avatars/western3.webp'],
-    SciFi: ['/avatars/scifi1.webp', '/avatars/scifi2.webp', '/avatars/scifi3.webp'],
-    Fantasy: ['/avatars/fantasy1.webp', '/avatars/fantasy2.webp', '/avatars/fantasy3.webp']
-}
-
-
 
 function StoryPageTemplate() {
 
@@ -55,7 +47,7 @@ function StoryPageTemplate() {
         <div>
             {/* <StoryBeat text={currentBeatData.text} /> */}
             <StoryBackgroundImage genre={currentBeatData.genre} />
-            <AvatarDisplay/>
+            <AvatarDisplay name ={currentBeatData.name} avatar={currentBeatData.avatar} genre={currentBeatData.genre}/>
             <AvatarHealth/>
             {/* <button onClick={handleNext}>Next</button> */}
         </div>
