@@ -1,51 +1,13 @@
-import json
 import random
-import os
-from dataclasses import dataclass
+from context import StoryContext
 
 # **************************************************
-#                    Data
+#                    Variables
 # **************************************************
-default_tags = [{"regular"}, {"regular"}, "regular"]
-
 intensity_descriptor = {0: "gentle, serene",
                         1: "normal",
                         2: "high stakes requiring careful choices",
                         3: "climatic moments"}
-
-
-@dataclass
-class StoryContext:
-    # Constants
-    genre: str = "Neutral"
-    max_beats: int = 10
-    max_text_length: int = 1000
-    num_of_choices = 3
-    # Story Status
-    current_beat: int = 0
-    intensity: int = 0
-    climax: bool = False
-    # Story Tags
-    current_tags: list[str] = default_tags
-    new_tags: list[str] = default_tags
-    # Story History
-    story_history: list[str] = "No previous data"
-    previous_prompt: str = "No previous data"
-
-    # Stores the tag weight JSON file into StoryContext
-    def __post_init__(self):
-        try:
-            directory = os.path.dirname(os.path.abspath(__file__))
-            # TODO - Should file name be hardcoded like this?
-            json_path = os.path.join(directory, 'tags.json')
-            with open(json_path, 'r') as file:
-                self.tag_weights = json.load(file)
-        except FileNotFoundError:
-            print(f"Error: File {json_path} not found.")
-        except json.JSONDecodeError:
-            print(f"Error: Failed to decode JSON in {json_path}.")
-        except Exception as e:
-            print(f"Unexpected error occurred: {e}")
 
 
 # **************************************************

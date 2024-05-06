@@ -1,9 +1,9 @@
-# from flask import Flask
+# from flask import Flask, request, jsonify
 import os
 import openai
 from dotenv import load_dotenv
-from .. import prompt_generator
-from .. import get_choice_tags
+import helpers
+from context import context
 
 # app = Flask(__name__)
 
@@ -69,35 +69,42 @@ def get_image_URL(img_prompt: str) -> str:
     return img_URL
 
 
+"""
+@app.route('post-story-beat', methods=['POST'])
+def post_story_beat():
+    prompt = helpers.get_story_prompt(context)
+    story_beat = get_story_part(prompt, context.story_history)
+    update_context(context)
+    # TODO, we may need to seperate the choices from the paragraph
+    return jsonify({'story_beat': story_beat})
+    # Image, lives, and beat number as well
+"""
+
+
 if __name__ == "__main__":
-
     # TODO: Get parameters from user selection at the front-end
-    context = prompt_generator.StoryContext(genre="Genre",
-                                            max_beats=12,
-                                            max_text_length=10,
-                                            current_beat=0)
-
     # TODO: Get user name at the front-end
-    user_name = ""
-
-    # List to hold story history
-    story_history = []
+    """
+    context = helpers.StoryContext(
+        genre="Genre",
+        max_beats=12,
+        max_text_length=10,
+        current_beat=0,
+        user_name=""
+    )
+    """
 
     # Initial text prompt to start the story
     initial_text_prompt = (f"Give me an introduction to a {context.genre} "
-                           f"story with a character named {user_name}. "
+                           f"story with a character named {context.user_name}."
                            f"This introduction shall not "
                            f"exceed {context.max_text_length}.")
 
-    # Initial tags to start story
-    initial_tags = [{"regular"}, {"regular"}, {"regular"}]
-    context.previous_tags = initial_tags
-
     # Get text introduction for the story
-    introduction = get_story_part(initial_text_prompt, story_history)
+    introduction = get_story_part(initial_text_prompt, context.story_history)
 
     # Add introduction to story history
-    story_history.append(introduction)
+    context.story_history.append(introduction)
 
     # Get image URL based on introduction
     image_URL = get_image_URL(introduction)
@@ -113,19 +120,24 @@ if __name__ == "__main__":
     # TODO: Need conditions of loop termination
     while True:
         # Generate next set of tags
-        context.new_tags = get_choice_tags(context.previous_tags, 3)
+        context.new_tags = helpers.get_choice_tags(context)
 
         # Get prompt for next story part
-        prompt = prompt_generator.get_story_prompt(context)
+        prompt = helpers.get_story_prompt(context)
 
         # Get story part (i.e. current paragraph), image
-        current_paragraph = get_story_part(prompt, story_history)
-        story_history.append(current_paragraph)
-        image_prompt = prompt_generator.get_image_prompt(context,
-                                                         current_paragraph)
+        current_paragraph = get_story_part(prompt, context.story_history)
+        context.story_history.append(current_paragraph)
+        image_prompt = context.get_image_prompt(context,
+                                                current_paragraph)
         image_URL = get_image_URL(image_prompt)
 
         # TODO: Send text and image to front-end to be displayed
 
         # Update previous paragraph attribute
         context.previous_paragraph = current_paragraph
+
+        # app.run(debug=True)
+
+
+# TODO, set initial data then make the POST request
