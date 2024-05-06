@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
+# from flask import Flask, request, jsonify
 import os
 import openai
 from dotenv import load_dotenv
 import helpers
+from context import context
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 # from .. import set_choice_tags
 # import webbrowser
@@ -68,8 +69,7 @@ def get_image_URL(img_prompt: str) -> str:
     return img_URL
 
 
-
-
+"""
 @app.route('post-story-beat', methods=['POST'])
 def post_story_beat():
     prompt = helpers.get_story_prompt(context)
@@ -78,32 +78,13 @@ def post_story_beat():
     # TODO, we may need to seperate the choices from the paragraph
     return jsonify({'story_beat': story_beat})
     # Image, lives, and beat number as well
+"""
 
-
-
-def update_context(context: helpers.StoryContext):
-    """
-    After a new POST is made, this function will
-    update the story information that changes beat to beat.
-    Pulls information from front-end to do so when necessary.
-    """
-    context.current_beat += 1
-
-
-
-
-    intensity: int = 0
-    climax: bool = False
-    # Story Tags
-    current_tags: list[str] = None
-    new_tags: list[str] = None
-    # Story History
-    story_history: list[str] = None
-    previous_prompt
 
 if __name__ == "__main__":
     # TODO: Get parameters from user selection at the front-end
     # TODO: Get user name at the front-end
+    """
     context = helpers.StoryContext(
         genre="Genre",
         max_beats=12,
@@ -111,6 +92,7 @@ if __name__ == "__main__":
         current_beat=0,
         user_name=""
     )
+    """
 
     # Initial text prompt to start the story
     initial_text_prompt = (f"Give me an introduction to a {context.genre} "
@@ -155,7 +137,7 @@ if __name__ == "__main__":
         # Update previous paragraph attribute
         context.previous_paragraph = current_paragraph
 
-        app.run(debug=True)
+        # app.run(debug=True)
 
 
 # TODO, set initial data then make the POST request
