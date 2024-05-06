@@ -17,45 +17,57 @@ genre = "Neutral"
 max_beats = 10
 username = "Player"
 
-# Story Tags
-current_tags = [{"regular"}, {"regular"}, {"regular"}]
-new_tags = [{"regular"}, {"regular"}, {"regular"}]
-# Story History
-story_history = []
-previous_prompt = "This is the start of the story"
-# Story Status
+# Mutable Story Status
+current_lives = 3
+max_lives = 3
 current_beat = 0
 intensity = 0
 climax = False
+
+# Mutable Story Tags
+current_tags = [{"regular"}, {"regular"}, {"regular"}]
+new_tags = [{"regular"}, {"regular"}, {"regular"}]
+
+# Mutable Story History
+story_history = []
+previous_prompt = "This is the start of the story"
 
 
 # **************************************************
 #         Story Context Class
 # **************************************************
+"""
+This class exists to modularize on story variables into a single location.
+This helps reduce inputs on functions that require multiple bits of info.
+"""
+
+
 class StoryContext:
     def __init__(self):
         # Basic Constants
-        self.max_text_length: int = 1000
-        self.num_of_choices: int = 3
-        self.tag_weights = None  # Generated on init of the class
+        self.max_text_length: int = max_text_length
+        self.num_of_choices: int = num_of_choices
+        self.tag_weights = tag_weights
 
         # Constants from Frontend
-        self.genre: str = "Neutral"
-        self.max_beats: int = 10
-        self.user_name: str = "Player"
+        self.genre: str = genre
+        self.max_beats: int = max_beats
+        self.user_name: str = username
 
         # Mutable Story Status
-        self.current_beat: int = 0
-        self.intensity: int = 0
-        self.climax: bool = False
+        self.current_lives: int = current_lives
+        self.max_lives: int = max_lives
+        self.current_beat: int = current_beat
+        self.intensity: int = intensity
+        self.climax: bool = climax
 
         # Mutable Story Tags
-        self.current_tags: list[dict] = [{"regular"}, {"regular"}, {"regular"}]
-        self.new_tags: list[dict] = [{"regular"}, {"regular"}, {"regular"}]
+        self.current_tags: list[dict] = current_tags
+        self.new_tags: list[dict] = new_tags
 
-        # Story History
-        self.story_history: list[str] = []
-        self.previous_prompt: str = "This is the start of the story"
+        # Mutable Story History
+        self.story_history: list[str] = story_history
+        self.previous_prompt: str = previous_prompt
 
         # Save story tag JSON file
         try:
@@ -70,3 +82,9 @@ class StoryContext:
             print(f"Error: Failed to decode JSON in {json_path}.")
         except Exception as e:
             print(f"Unexpected error occurred: {e}")
+
+
+# **************************************************
+#         Initalize Context
+# **************************************************
+context = StoryContext()

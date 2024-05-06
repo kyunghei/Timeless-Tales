@@ -1,64 +1,13 @@
-import json
 import random
-import os
-from dataclasses import dataclass
+from context import StoryContext
 
 # **************************************************
-#                    Data
+#                    Variables
 # **************************************************
-default_tags = [{"regular"}, {"regular"}, "regular"]
-
 intensity_descriptor = {0: "gentle, serene",
                         1: "normal",
                         2: "high stakes requiring careful choices",
                         3: "climatic moments"}
-
-
-# TODO - At this point, why even use a data class?
-# Set up a page with a lot of default variables at top
-# Init class using those as references
-# Makes the whole thinge easier to tweak
-# TODO - Split by constants and ones that change throughout storyt
-@dataclass
-class StoryContext:
-    # Constants
-    genre: str = "Neutral"
-    max_beats: int = 10
-    max_text_length: int = 1000
-    num_of_choices = 3
-    # Story Status
-    current_beat: int = 0
-    intensity: int = 0
-    climax: bool = False
-    # Story Tags
-    current_tags: list[str] = None
-    new_tags: list[str] = None
-    # Story History
-    story_history: list[str] = None
-    previous_prompt: str = "No previous data"
-
-    tag_weights = None
-    user_name = "User"
-
-    # Stores the tag weight JSON file into StoryContext
-    def __post_init__(self):
-        # Set up mutable defaults
-        self.current_tags = default_tags
-        self.new_tags = default_tags
-        self.story_history = ["No previous data"]
-        # Save JSON file into StoryContext
-        try:
-            directory = os.path.dirname(os.path.abspath(__file__))
-            # TODO - Should file name be hardcoded like this?
-            json_path = os.path.join(directory, 'tags.json')
-            with open(json_path, 'r') as file:
-                self.tag_weights = json.load(file)
-        except FileNotFoundError:
-            print(f"Error: File {json_path} not found.")
-        except json.JSONDecodeError:
-            print(f"Error: Failed to decode JSON in {json_path}.")
-        except Exception as e:
-            print(f"Unexpected error occurred: {e}")
 
 
 # **************************************************
