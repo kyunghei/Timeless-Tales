@@ -18,6 +18,7 @@ intensity_descriptor = {0: "gentle, serene",
 # Set up a page with a lot of default variables at top
 # Init class using those as references
 # Makes the whole thinge easier to tweak
+# TODO - Split by constants and ones that change throughout storyt
 @dataclass
 class StoryContext:
     # Constants
