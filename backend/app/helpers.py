@@ -122,10 +122,11 @@ def get_story_prompt(context: StoryContext) -> str:
 
 def get_image_prompt(context: StoryContext):
     """Given current paragraph, u"""
-    prompt = (f"Create an image in the {context.genre} style "
-              f"based on the narrative:'{
-                  context.story_history[context.current_beat]}'.")
-
+    prompt = (
+        f"Create an image in the {context.genre} style "
+        f"based on the narrative: '"
+        f"{context.story_history[context.current_beat]}'"
+    )
     return prompt
 
 
