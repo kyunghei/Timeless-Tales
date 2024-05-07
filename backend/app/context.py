@@ -25,12 +25,12 @@ intensity = 0
 climax = False
 
 # Mutable Story Tags
-current_tags = [{"regular"}, {"regular"}, {"regular"}]
-new_tags = [{"regular"}, {"regular"}, {"regular"}]
+prev_tags = [{"regular"}, {"regular"}, {"regular"}]
+cur_tags = [{"regular"}, {"regular"}, {"regular"}]
 
 # Mutable Story History
-story_history = []
-previous_prompt = "This is the start of the story"
+story_history = ["This is the start of the story"]
+# previous_prompt = "This is the start of the story"
 
 
 # **************************************************
@@ -62,12 +62,12 @@ class StoryContext:
         self.climax: bool = climax
 
         # Mutable Story Tags
-        self.current_tags: list[dict] = current_tags
-        self.new_tags: list[dict] = new_tags
+        self.prev_tags: list[dict] = prev_tags
+        self.cur_tags: list[dict] = cur_tags
 
         # Mutable Story History
         self.story_history: list[str] = story_history
-        self.previous_prompt: str = previous_prompt
+        # self.previous_prompt: str = story_history[0]
 
         # Save story tag JSON file
         try:
