@@ -89,7 +89,6 @@ def post_story_beat():
     # Update Internal Data
     context.story_history.append(story_prompt)
 
-
     # Return Data
     response_data = {
         'story_text': story_text,
@@ -130,3 +129,13 @@ if __name__ == "__main__":
 
     # Initialize App
     app.run(debug=True)
+
+    # Eliminated the loop in place of app.run.
+    # TODO - I think we need to set up an end-point.
+    """
+    Actually, I think we need two.
+    The first endpoint is triggered when story starts, prepping story
+    with the default values.
+    The second endpoint is triggered when a choiec is made, triggering
+    an update of all the story variables (same info from loop basically)
+    """
