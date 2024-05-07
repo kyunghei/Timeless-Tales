@@ -17,8 +17,8 @@ function CustomizationPage() {
     const [currentStep, setCurrentStep] = useState(1); // State to keep track of the current step within the form.
     const [isStepValid, setIsStepValid] = useState({ 1: false, 2: false, 3: false, 4: false }); // Validity of each selection to check if user selection was made.
     const [selectedGenre, setSelectedGenre] = useState(''); // State to track the genre selected.
-    const [selectedLength, setSelectedLength] = useState(5); // State to track the length selected.
-    const [selectedAvatar, setSelectedAvatar] = useState(''); // State to track what avatar the user selected. 1 = Avatar1, 2 = Avatar2, 3 = Avatar3
+    const [selectedLength, setSelectedLength] = useState(0); // State to track the length selected.
+    const [selectedAvatar, setSelectedAvatar] = useState(null); // State to track what avatar the user selected. Will pass index. 0 = Avatar1, 1 = Avatar2, 2 = Avatar3
     const [selectedName, setSelectedName] = useState(''); // State to track user's character name
 
     const navigate = useNavigate(); // Hook for navigation
@@ -36,7 +36,7 @@ function CustomizationPage() {
         console.log(formData);
         try {
             const res = await axios.post('/customization-data', formData);
-            
+
             if (res.status === 200) {
                 console.log("form submission successful");
                 navigate('/story');

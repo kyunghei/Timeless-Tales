@@ -26,7 +26,7 @@ function StoryPage() {
         fetchFirstBeat();
     }, []);
 
-    // TODO: Add some conditional rendering for loading state here
+    // TODO: Add some conditional for loading state here
 
     function handleNext() {
         setShowChoices(!showChoices);
@@ -37,8 +37,8 @@ function StoryPage() {
         <div>
             <StoryBeat text={currentBeatData.text} />
             <StoryBackgroundImage imageUrl={currentBeatData.image} />
-            <AvatarDisplay/>
-            <AvatarHealth/>
+            <AvatarDisplay />
+            <AvatarHealth />
             <button onClick={handleNext}>Next</button>
         </div>
     );
