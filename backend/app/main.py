@@ -1,15 +1,18 @@
-# from flask import Flask
+from flask import Flask, jsonify
 import os
 import openai
 from dotenv import load_dotenv
-from .. import prompt_generator
-from .. import get_choice_tags
-
-# app = Flask(__name__)
-
-# from .. import set_choice_tags
+import helpers
+from context import context
 # import webbrowser
 
+
+app = Flask(__name__)
+
+
+# **************************************************
+#         API Functions
+# **************************************************
 # Read in API token
 load_dotenv()
 my_key = os.getenv("OPENAI_API_KEY")
@@ -69,63 +72,70 @@ def get_image_URL(img_prompt: str) -> str:
     return img_URL
 
 
+# **************************************************
+#         Flask Functions
+# **************************************************
+@app.route('post-story-beat', methods=['POST'])
+def post_story_beat():
+    """Returns data for front-end to utilize and display."""
+    # Generate Information
+    story_prompt = helpers.get_story_prompt(context)
+    story_text = get_story_part(story_prompt, context.story_history)
+    # TODO, we may need to seperate the choices from the paragraph
+
+    image_prompt = helpers.get_image_prompt(context)
+    story_image = get_image_URL(image_prompt)
+
+    # Update Internal Data
+    context.story_history.append(story_prompt)
+
+    # Return Data
+    response_data = {
+        'story_text': story_text,
+        # 'story_choices': story_choices,
+        'story_image': story_image,
+        'current_beat': context.current_beat,
+        'current_lives': context.current_lives
+    }
+    return jsonify(response_data)
+
+
+def update_story_context(story_prompt):
+    """Grabs data from front-end to update backend data."""
+    # Adjust History
+    context.story_history.append(story_prompt)
+    # Update Tags
+    context.prev_tags = context.cur_tags
+    context.cur_tags = helpers.get_choice_tags(context)
+    # Update other data
+    context.current_beat += 1
+    # TODO - Adjust Lives
+    # TODO - Store choice user selected
+
+
+# **************************************************
+#         Main
+# **************************************************
 if __name__ == "__main__":
+    # Tweak Story Context
+    # TODO: Get frontend parameters and set context with them
+    context.story_history[0] = (
+                            f"Give me an introduction to a {context.genre} "
+                            f"story with character named {context.user_name}."
+                            f"This introduction shall not "
+                            f"exceed {context.max_text_length}.")
 
-    # TODO: Get parameters from user selection at the front-end
-    context = prompt_generator.StoryContext(genre="Genre",
-                                            max_beats=12,
-                                            max_text_length=10,
-                                            current_beat=0)
+    # TODO: Create a path and/or function to reset story context back to start
 
-    # TODO: Get user name at the front-end
-    user_name = ""
+    # Initialize App
+    app.run(debug=True)
 
-    # List to hold story history
-    story_history = []
-
-    # Initial text prompt to start the story
-    initial_text_prompt = (f"Give me an introduction to a {context.genre} "
-                           f"story with a character named {user_name}. "
-                           f"This introduction shall not "
-                           f"exceed {context.max_text_length}.")
-
-    # Initial tags to start story
-    initial_tags = [{"regular"}, {"regular"}, {"regular"}]
-    context.previous_tags = initial_tags
-
-    # Get text introduction for the story
-    introduction = get_story_part(initial_text_prompt, story_history)
-
-    # Add introduction to story history
-    story_history.append(introduction)
-
-    # Get image URL based on introduction
-    image_URL = get_image_URL(introduction)
-
-    # TODO: Send text to front-end to be displayed
-
-    # TODO: Send image to front-end to be displayed, look into saving image
-
-    # Set introduction as previous paragraph
-    context.previous_paragraph = introduction
-
-    # Loops until story is over
-    # TODO: Need conditions of loop termination
-    while True:
-        # Generate next set of tags
-        context.new_tags = get_choice_tags(context.previous_tags, 3)
-
-        # Get prompt for next story part
-        prompt = prompt_generator.get_story_prompt(context)
-
-        # Get story part (i.e. current paragraph), image
-        current_paragraph = get_story_part(prompt, story_history)
-        story_history.append(current_paragraph)
-        image_prompt = prompt_generator.get_image_prompt(context,
-                                                         current_paragraph)
-        image_URL = get_image_URL(image_prompt)
-
-        # TODO: Send text and image to front-end to be displayed
-
-        # Update previous paragraph attribute
-        context.previous_paragraph = current_paragraph
+    # Eliminated the loop in place of app.run.
+    # TODO - I think we need to set up an end-point.
+    """
+    Actually, I think we need two.
+    The first endpoint is triggered when story starts, prepping story
+    with the default values.
+    The second endpoint is triggered when a choiec is made, triggering
+    an update of all the story variables (same info from loop basically)
+    """
