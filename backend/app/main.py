@@ -130,35 +130,3 @@ if __name__ == "__main__":
 
     # Initialize App
     app.run(debug=True)
-
-
-
-    # Add introduction to story history
-    context.story_history.append(introduction)
-
-
-    # Set introduction as previous paragraph
-    context.previous_paragraph = introduction
-
-    # Loops until story is over
-    # TODO: Need conditions of loop termination
-    while True:
-        # Generate next set of tags
-        context.new_tags = helpers.get_choice_tags(context)
-
-        # Get prompt for next story part
-        prompt = helpers.get_story_prompt(context)
-
-        # Get story part (i.e. current paragraph), image
-        current_paragraph = get_story_part(prompt, context.story_history)
-        context.story_history.append(current_paragraph)
-        image_prompt = context.get_image_prompt(context,
-                                                current_paragraph)
-        image_URL = get_image_URL(image_prompt)
-
-        # TODO: Send text and image to front-end to be displayed
-
-        # Update previous paragraph attribute
-        context.previous_paragraph = current_paragraph
-
-        #
