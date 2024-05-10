@@ -3,3 +3,4 @@ node_modules
 .idea/
 backend/.DS_Store
 __pycache__/
+backend/.env

@@ -1,14 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import os
 import openai
 from dotenv import load_dotenv
 import helpers
 from context import context
+
 # import webbrowser
 
 
 app = Flask(__name__)
-
 
 # **************************************************
 #         API Functions
@@ -75,7 +75,7 @@ def get_image_URL(img_prompt: str) -> str:
 # **************************************************
 #         Flask Functions
 # **************************************************
-@app.route('post-story-beat', methods=['POST'])
+@app.route('/post-story-beat', methods=['POST'])
 def post_story_beat():
     """Returns data for front-end to utilize and display."""
     # Generate Information
@@ -113,22 +113,43 @@ def update_story_context(story_prompt):
     # TODO - Store choice user selected
 
 
+@app.route('/customization', methods=['POST'])
+def get_parameters():
+    """Update context with parameters from frontend"""
+
+    # DEBUG: Confirm HTTP request
+    print(f"Received {request.method} request at {request.url}")
+
+    # Get frontend parameters
+    json_object = request.json
+
+    context.genre = json_object.get("genre")
+    context.max_beats = json_object.get("selectedLength")
+    context.user_name = json_object.get("selectedName")
+
+    # DEBUG: Confirm receiving parameters
+    print(f"Genre: {context.genre}")
+    print(f"Length: {context.max_beats}")
+    print(f"Name: {context.user_name}")
+
+
 # **************************************************
 #         Main
 # **************************************************
 if __name__ == "__main__":
     # Tweak Story Context
     # TODO: Get frontend parameters and set context with them
-    context.story_history[0] = (
-                            f"Give me an introduction to a {context.genre} "
-                            f"story with character named {context.user_name}."
-                            f"This introduction shall not "
-                            f"exceed {context.max_text_length}.")
+
+    # context.story_history[0] = (
+    #                       f"Give me an introduction to a {context.genre} "
+    #                       f"story with character named {context.user_name}."
+    #                       f"This introduction shall not "
+    #                       f"exceed {context.max_text_length}.")
 
     # TODO: Create a path and/or function to reset story context back to start
 
     # Initialize App
-    app.run(debug=True)
+    app.run(host='localhost', port=5172, debug=True)
 
     # Eliminated the loop in place of app.run.
     # TODO - I think we need to set up an end-point.
