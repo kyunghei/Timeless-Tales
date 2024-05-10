@@ -25,7 +25,7 @@ intensity = 0
 climax = False
 
 # Mutable Story Tags
-prev_tags = [{"regular"}, {"regular"}, {"regular"}]
+prev_choice = {"regular"}
 cur_tags = [{"regular"}, {"regular"}, {"regular"}]
 
 # Mutable Story History
@@ -62,7 +62,7 @@ class StoryContext:
         self.climax: bool = climax
 
         # Mutable Story Tags
-        self.prev_tags: list[dict] = prev_tags
+        self.prev_choice: dict[str] = prev_choice
         self.cur_tags: list[dict] = cur_tags
 
         # Mutable Story History

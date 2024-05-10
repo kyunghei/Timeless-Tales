@@ -16,39 +16,33 @@ intensity_descriptor = {0: "gentle, serene",
 def get_choice_tags(context: StoryContext) -> list[set[str]]:
     """Returns the tag options to be used in next story beat."""
     # Determine the combined weight of all options
-    result_weight = dict()
-    for tag in context.prev_tags:
-        # Each current tag has its own base_weight dict
-        # This gives base odds of each result
-        base_weight = context.tag_weights[tag]
-        result_weight = _adjust_weight(base_weight, result_weight)
+    choice_weights = dict()  # {tag_name: weight}
 
-    # Determine Resulting Tags
-    all_choices = []
-    keys = list(result_weight.keys())
-    weights = list(result_weight.values())
+    # Add weights associated with each tag
+    for tag_name in context.prev_choice:
+        if tag_name in choice_weights:
+            choice_weights[tag_name] += context.tag_weights[tag_name]
+        else:
+            choice_weights[tag_name] = context.tag_weights[tag_name]
+
+    # Randomly select tags based on weight
+    future_tag_options = []  # [{"tag", "tag"}, {"tag"}...]
+    keys = list(choice_weights.keys())
+    weights = list(choice_weights.values())
     for _ in range(context.num_of_choices):
-        all_choices.append(_generate_choice(keys, weights))
+        future_tag_options.append(_select_tag_set(keys, weights))
 
-    # Consider Climax
+    # Determine if climax tag needs added
     _update_climax_status(context)
 
-    return all_choices
+    return future_tag_options
 
 
-def _adjust_weight(base_weight, result_weight) -> int:
-    """Helper that determines the resulting weights of all tags combined"""
-    for tag_name in base_weight:
-        if tag_name in result_weight:
-            result_weight[tag_name] += base_weight[tag_name]
-        else:
-            result_weight[tag_name] = base_weight[tag_name]
-
-    return result_weight
-
-
-def _generate_choice(keys, weights) -> set:
-    """Helper function that returns the tag(s) for ONE choice."""
+def _select_tag_set(keys, weights) -> set:
+    """
+    Helper func that determines a set of tags for ONE choice.
+    Call this for each choice the user will be presented.
+    """
     choice = []
     # Pick first tag
     choice.append(random.choices(keys, weights=weights, k=1)[0])
@@ -72,9 +66,15 @@ def _update_climax_status(context: StoryContext):
         for tag_set in context.cur_tags:
             tag_set.append("climax")
         context.climax = True
-    # TODO: Consider a climax pending tag as well?
-    # TODO: Do we really want to tweak the class here?
-    # It's convenient but sort of hides the changes two functions deep
+
+
+def _update_context(user_input):
+    """
+    Placeholder for now.  This should be used to update story context
+    """
+    pass
+    # TODO - It's VITAL that we update the users choices after each selection
+    # TODO - Optional We could also use to update beat num or story history
 
 
 # **************************************************
