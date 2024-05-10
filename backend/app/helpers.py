@@ -19,11 +19,12 @@ def get_choice_tags(context: StoryContext) -> list[set[str]]:
     choice_weights = dict()  # {tag_name: weight}
 
     # Add weights associated with each tag
-    for tag_name in context.user_choice:
-        if tag_name in choice_weights:
-            choice_weights[tag_name] += context.tag_weights[tag_name]
-        else:
-            choice_weights[tag_name] = context.tag_weights[tag_name]
+    for outer_tag in context.user_choice:
+        for inner_tag in context.tag_weights[outer_tag]:
+            # Fetches current weight or sets to 0 if non-existant
+            current_weight = choice_weights.get(inner_tag, 0)
+            # Adds the new weight
+            choice_weights[inner_tag] = current_weight + context.tag_weights[outer_tag][inner_tag]
 
     # Randomly select tags based on weight
     future_tag_options = []  # [{"tag", "tag"}, {"tag"}...]
@@ -64,7 +65,7 @@ def _update_climax_status(context: StoryContext):
     # Otherwise check if it should be activated
     elif climax_ready:
         for tag_set in context.cur_tags:
-            tag_set.append("climax")
+            tag_set.add("climax")
         context.climax = True
 
 
@@ -86,6 +87,7 @@ def process_selection(context: StoryContext, user_input):
         if context.current_lives < 0:
             print("GAME OVER")
             # TODO - Generate a game over prompt and signal to front to end.
+            # TODO - Wait for updates on routes before attempting
 
 
 # **************************************************

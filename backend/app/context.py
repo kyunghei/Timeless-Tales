@@ -44,10 +44,27 @@ This helps reduce inputs on functions that require multiple bits of info.
 
 class StoryContext:
     def __init__(self):
+        self.reset_to_default()
+
+        # Save story tag JSON file
+        try:
+            directory = os.path.dirname(os.path.abspath(__file__))
+            # TODO - Should file name be hardcoded like this?
+            json_path = os.path.join(directory, 'tags.json')
+            with open(json_path, 'r') as file:
+                self.tag_weights = json.load(file)
+        except FileNotFoundError:
+            print(f"Error: File {json_path} not found.")
+        except json.JSONDecodeError:
+            print(f"Error: Failed to decode JSON in {json_path}.")
+        except Exception as e:
+            print(f"Unexpected error occurred: {e}")
+
+    def reset_to_default(self):
         # Basic Constants
         self.max_text_length: int = max_text_length
         self.num_of_choices: int = num_of_choices
-        self.tag_weights = tag_weights
+        # self.tag_weights = tag_weights
 
         # Constants from Frontend
         self.genre: str = genre
@@ -68,20 +85,6 @@ class StoryContext:
         # Mutable Story History
         self.story_history: list[str] = story_history
         # self.previous_prompt: str = story_history[0]
-
-        # Save story tag JSON file
-        try:
-            directory = os.path.dirname(os.path.abspath(__file__))
-            # TODO - Should file name be hardcoded like this?
-            json_path = os.path.join(directory, 'tags.json')
-            with open(json_path, 'r') as file:
-                self.tag_weights = json.load(file)
-        except FileNotFoundError:
-            print(f"Error: File {json_path} not found.")
-        except json.JSONDecodeError:
-            print(f"Error: Failed to decode JSON in {json_path}.")
-        except Exception as e:
-            print(f"Unexpected error occurred: {e}")
 
 
 # **************************************************
