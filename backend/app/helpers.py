@@ -19,7 +19,7 @@ def get_choice_tags(context: StoryContext) -> list[set[str]]:
     choice_weights = dict()  # {tag_name: weight}
 
     # Add weights associated with each tag
-    for tag_name in context.prev_choice:
+    for tag_name in context.user_choice:
         if tag_name in choice_weights:
             choice_weights[tag_name] += context.tag_weights[tag_name]
         else:
@@ -68,13 +68,24 @@ def _update_climax_status(context: StoryContext):
         context.climax = True
 
 
-def _update_context(user_input):
+def process_selection(context: StoryContext, user_input):
     """
-    Placeholder for now.  This should be used to update story context
+    Update context based on user selections.
     """
-    pass
-    # TODO - It's VITAL that we update the users choices after each selection
+    # TODO - I don't have actual user_input format yet to phrase this...
+    context.user_choice = user_input["choice"]
     # TODO - Optional We could also use to update beat num or story history
+
+    # Update Lives
+    # TODO - probably not best to hardcode the string name here...
+    for tag in context.user_choice:
+        if tag == "gain_life" and context.current_lives < context.max_lives:
+            context.current_lives += 1
+        if tag == "lose_life":
+            context.current_lives -= 1
+        if context.current_lives < 0:
+            print("GAME OVER")
+            # TODO - Generate a game over prompt and signal to front to end.
 
 
 # **************************************************
