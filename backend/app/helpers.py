@@ -20,11 +20,11 @@ def get_choice_tags(context: StoryContext) -> list[set[str]]:
 
     # Add weights associated with each tag
     for outer_tag in context.user_choice:
-        for inner_tag in context.tag_weights[outer_tag]:
+        for inner_tag, weight in context.tag_weights[outer_tag].items():
             # Fetches current weight or sets to 0 if non-existant
-            current_weight = choice_weights.get(inner_tag, 0)
+            current_weight = choice_weights.setdefault(inner_tag, 0)
             # Adds the new weight
-            choice_weights[inner_tag] = current_weight + context.tag_weights[outer_tag][inner_tag]
+            choice_weights[inner_tag] = current_weight + weight
 
     # Randomly select tags based on weight
     future_tag_options = []  # [{"tag", "tag"}, {"tag"}...]
