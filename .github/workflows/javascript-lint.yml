@@ -32,15 +32,21 @@ jobs:
         uses: actions/setup-node@v2
         with: 
           node-version: '18' # Specify the Node.js version used
+
       
       # Install npm dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
         working-directory: ./react-app
+      
+
+      - name: Clear npm cache and reinstall dependencies
+        run: npm cache clean --force && npm ci
+        working-directory: ./path-to-your-project
 
       - name: List installed packages
         run: npm list
-        
+
       # Runs ESLint
       - name: Lint JavaScript Files
         run: npm run lint
