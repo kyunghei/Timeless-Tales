@@ -52,13 +52,16 @@ function StoryPageTemplate() {
     //     setShowChoices(!showChoices);
     // }
 
+    // boolean to determine pop up display
     const [showGameOver, setShowGameOver] = useState(false);
+
+    // boolean to display story text or choices
+    const [isStory, setIsStory] = useState(true);
 
     function handlePopUp(isDisplayed){
         setShowGameOver(isDisplayed);
     }
 
-    let story = true;
 
     return (
         <div>
@@ -73,7 +76,7 @@ function StoryPageTemplate() {
             <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
 
             {currentBeatData.lives == 0 ? <PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/> : null}
-            {currentBeatData.lives && story > 0 ? <SelectChoiceBtn genre={currentBeatData.genre}/> : null}
+            {currentBeatData.lives > 0 && isStory ? <SelectChoiceBtn genre={currentBeatData.genre}/> : null}
             {/* <StoryButton genre={currentBeatData.genre} lives={currentBeatData.lives} popUpHandler={handlePopUp}/> */}
 
             {showGameOver? <PopUpScreen/> : null}
