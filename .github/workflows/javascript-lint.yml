@@ -44,8 +44,6 @@ jobs:
         run: npm cache clean --force && npm ci
         working-directory: ./react-app
 
-      - name: List installed packages
-        run: npm list
 
       # Runs ESLint
       - name: Lint JavaScript Files
