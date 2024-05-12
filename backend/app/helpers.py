@@ -16,39 +16,34 @@ intensity_descriptor = {0: "gentle, serene",
 def get_choice_tags(context: StoryContext) -> list[set[str]]:
     """Returns the tag options to be used in next story beat."""
     # Determine the combined weight of all options
-    result_weight = dict()
-    for tag in context.prev_tags:
-        # Each current tag has its own base_weight dict
-        # This gives base odds of each result
-        base_weight = context.tag_weights[tag]
-        result_weight = _adjust_weight(base_weight, result_weight)
+    choice_weights = dict()  # {tag_name: weight}
 
-    # Determine Resulting Tags
-    all_choices = []
-    keys = list(result_weight.keys())
-    weights = list(result_weight.values())
+    # Add weights associated with each tag
+    for outer_tag in context.user_choice:
+        for inner_tag, weight in context.tag_weights[outer_tag].items():
+            # Fetches current weight or sets to 0 if non-existant
+            current_weight = choice_weights.setdefault(inner_tag, 0)
+            # Adds the new weight
+            choice_weights[inner_tag] = current_weight + weight
+
+    # Randomly select tags based on weight
+    future_tag_options = []  # [{"tag", "tag"}, {"tag"}...]
+    keys = list(choice_weights.keys())
+    weights = list(choice_weights.values())
     for _ in range(context.num_of_choices):
-        all_choices.append(_generate_choice(keys, weights))
+        future_tag_options.append(_select_tag_set(keys, weights))
 
-    # Consider Climax
+    # Determine if climax tag needs added
     _update_climax_status(context)
 
-    return all_choices
+    return future_tag_options
 
 
-def _adjust_weight(base_weight, result_weight) -> int:
-    """Helper that determines the resulting weights of all tags combined"""
-    for tag_name in base_weight:
-        if tag_name in result_weight:
-            result_weight[tag_name] += base_weight[tag_name]
-        else:
-            result_weight[tag_name] = base_weight[tag_name]
-
-    return result_weight
-
-
-def _generate_choice(keys, weights) -> set:
-    """Helper function that returns the tag(s) for ONE choice."""
+def _select_tag_set(keys, weights) -> set:
+    """
+    Helper func that determines a set of tags for ONE choice.
+    Call this for each choice the user will be presented.
+    """
     choice = []
     # Pick first tag
     choice.append(random.choices(keys, weights=weights, k=1)[0])
@@ -70,11 +65,29 @@ def _update_climax_status(context: StoryContext):
     # Otherwise check if it should be activated
     elif climax_ready:
         for tag_set in context.cur_tags:
-            tag_set.append("climax")
+            tag_set.add("climax")
         context.climax = True
-    # TODO: Consider a climax pending tag as well?
-    # TODO: Do we really want to tweak the class here?
-    # It's convenient but sort of hides the changes two functions deep
+
+
+def process_selection(context: StoryContext, user_input):
+    """
+    Update context based on user selections.
+    """
+    # TODO - I don't have actual user_input format yet to phrase this...
+    context.user_choice = user_input["choice"]
+    # TODO - Optional We could also use to update beat num or story history
+
+    # Update Lives
+    # TODO - probably not best to hardcode the string name here...
+    for tag in context.user_choice:
+        if tag == "gain_life" and context.current_lives < context.max_lives:
+            context.current_lives += 1
+        if tag == "lose_life":
+            context.current_lives -= 1
+        if context.current_lives < 0:
+            print("GAME OVER")
+            # TODO - Generate a game over prompt and signal to front to end.
+            # TODO - Wait for updates on routes before attempting
 
 
 # **************************************************
