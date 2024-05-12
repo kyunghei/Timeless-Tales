@@ -1,3 +1,4 @@
+import React from 'react';
 import Accordion from './Accordion.jsx';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.webp';
@@ -12,20 +13,20 @@ function HomeContent() {
 
     return (
         <main>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh', maxWidth: '1200px', margin: '0 auto', padding: '0 50px' }}>
+            <div class="home-div">
                 <div style={{ flex: 3, padding: '20px' }}>
                     <h1>Choose Your Adventure,</h1>
                     <h1>Craft Your Destiny</h1>
-                    <p>Welcome to Timeless Tales, your gateway to an infinite a rray of choose-your-own adventures stories
+                    <p className='base-body-text'>Welcome to Timeless Tales, your gateway to an infinite array of choose-your-own adventures stories
                         where every choice shapes your unique narrative journey. Unlike traditional story games with fixed outcomes,
-                        Timeless Tales leverages the latest AI technology to generate endless storylines and dynami images,
+                        Timeless Tales leverages the latest AI technology to generate endless storylines and dynamic images,
                         making each playthough distinct and captivating.</p>
                     <Accordion />
                     <h2>What Will Your Story Be?</h2>
                     <button onClick={goToCustomization}>Get Started</button>
                 </div>
                 <div style={{ flex: 1 }}>
-                    <img src={logo} alt="Home Page Image" style={{ width: '100%', maxWidth: '100%' }} />
+                    <img src={logo} alt="Home Page Image" style={{ width: '100px', maxWidth: '100%' }} />
                 </div>
             </div>
 

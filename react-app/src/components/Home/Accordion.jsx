@@ -1,4 +1,4 @@
-
+import React from 'react';
 import AccordionItem from './AccordionItem';
 
 // This is the main container for all accordion items.

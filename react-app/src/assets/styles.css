@@ -1,0 +1,54 @@
+/* Imports */
+@import url("https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
+/* Variables */
+/* Header Styling */
+.header {
+  background-color: #090118;
+  width: 100%;
+  height: 134px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header-text {
+  color: #FFFAE5;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  text-decoration: none;
+  vertical-align: top;
+  width: 100%;
+}
+
+.header-logo {
+  width: 134px;
+  height: 134px;
+  flex-shrink: 0;
+}
+
+/* Home Styling */
+.home-div {
+  background-color: #F2EACE;
+  display: "flex";
+  alignItems: "center";
+  justifyContent: "center";
+  height: "90vh";
+  maxWidth: "1200px";
+  margin: "0 auto";
+  padding: "0 50px";
+}
+.home-div p {
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+}
+
+/* Fantasy Theme Styling */
+/* Western Theme Styling */
+/* SciFi Theme Styling *//*# sourceMappingURL=styles.css.map */
