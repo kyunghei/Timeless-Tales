@@ -1,0 +1,52 @@
+/* Variables */
+$header-bg: #090118;
+$base-bg: #F2EACE;
+$base-button-purple: #512667;
+$base-button-white: #FFFFFF;
+
+@mixin header-text() {
+    color: #FFFAE5;
+    font-family: "Roboto Flex";
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 68px; /* 85% */
+    text-transform: capitalize;
+}
+
+@mixin base-h1-text() {
+    color: #0B1133;
+    font-family: Oregano;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 68px; /* 70.833% */
+    text-transform: capitalize;
+}
+
+@mixin base-body-text() {
+    color: #0B1133;
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; /* 150% */
+}
+
+/* Home Page - Base Styling */
+
+
+
+
+/* Fantasy Theme Styling */
+
+
+
+
+/* Western Theme Styling */
+
+
+
+
+/* SciFi Theme Styling */
+

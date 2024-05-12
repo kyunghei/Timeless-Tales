@@ -3,6 +3,8 @@ import Header from './components/common/Header.jsx';
 import HomeContent from './components/Home/HomeContent.jsx';
 import CustomizePage from './components/Customization/CustomizationPage.jsx';
 // import StoryPage from './components/Story/StoryPage.jsx';
+import './assets/styles.css';
+
 
 // App component serves as the root. 
 // We will add other components to our app component, which will tie it all together.
