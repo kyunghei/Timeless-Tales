@@ -1,12 +1,14 @@
 // import StoryBeat from './StoryBeat';
 import StoryBeatText from './StoryBeatText';
 import StoryBeatImage from './StoryBeatImage';
-import StoryButton from './StoryButton';
+//import StoryButton from './StoryButton';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
 import AvatarLife from './AvatarLife';
 import ProgressBar from './ProgressBar';
 import PopUpScreen from './PopUpScreen';
+import SelectChoiceBtn from './SelectChoiceBtn';
+import PlayAgainBtn from './PlayAgainBtn';
 import { useState } from 'react';
 // import axios from 'axios';
 
@@ -17,7 +19,7 @@ function StoryPageTemplate() {
         avatar: 1,
         genre: "Western",
         name: "Doobs",
-        lives: 3,
+        lives: 2,
         gpt_text: 
         "velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus",
         max_beat: 12,
@@ -56,6 +58,8 @@ function StoryPageTemplate() {
         setShowGameOver(isDisplayed);
     }
 
+    let story = true;
+
     return (
         <div>
             {/* <StoryBeat text={currentBeatData.text} /> */}
@@ -63,11 +67,15 @@ function StoryPageTemplate() {
             <StoryBackgroundImage genre={currentBeatData.genre} />
             <AvatarDisplay name ={currentBeatData.name} avatar={currentBeatData.avatar} genre={currentBeatData.genre}/>
             <AvatarLife genre={currentBeatData.genre} lives={currentBeatData.lives}/>
-            {/* {currentBeatData.lives == 3 ? <StoryButton genre={currentBeatData.genre} lives={currentBeatData.lives} popUpHandler={handlePopUp}/> : null} */}
-            <StoryButton genre={currentBeatData.genre} lives={currentBeatData.lives} popUpHandler={handlePopUp}/>
+
             <StoryBeatImage imageUrl={currentBeatData.gpt_img}/>
             <StoryBeatText story={currentBeatData.gpt_text}/>
             <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
+
+            {currentBeatData.lives == 0 ? <PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/> : null}
+            {currentBeatData.lives && story > 0 ? <SelectChoiceBtn genre={currentBeatData.genre}/> : null}
+            {/* <StoryButton genre={currentBeatData.genre} lives={currentBeatData.lives} popUpHandler={handlePopUp}/> */}
+
             {showGameOver? <PopUpScreen/> : null}
 
             {/* <button onClick={handleNext}>Next</button> */}
