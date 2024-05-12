@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 /**
- * Displays the story background image given genre
+ * Displays the story progress
  * @param {number} currentBeat 
  * @param {number} maxBeat
  */
