@@ -9,17 +9,14 @@ import ProgressIndicator from './ProgressIndicator';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+
 /**
  * CustomizationPage component serves as the container for the multi-step customization form.
  */
-function CustomizationPage() {
+function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, selectedLength, setSelectedLength, setSelectedGenre, setSelectedAvatar, setSelectedName }) {
 
     const [currentStep, setCurrentStep] = useState(1); // State to keep track of the current step within the form.
     const [isStepValid, setIsStepValid] = useState({ 1: false, 2: false, 3: false, 4: false }); // Validity of each selection to check if user selection was made.
-    const [selectedGenre, setSelectedGenre] = useState(''); // State to track the genre selected.
-    const [selectedLength, setSelectedLength] = useState(0); // State to track the length selected.
-    const [selectedAvatar, setSelectedAvatar] = useState(null); // State to track what avatar the user selected. Will pass index. 0 = Avatar1, 1 = Avatar2, 2 = Avatar3
-    const [selectedName, setSelectedName] = useState(''); // State to track user's character name
 
     const navigate = useNavigate(); // Hook for navigation
 
@@ -29,13 +26,12 @@ function CustomizationPage() {
         const formData = {
             genre: selectedGenre,
             storyLength: selectedLength,
-            avatar: selectedAvatar,
             name: selectedName
         }
 
         console.log(formData);
         try {
-            const res = await axios.post('/customization-data', formData);
+            const res = await axios.post('http://localhost:5172/customization-data', formData);
 
             if (res.status === 200) {
                 console.log("form submission successful");
@@ -122,6 +118,17 @@ function StartButton({ onClick, disabled }) {
 }
 
 export default CustomizationPage;
+
+CustomizationPage.propTypes = {
+    selectedGenre: PropTypes.string.isRequired,
+    selectedAvatar: PropTypes.number.isRequired,
+    selectedName: PropTypes.string.isRequired,
+    selectedLength: PropTypes.number.isRequired,
+    setSelectedLength: PropTypes.func.isRequired,
+    setSelectedAvatar: PropTypes.func.isRequired,
+    setSelectedGenre: PropTypes.func.isRequired,
+    setSelectedName: PropTypes.func.isRequired
+}
 
 StartButton.propTypes = {
     onClick: PropTypes.func.isRequired,
