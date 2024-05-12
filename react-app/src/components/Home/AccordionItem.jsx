@@ -8,7 +8,7 @@ function AccordionItem({ header, body }) {
     const toggle = () => setIsOpen(!isOpen);
     return (
         <div>
-            <button onClick={toggle} style={{ wwidth: '100%', textAlign: 'left' }}>
+            <button className='accordian-button' onClick={toggle} style={{ wwidth: '100%', textAlign: 'left' }}>
                 {header}
             </button>
 

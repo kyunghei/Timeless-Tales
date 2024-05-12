@@ -13,20 +13,23 @@ function HomeContent() {
 
     return (
         <main>
-            <div class="home-div">
-                <div style={{ flex: 3, padding: '20px' }}>
-                    <h1>Choose Your Adventure,</h1>
-                    <h1>Craft Your Destiny</h1>
-                    <p className='base-body-text'>Welcome to Timeless Tales, your gateway to an infinite array of choose-your-own adventures stories
+            <div className='home-div'>
+                <div className='text-div'>
+                    <h1 className='choose'>Choose Your Adventure,</h1>
+                    <h1 className='craft'>Craft Your Destiny</h1>
+                    <p>Welcome to Timeless Tales, your gateway to an infinite array of choose-your-own adventures stories
                         where every choice shapes your unique narrative journey. Unlike traditional story games with fixed outcomes,
                         Timeless Tales leverages the latest AI technology to generate endless storylines and dynamic images,
                         making each playthough distinct and captivating.</p>
+                    <p className='underline'>How It Works:</p>
                     <Accordion />
-                    <h2>What Will Your Story Be?</h2>
-                    <button onClick={goToCustomization}>Get Started</button>
+                    <div className='button-div'>
+                        <h2>What Will Your Story Be?</h2>
+                        <button className='get-started' onClick={goToCustomization}>Get Started</button>                        
+                    </div>
                 </div>
-                <div style={{ flex: 1 }}>
-                    <img src={logo} alt="Home Page Image" style={{ width: '100px', maxWidth: '100%' }} />
+                <div className='logo-div'>
+                    <img src={logo} alt="Home Page Image"/>
                 </div>
             </div>
 
