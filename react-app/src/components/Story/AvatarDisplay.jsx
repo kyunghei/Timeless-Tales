@@ -13,7 +13,7 @@ const avatars = {
     Fantasy: ['/avatars/fantasy1.webp', '/avatars/fantasy2.webp', '/avatars/fantasy3.webp']
 }
 
-function AvatarDisplay({name, avatar, genre}) {
+function AvatarDisplay({ name, avatar, genre }) {
 
     const avatarIdx = avatar - 1
     const avatarDisplay = avatars[genre][avatarIdx];
@@ -21,7 +21,7 @@ function AvatarDisplay({name, avatar, genre}) {
     return (
         <div>
             <div>
-                <img src={avatarDisplay} alt="Avatar Image" />
+                <img src={avatarDisplay} alt="Avatar Image" width='100px' height='100px' />
             </div>
             <div>
                 <div>{name}</div>
