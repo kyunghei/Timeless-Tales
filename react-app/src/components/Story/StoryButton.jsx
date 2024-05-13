@@ -10,7 +10,7 @@ import '../../styles/Story/StoryButton.css'
 
 
 
-function StoryButton({ genre, lives, popUpHandler }) {
+function StoryButton({ genre, lives}) {
 
     let buttonDisplay;
 
