@@ -58,6 +58,8 @@ function StoryPageTemplate() {
     // boolean to display story text or choices
     const [isStory, setIsStory] = useState(true);
 
+    console.log(setIsStory);
+
     function handlePopUp(isDisplayed){
         setShowGameOver(isDisplayed);
     }

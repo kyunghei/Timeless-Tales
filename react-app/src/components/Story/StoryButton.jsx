@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import {useState} from 'react';
 import '../../styles/Story/StoryButton.css'
 
 /**
@@ -18,7 +17,7 @@ function StoryButton({ genre, lives, popUpHandler }) {
     const genreStyle = genre.charAt(0).toLowerCase() + genre.slice(1);
 
     function showDisplay(){
-        popUpHandler(true);
+        return
     }
 
 
