@@ -26,7 +26,7 @@ climax = False
 
 # Mutable Story Tags
 user_choice = {"regular"}
-cur_tags = [{"regular"}, {"regular"}, {"regular"}]
+choice_tags = [{"regular"}, {"regular"}, {"regular"}]
 
 # Mutable Story History
 story_history = ["This is the start of the story"]
@@ -80,7 +80,7 @@ class StoryContext:
 
         # Mutable Story Tags
         self.user_choice: dict[str] = user_choice
-        self.cur_tags: list[dict] = cur_tags
+        self.choice_tags: list[dict] = choice_tags
 
         # Mutable Story History
         self.story_history: list[str] = story_history

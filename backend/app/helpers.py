@@ -1,5 +1,6 @@
 import random
 from context import StoryContext
+from context import context as test_context
 
 # **************************************************
 #                    Variables
@@ -112,7 +113,7 @@ def get_story_prompt(context: StoryContext) -> str:
     for i in range(3):
         option = (
             f"{i+1}. A choice that features elements related to "
-            f"'{', '.join(context.cur_tags[i])}', "
+            f"'{', '.join(context.choice_tags[i])}', "
         )
         choices += option
 
@@ -125,8 +126,9 @@ def get_story_prompt(context: StoryContext) -> str:
     # Combine the elements into a cohesive prompt
     prompt = (
         f"{narrative} The scene is influenced by these themes: "
-        f"{', '.join(context.cur_tags)}. {climax_status} "
-        "Craft a scene that includes the following three choices: "
+        f"{', '.join(context.user_choice)}. {climax_status} "
+        "Craft a scene that includes the following three choices, "
+        "each option starting with !!: "
         f"{choices}"
     )
 
@@ -143,6 +145,8 @@ def get_image_prompt(context: StoryContext):
     return prompt
 
 
-# Note - Remember to update previous_paragraph after current_paragraph used
-# TODO - Add functions to handle class updates as needed.
 # TODO - Adjust tag values
+
+# Test helper functions
+if __name__ == "__main__":
+    print(get_story_prompt(test_context))
