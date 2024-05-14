@@ -81,18 +81,21 @@ def post_story_beat():
     # Generate Information
     story_prompt = helpers.get_story_prompt(context)
     story_text = get_story_part(story_prompt, context.story_history)
-    # TODO, we may need to seperate the choices from the paragraph
-
-    image_prompt = helpers.get_image_prompt(context)
-    story_image = get_image_URL(image_prompt)
+    story_text, choice1, choice2, choice3 = helpers.split_choices(story_text)
 
     # Update Internal Data
     context.story_history.append(story_prompt)
 
+    # Generate Image
+    image_prompt = helpers.get_image_prompt(context)
+    story_image = get_image_URL(image_prompt)
+
     # Return Data
     response_data = {
         'story_text': story_text,
-        # 'story_choices': story_choices,
+        'choice_1': choice1,
+        'choice_2': choice2,
+        'choice_3': choice3,
         'story_image': story_image,
         'current_beat': context.current_beat,
         'current_lives': context.current_lives
