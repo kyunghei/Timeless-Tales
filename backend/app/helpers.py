@@ -70,27 +70,6 @@ def _update_climax_status(context: StoryContext):
         context.climax = True
 
 
-def process_selection(context: StoryContext, user_input):
-    """
-    Update context based on user selections.
-    """
-    # TODO - I don't have actual user_input format yet to phrase this...
-    context.user_choice = user_input["choice"]
-    # TODO - Optional We could also use to update beat num or story history
-
-    # Update Lives
-    # TODO - probably not best to hardcode the string name here...
-    for tag in context.user_choice:
-        if tag == "gain_life" and context.current_lives < context.max_lives:
-            context.current_lives += 1
-        if tag == "lose_life":
-            context.current_lives -= 1
-        if context.current_lives < 0:
-            print("GAME OVER")
-            # TODO - Generate a game over prompt and signal to front to end.
-            # TODO - Wait for updates on routes before attempting
-
-
 # **************************************************
 #                    Prompts
 # **************************************************
