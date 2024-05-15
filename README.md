@@ -46,3 +46,22 @@ This section details all the context variables used in the "Timeless Tales" appl
 ### Additional Notes
 
 - **`tag_weights`**: A probability matrix that provides the odds of each outcome based on current tags. This matrix is generated automatically via `tags.json` and is critical in managing the dynamic story flow based on the decisions made by the user.
+
+## List of Story Tags
+
+In "Timeless Tales," each choice made by the player is influenced by tags that guide the narrative progression and outcomes. Here is a comprehensive list of all possible tags, each uniquely influencing the story's development:
+
+- **`regular`**: Represents standard progressions or outcomes in the story.
+- **`gain_life`**: Affects the protagonist's chances by increasing their lives.
+- **`lose_life`**: Leads to a decrease in the protagonist's lives.
+- **`resolve`**: Indicates a resolution or conclusion of current story elements.
+- **`raise_intensity`**: Increases the intensity or stakes of the narrative.
+- **`lower_intensity`**: Decreases the narrative's tension or stakes.
+- **`climax`**: Marks a pivotal or climactic moment in the story.
+- **`false_calm`**: Creates a deceptive sense of security before a significant event.
+- **`foreshadow`**: Hints at future events or outcomes.
+- **`dilemma`**: Presents a difficult choice or moral question.
+- **`challenge`**: Introduces obstacles or tests for the protagonist.
+- **`opportunity`**: Offers a chance for significant progress or advantage.
+
+Each tag is part of a probability matrix that helps determine the likelihood of specific outcomes, ensuring each choice's impact is dynamically integrated into the narrative flow.
