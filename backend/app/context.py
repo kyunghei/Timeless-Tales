@@ -81,8 +81,8 @@ class StoryContext:
         self.gameover: bool = gameover
 
         # Mutable Story Tags
-        self.user_choice: dict[str] = user_choice
-        self.choice_tags: list[dict] = choice_tags
+        self.user_choice: set[str] = user_choice
+        self.choice_tags: list[set[str]] = choice_tags
 
         # Mutable Story History
         self.story_history: list[str] = story_history
