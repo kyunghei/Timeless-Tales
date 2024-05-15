@@ -118,6 +118,7 @@ def get_next_beat():
     """
     # Get frontend paramters
     # TODO - not sure how this is stored/passed yet
+    # Will either save text directly or index choice_tags if given int
     json_object = request.json
     context.user_choice = json_object.get("userChoice")
 
@@ -131,6 +132,9 @@ def get_next_beat():
             context.current_lives += 1
         if tag == "lose_life":
             context.current_lives -= 1
+        if context.current_lives <= 0:
+            context.gameover = True
+            # TODO - Remove choices entirely if frontend does not do so
 
 
 @app.route('/customization', methods=['POST'])

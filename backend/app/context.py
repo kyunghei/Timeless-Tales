@@ -23,6 +23,7 @@ max_lives = 3
 current_beat = 0
 intensity = 0
 climax = False
+gameover = False
 
 # Mutable Story Tags
 user_choice = {"regular"}
@@ -77,6 +78,7 @@ class StoryContext:
         self.current_beat: int = current_beat
         self.intensity: int = intensity
         self.climax: bool = climax
+        self.gameover: bool = gameover
 
         # Mutable Story Tags
         self.user_choice: dict[str] = user_choice

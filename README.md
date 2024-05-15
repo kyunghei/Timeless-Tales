@@ -9,3 +9,40 @@ A web application utilizing AI to create custom choose-your-own-adventure storie
 - **Meta-Data**: Internal information used to guide API calls.
 
 - **Choice Tags**: Tags that classify each type of choice. These tags are hidden and help determine how the story progresses based on the user's selections. This may include, modifying number of lives or modifying the next choice schema.
+
+## Context Variables
+
+This section details all the context variables used in the "Timeless Tales" application to manage the story flow, user interactions, and dynamic outcomes.
+
+### Basic Constants
+
+- **`max_text_length`** (*int*): The maximum length of the story paragraph.
+- **`num_of_choices`** (*int*): The number of choice options presented to the user.
+
+### Constants from Frontend
+
+- **`genre`** (*str*): The genre of the story.
+- **`max_beats`** (*int*): The maximum number of story beats or scenes.
+- **`username`** (*str*): The username of the player.
+
+### Mutable Story Status
+
+- **`current_lives`** (*int*): The current number of lives the player has.
+- **`max_lives`** (*int*): The maximum number of lives the player can have.
+- **`current_beat`** (*int*): The current position in the story progression.
+- **`intensity`** (*int*): The current mood or intensity level of the story, often influencing the tone of the narrative.
+- **`climax`** (*bool*): Indicates whether the story has reached a climactic moment.
+- **`gameover`** (*bool*): Indicates whether the game has reached a conclusion, either by reaching the narrative end or through player failure.
+
+### Mutable Story Tags
+
+- **`user_choice`** (*set[str]*): The most recent choice made by the user, detailed enough to influence future story developments. Example: `{"regular"}`
+- **`choice_tags`** (*list[set[str]]*): List of current options given to the user, tagged to classify each type of choice. These tags help determine how the story progresses. Example: `[{"regular"}, {"regular", "foreshadow"}, {"climax", "lose_life}]`
+
+### Mutable Story History
+
+- **`story_history`** (*list[str]*): A list of all story beats generated so far, representing the narrative history as the story progresses.
+
+### Additional Notes
+
+- **`tag_weights`**: A probability matrix that provides the odds of each outcome based on current tags. This matrix is generated automatically via `tags.json` and is critical in managing the dynamic story flow based on the decisions made by the user.

@@ -73,8 +73,23 @@ def _update_climax_status(context: StoryContext):
 # **************************************************
 #                    Prompts
 # **************************************************
+# TODO - Breakdown prompting into smaller chunks and multiple functions?
 def get_story_prompt(context: StoryContext) -> str:
     """Generates a prompt to feed the API to generate next paragrpah."""
+    # Gameover Check
+    if context.gameover:
+        narrative = (
+            f"After the events of '{context.story_history[-1]}', "
+            f"our story concludes in the genre of {context.genre}. "
+        )
+
+        game_over_reason = (
+            f"The choices made: {', '.join(context.user_choice)} "
+            "led to an outcome where the protagonist could no longer continue."
+        )
+
+        return (f"{narrative} {game_over_reason}")
+
     # TODO - Adjust the prompt phrasing potentially
     # Construct the narrative context
     narrative = (
