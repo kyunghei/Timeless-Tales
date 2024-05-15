@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 /**
- * Displays the avatar image and name given the character name, genre, and avatar identification number
+ * Displays the life bar of the user
  * @param {number} lives
  * @param {string} genre
  */
@@ -18,7 +18,7 @@ const healthLost = {
     Fantasy: '/healthbars/westernHealthLost.png'
 }
 
-function AvatarLife({genre, lives}) {
+function AvatarLife({ genre, lives }) {
 
     const maxHealth = 3;
 
@@ -27,12 +27,12 @@ function AvatarLife({genre, lives}) {
 
     const healthBarDisplay = [];
 
-    for (let i=0; i < maxHealth; i++){
-        if (i < lives){
-            healthBarDisplay.push(<img key={i+1} src={healthDisplay} alt="Avatar One Life" />)
+    for (let i = 0; i < maxHealth; i++) {
+        if (i < lives) {
+            healthBarDisplay.push(<img key={i + 1} src={healthDisplay} alt="Avatar One Life" />)
         }
-        else{
-            healthBarDisplay.push(<img key={i+1} src={healthLostDisplay} alt="Avatar One Life Lost" />)
+        else {
+            healthBarDisplay.push(<img key={i + 1} src={healthLostDisplay} alt="Avatar One Life Lost" />)
         }
     }
 

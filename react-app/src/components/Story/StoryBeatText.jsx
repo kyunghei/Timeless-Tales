@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 /**
- * Displays the story beat image given imageUrl
+ * Displays the story beat text
  * @param {string} story 
  */
 

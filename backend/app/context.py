@@ -23,10 +23,11 @@ max_lives = 3
 current_beat = 0
 intensity = 0
 climax = False
+gameover = False
 
 # Mutable Story Tags
-prev_tags = [{"regular"}, {"regular"}, {"regular"}]
-cur_tags = [{"regular"}, {"regular"}, {"regular"}]
+user_choice = {"regular"}
+choice_tags = [{"regular"}, {"regular"}, {"regular"}]
 
 # Mutable Story History
 story_history = ["This is the start of the story"]
@@ -44,30 +45,7 @@ This helps reduce inputs on functions that require multiple bits of info.
 
 class StoryContext:
     def __init__(self):
-        # Basic Constants
-        self.max_text_length: int = max_text_length
-        self.num_of_choices: int = num_of_choices
-        self.tag_weights = tag_weights
-
-        # Constants from Frontend
-        self.genre: str = genre
-        self.max_beats: int = max_beats
-        self.user_name: str = username
-
-        # Mutable Story Status
-        self.current_lives: int = current_lives
-        self.max_lives: int = max_lives
-        self.current_beat: int = current_beat
-        self.intensity: int = intensity
-        self.climax: bool = climax
-
-        # Mutable Story Tags
-        self.prev_tags: list[dict] = prev_tags
-        self.cur_tags: list[dict] = cur_tags
-
-        # Mutable Story History
-        self.story_history: list[str] = story_history
-        # self.previous_prompt: str = story_history[0]
+        self.reset_to_default()
 
         # Save story tag JSON file
         try:
@@ -82,6 +60,33 @@ class StoryContext:
             print(f"Error: Failed to decode JSON in {json_path}.")
         except Exception as e:
             print(f"Unexpected error occurred: {e}")
+
+    def reset_to_default(self):
+        # Basic Constants
+        self.max_text_length: int = max_text_length
+        self.num_of_choices: int = num_of_choices
+        # self.tag_weights = tag_weights
+
+        # Constants from Frontend
+        self.genre: str = genre
+        self.max_beats: int = max_beats
+        self.user_name: str = username
+
+        # Mutable Story Status
+        self.current_lives: int = current_lives
+        self.max_lives: int = max_lives
+        self.current_beat: int = current_beat
+        self.intensity: int = intensity
+        self.climax: bool = climax
+        self.gameover: bool = gameover
+
+        # Mutable Story Tags
+        self.user_choice: set[str] = user_choice
+        self.choice_tags: list[set[str]] = choice_tags
+
+        # Mutable Story History
+        self.story_history: list[str] = story_history
+        # self.previous_prompt: str = story_history[0]
 
 
 # **************************************************
