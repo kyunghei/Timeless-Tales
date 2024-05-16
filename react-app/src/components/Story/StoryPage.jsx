@@ -69,7 +69,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         }
 
         //TEST: verify sending correct user choice
-        console.log(`Sending ${jsonObject.user_choice} to backend`);
+        console.log(`Sending ${formData.user_choice} to backend`);
 
         //POST REQUEST
         try {
@@ -87,7 +87,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         }
 
         //TODO: listen for backend's data
-        
+
         //TEST: automatically switch buttons
         setShowChoices(!showChoices);
     }

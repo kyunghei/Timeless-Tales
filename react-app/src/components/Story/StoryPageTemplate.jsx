@@ -46,8 +46,7 @@ function StoryPageTemplate() {
     const [userChoice, setUserChoice] = useState("");
 
     // linting errors
-    //console.log(setCurrentBeatData);
-    //console.log(userChoice);
+    console.log(setCurrentBeatData);
 
 
     function handlePopUp(){
