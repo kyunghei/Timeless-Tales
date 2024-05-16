@@ -67,10 +67,10 @@ function StoryPageTemplate() {
         setShowChoices(!showChoices);
     }
 
+
     return (
         <div>
             {/* Static info display */}
-            
             <StoryBackgroundImage genre={currentBeatData.genre} />
             <AvatarDisplay name ={currentBeatData.name} avatar={currentBeatData.avatar} genre={currentBeatData.genre}/>
             
@@ -86,8 +86,10 @@ function StoryPageTemplate() {
             {/* Displays correct button */}
             {currentBeatData.current_lives == 0 ? 
             <PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/> : null}
-            {currentBeatData.current_lives != 0 && showChoices? 
-            <SelectChoiceBtn genre={currentBeatData.genre} userChoice = {userChoice} nextHandler={handleSendUserChoice}/> : <StoryNextButton genre={currentBeatData.genre} nextHandler={handleNext} />}
+            {currentBeatData.current_lives != 0 && showChoices ? 
+            <SelectChoiceBtn genre={currentBeatData.genre} userChoice = {userChoice} nextHandler={handleSendUserChoice}/> : null}
+            {currentBeatData.current_lives != 0 && !showChoices ? 
+            <StoryNextButton genre={currentBeatData.genre} nextHandler={handleNext} /> : null}
             
             {/* Displays pop up screen */}
             {showGameOver? <PopUpScreen/> : null}
