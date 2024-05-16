@@ -7,21 +7,36 @@ import PropTypes from 'prop-types';
  */
 
 function LengthStep({ selectedLength, onLengthSelect }) {
-    function style(length) {
-        return {
-            padding: '15px',
-            backgroundColor: selectedLength === length ? 'black' : 'transparent',
-            color: selectedLength === length ? 'white' : 'black'
-        }
-    }
-
     return (
         <form onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', padding: '20px' }}>
             <h2>How Long Will Your Adventure Last?</h2>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: '20px' }}>
-                <button style={style(4)} onClick={() => onLengthSelect(4)}>Short</button>
-                <button style={style(8)} onClick={() => onLengthSelect(8)}>Medium</button>
-                <button style={style(12)} onClick={() => onLengthSelect(12)}>Long</button>
+                <div className='custom' onClick={() => onLengthSelect(4)}>
+                    <button className='button' style={{
+                        backgroundColor: selectedLength === 4 ? 'purple' : selectedLength === 8 ? 'purple' : selectedLength === 12 ? 'purple' : 'white',
+                        border: selectedLength === 4 ? 'transparent' : selectedLength === 8 ? 'transparent' : selectedLength === 12 ? 'transparent' : ' purple',
+                    }} ></button>
+                    <div>Short</div>
+                </div>
+
+                <div className='custom' onClick={() => onLengthSelect(8)}>
+                    <button className='button' style={{
+                        backgroundColor: selectedLength === 8 ? 'purple' : selectedLength === 12 ? 'purple' : 'white',
+                        border: selectedLength === 8 ? 'transparent' : selectedLength === 12 ? 'transparent' : 'purple',
+                    }}></button>
+                    <div>Medium</div>                    
+                </div>
+
+                <div className='custom' onClick={() => onLengthSelect(12)}>
+                    <button className='button' style={{
+                        backgroundColor: selectedLength === 12 ? 'purple' : 'white',
+                        border: selectedLength === 12 ? 'transparent' : 'purple',
+                    }}></button>
+                    <div>Long</div>
+                </div>
+
+
+
             </div>
         </form>
 

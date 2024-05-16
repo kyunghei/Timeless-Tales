@@ -3,6 +3,19 @@
 /* Variables */
 body {
   background-color: #F2EACE;
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+}
+body h1, body h2 {
+  color: #0B1133;
+  font-family: Oregano;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 68px; /* 70.833% */
+  text-transform: capitalize;
 }
 
 /* Header Styling */
@@ -40,29 +53,6 @@ body {
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
-.home-div h1 {
-  color: #0B1133;
-  font-family: Oregano;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 68px; /* 70.833% */
-  text-transform: capitalize;
-}
-.home-div h2 {
-  color: #0B1133;
-  font-family: Oregano;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 68px; /* 70.833% */
-  text-transform: capitalize;
-}
-.home-div p {
-  color: #0B1133;
-  font-family: "Roboto Flex", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 30px; /* 150% */
-}
 
 .text-div {
   display: flex;
@@ -71,10 +61,10 @@ body {
   padding-right: 15%;
 }
 .text-div h1 {
-  font-size: 80px;
+  font-size: 70px;
 }
 .text-div p {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .logo-div {
@@ -106,36 +96,21 @@ body {
   margin-top: 15px;
   margin-bottom: 20px;
 }
-.button-div h2 h1 {
-  color: #0B1133;
-  font-family: Oregano;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 68px; /* 70.833% */
-  text-transform: capitalize;
-}
-.button-div h2 h2 {
-  color: #0B1133;
-  font-family: Oregano;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 68px; /* 70.833% */
-  text-transform: capitalize;
-}
 
 .get-started {
-  width: 439px;
-  height: 114px;
+  width: 300px;
+  height: 90px;
   flex-shrink: 0;
-  border-radius: 29px;
+  border: transparent;
+  border-radius: 25px;
   background: #512667;
-  color: #FEF3D0;
-  font-family: "Roboto Flex";
-  font-size: 55px;
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
   font-style: normal;
   font-weight: 400;
-  line-height: 68px; /* 123.636% */
-  text-transform: capitalize;
+  line-height: 30px; /* 150% */
+  color: #FFFFFF;
+  font-size: 45px;
 }
 
 .accordian-button {
@@ -143,15 +118,8 @@ body {
   border: none;
   padding: 10px;
   margin: none;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
-}
-.accordian-button p {
-  color: #0B1133;
-  font-family: "Roboto Flex", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 30px; /* 150% */
 }
 
 .accordian {
@@ -164,6 +132,52 @@ body {
 }
 
 /* Customization Styline */
+.customization {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.customization h1 {
+  text-align: center;
+  font-size: 60px;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+.customization h2 {
+  text-align: center;
+  font-size: 35px;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.progress {
+  display: flex;
+  justify-content: center;
+}
+
+.progress-step {
+  padding: 15px;
+  font-weight: bold;
+  width: 10%;
+  text-align: center;
+  border: 1px solid purple;
+}
+
+.genre-selection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 30px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  background-color: transparent;
+}
+
+.western-genre {
+  margin-top: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
 /* Fantasy Theme Styling */
 /* Western Theme Styling */
 /* SciFi Theme Styling */
@@ -174,4 +188,89 @@ body {
 
 .no-margin {
   margin: 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.top-margin {
+  margin-top: 30px;
+}
+
+.left-curve {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.right-curve {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.button-container {
+  position: relative;
+}
+
+.button {
+  background-color: #512667;
+  color: #FFFFFF;
+  width: 50px;
+  height: 50px;
+  font-size: x-large;
+  font-weight: bolder;
+  border: transparent;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.left-align {
+  position: absolute;
+  left: 0;
+}
+
+.right-align {
+  position: absolute;
+  right: 0;
+}
+
+.length-button {
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+  font-size: 18px;
+  width: 150px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.custom {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  cursor: pointer;
+}
+
+.left {
+  text-align: left;
+  font-size: 20px;
+}
+
+.start-button {
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+  background-color: #512667;
+  color: #FFFFFF;
+  width: 150px;
+  height: 50px;
+  font-size: 25px;
+  border: transparent;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-bottom: 30px;
 }/*# sourceMappingURL=styles.css.map */
