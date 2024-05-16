@@ -68,7 +68,8 @@ export default GenreStep;
 GenreOption.propTypes = {
     genre: PropTypes.string.isRequired,
     isSelected: PropTypes.bool.isRequired,
-    onSelectGenre: PropTypes.func.isRequired
+    onSelectGenre: PropTypes.func.isRequired,
+    imageSrc: PropTypes.any.isRequired
 }
 
 GenreStep.propTypes = {
