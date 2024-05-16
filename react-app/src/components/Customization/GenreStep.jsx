@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import logo from '../../assets/logo.webp';
+import fantasyImg from '../../assets/fantasycover500.png';
+import scifiImg from '../../assets/scificover500.png';
+import westernImg from '../../assets/westerncover500.png';
 
 /**
  * Represents the genre selection step in the mutli-step customization form.
@@ -11,14 +13,19 @@ import logo from '../../assets/logo.webp';
 function GenreStep({ selectedGenre, onGenreSelect }) {
 
     return (
-        <form onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', padding: '20px' }}>
+        <form onSubmit={(e) => e.preventDefault()} >
             <h2>What Kind of Story Will You Tell?</h2>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: '20px' }}>
-                <GenreOption genre='Fantasy' isSelected={selectedGenre === 'Fantasy'} onSelectGenre={onGenreSelect} />
-                <GenreOption genre='Western' isSelected={selectedGenre === 'Western'} onSelectGenre={onGenreSelect} />
-                <GenreOption genre='Sci-Fi' isSelected={selectedGenre === 'Sci-Fi'} onSelectGenre={onGenreSelect} />
+            <div className='genre-selection'>
+                <div className='fantasy'>
+                    <GenreOption genre='Fantasy' isSelected={selectedGenre === 'Fantasy'} onSelectGenre={onGenreSelect} imageSrc={fantasyImg} />
+                </div>
+                <div className='western'>
+                    <GenreOption genre='Western' isSelected={selectedGenre === 'Western'} onSelectGenre={onGenreSelect} imageSrc={westernImg} />
+                </div>
+                <div className='scifi'>
+                    <GenreOption genre='Sci-Fi' isSelected={selectedGenre === 'Sci-Fi'} onSelectGenre={onGenreSelect} imageSrc={scifiImg} />
+                </div>                
             </div>
-
         </form>
     );
 }
@@ -31,7 +38,7 @@ function GenreStep({ selectedGenre, onGenreSelect }) {
  * @param {boolean} isSelected Shows if this genre is currently selected or not.
  * @param {function} onSelectGenre Function that sets the selected genre
  */
-function GenreOption({ genre, isSelected, onSelectGenre }) {
+function GenreOption({ genre, isSelected, onSelectGenre, imageSrc }) {
     const style = {
         padding: '10px',
         margin: '10px',
@@ -46,7 +53,7 @@ function GenreOption({ genre, isSelected, onSelectGenre }) {
     return (
         <>
             <div style={style} onClick={() => onSelectGenre(genre)}>
-                <img src={logo} alt="genre option" width='300px' height='300px' />
+                <img src={imageSrc} alt="genre option" width='200px' height='200px' margin='25px' />
                 {genre}
             </div>
 

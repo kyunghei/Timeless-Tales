@@ -8,13 +8,13 @@ function AccordionItem({ header, body }) {
     const toggle = () => setIsOpen(!isOpen);
     return (
         <div>
-            <button className='accordian-button' onClick={toggle} style={{ wwidth: '100%', textAlign: 'left' }}>
+            <button className='accordian-button' onClick={toggle}>
                 {header}
             </button>
 
             {/* Check if accordion is open. If so, render a div that contains the body props. */}
             {isOpen && (
-                <div style={{ padding: '10px' }}>
+                <div>
                     {HTMLReactParser(body)}
                 </div>
             )}
