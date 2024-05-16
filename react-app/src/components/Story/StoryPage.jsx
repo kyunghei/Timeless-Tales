@@ -72,7 +72,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     {/* Displays correct button */}
                     <StoryButton onClick={handleNext} genre={selectedGenre} />
                     {currentBeatData.lives == 0 ? <><PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/></> : null}
-                    {currentBeatData.lives > 0 && isStory ? <SelectChoiceBtn genre={currentBeatData.genre}/> : null}
+                    {currentBeatData.lives > 0 ? <SelectChoiceBtn genre={currentBeatData.genre}/> : null}
 
                     {/* Displays pop up screen */}
                     {showGameOver? <PopUpScreen/> : null}

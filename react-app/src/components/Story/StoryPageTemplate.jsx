@@ -32,20 +32,23 @@ function StoryPageTemplate() {
         //choices
     });
 
-    // linting errors
-    // console.log(setCurrentBeatData);
-    // console.log(setIsStory);
+
 
     // boolean to determine pop up display
     const [showGameOver, setShowGameOver] = useState(false);
 
     // boolean to display story text or choices
-    const [isStory, setIsStory] = useState(true);
+    //const [isStory, setIsStory] = useState(true);
 
     // Bool state that controls whether to show story text or story choices
     const [showChoices, setShowChoices] = useState(false);
 
-    const [userChoice, setUserChoice] = useState();
+    const [userChoice, setUserChoice] = useState("");
+
+    // linting errors
+    console.log(setCurrentBeatData);
+    console.log(setIsStory);
+    console.log(userChoice);
 
 
     function handlePopUp(){
@@ -58,8 +61,6 @@ function StoryPageTemplate() {
 
     function handleUserChoice(user_choice){
         setUserChoice(user_choice);
-        console.log("here is parent");
-        console.log(user_choice)
     }
 
     return (
@@ -71,15 +72,16 @@ function StoryPageTemplate() {
             <AvatarLife genre={currentBeatData.genre} lives={currentBeatData.current_lives}/>
 
             <StoryBeatImage imageUrl={currentBeatData.story_image}/>
-            <StoryBeatText story={currentBeatData.story_text}/>
-            <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/>
+            
+            {showChoices? <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : <StoryBeatText story={currentBeatData.story_text}/>}
             <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
 
             {currentBeatData.current_lives == 0 ? <PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/> : null}
-            {currentBeatData.current_lives > 0 && isStory ? <SelectChoiceBtn genre={currentBeatData.genre}/> : null}
-            <StoryButton genre={currentBeatData.genre} nextHandler={handleNext} />
+            {showChoices? <SelectChoiceBtn genre={currentBeatData.genre}/> : <StoryButton genre={currentBeatData.genre} nextHandler={handleNext} />}
+            
 
             {showGameOver? <PopUpScreen/> : null}
+
 
             {/* <button onClick={handleNext}>Next</button> */}
         </div>
