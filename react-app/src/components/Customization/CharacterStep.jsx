@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // Map genre to respective avatar image paths
 const avatars = {
     Western: ['/avatars/western1.png', '/avatars/western2.webp', '/avatars/western3.webp'],
-    SciFi: ['/avatars/scifi1.webp', '/avatars/scifi2.webp', '/avatars/scifi3.webp'],
+    SciFi: ['/avatars/scifi1-250.png', '/avatars/scifi2-250.png', '/avatars/scifi3-250.png'],
     Fantasy: ['/avatars/fantasy1.webp', '/avatars/fantasy2.webp', '/avatars/fantasy3.webp']
 }
 
