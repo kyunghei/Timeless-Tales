@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
  * @param {func} userChoiceHandler
  */
 
-// receive choices
-//send user choice
 
 function StoryBeatChoices({choices, userChoiceHandler}) {
 

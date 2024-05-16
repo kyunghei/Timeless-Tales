@@ -1,7 +1,7 @@
 // import StoryBeat from './StoryBeat';
 import StoryBeatText from './StoryBeatText';
 import StoryBeatImage from './StoryBeatImage';
-import StoryButton from './StoryButton';
+import StoryNextButton from './StoryNextButton';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
 import AvatarLife from './AvatarLife';
@@ -46,8 +46,8 @@ function StoryPageTemplate() {
     const [userChoice, setUserChoice] = useState("");
 
     // linting errors
-    console.log(setCurrentBeatData);
-    console.log(userChoice);
+    //console.log(setCurrentBeatData);
+    //console.log(userChoice);
 
 
     function handlePopUp(){
@@ -62,23 +62,34 @@ function StoryPageTemplate() {
         setUserChoice(user_choice);
     }
 
+    function handleSendUserChoice(){
+        console.log(`Sending ${userChoice} to backend`);
+        setShowChoices(!showChoices);
+    }
+
     return (
         <div>
-            {/* <StoryBeat text={currentBeatData.text} /> */}
+            {/* Static info display */}
             
             <StoryBackgroundImage genre={currentBeatData.genre} />
             <AvatarDisplay name ={currentBeatData.name} avatar={currentBeatData.avatar} genre={currentBeatData.genre}/>
-            <AvatarLife genre={currentBeatData.genre} lives={currentBeatData.current_lives}/>
-
-            <StoryBeatImage imageUrl={currentBeatData.story_image}/>
             
-            {showChoices? <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : <StoryBeatText story={currentBeatData.story_text}/>}
+
+            {/* Update beginning of story beat */}
+            <AvatarLife genre={currentBeatData.genre} lives={currentBeatData.current_lives}/>
+            <StoryBeatImage imageUrl={currentBeatData.story_image}/>
+            {showChoices? 
+            <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : 
+            <StoryBeatText story={currentBeatData.story_text}/>}
             <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
 
-            {currentBeatData.current_lives == 0 ? <PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/> : null}
-            {showChoices? <SelectChoiceBtn genre={currentBeatData.genre}/> : <StoryButton genre={currentBeatData.genre} nextHandler={handleNext} />}
+            {/* Displays correct button */}
+            {currentBeatData.current_lives == 0 ? 
+            <PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/> : null}
+            {currentBeatData.current_lives != 0 && showChoices? 
+            <SelectChoiceBtn genre={currentBeatData.genre} userChoice = {userChoice} nextHandler={handleSendUserChoice}/> : <StoryNextButton genre={currentBeatData.genre} nextHandler={handleNext} />}
             
-
+            {/* Displays pop up screen */}
             {showGameOver? <PopUpScreen/> : null}
 
 

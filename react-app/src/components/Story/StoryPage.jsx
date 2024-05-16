@@ -2,7 +2,7 @@ import StoryBeatText from './StoryBeatText';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import StoryBeatImage from './StoryBeatImage';
 import AvatarDisplay from './AvatarDisplay';
-import StoryButton from './StoryButton';
+import StoryButton from './StoryNextButton';
 import AvatarLife from './AvatarLife';
 import ProgressBar from './ProgressBar';
 import PopUpScreen from './PopUpScreen';
