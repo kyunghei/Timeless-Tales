@@ -139,10 +139,6 @@ body {
 }
 /* Customization Styline */
 .customization {
-    // h1, h2 {
-    //     @include base-header-text();
-    // }    
-    // @include base-body-text();
     h1 {
         text-align: center;
         font-size: 60px;
@@ -253,4 +249,19 @@ body {
 .right-align {
     position: absolute;
     right: 0;
+}
+
+.length-button {
+    @include base-body-text();
+    font-size: 18px;
+    width: 150px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.custom {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    cursor: pointer;
 }

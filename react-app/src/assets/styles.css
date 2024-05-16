@@ -231,4 +231,23 @@ body h1, body h2 {
 .right-align {
   position: absolute;
   right: 0;
+}
+
+.length-button {
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+  font-size: 18px;
+  width: 150px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.custom {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  cursor: pointer;
 }/*# sourceMappingURL=styles.css.map */
