@@ -49,7 +49,7 @@ function App() {
               selectedAvatar={selectedAvatar}
               selectedName={selectedName}
               selectedLength={selectedLength} />} />
-          {/* <Route path='/story1' element={<StoryPageTemplate />} /> */}
+          <Route path='/story1' element={<StoryPageTemplate />} />
 
         </Routes>
       </div>

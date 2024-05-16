@@ -1,14 +1,14 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import os
 import openai
 from dotenv import load_dotenv
 import helpers
 from context import context
 
-# import webbrowser
-
 
 app = Flask(__name__)
+CORS(app)
 
 # **************************************************
 #         API Functions
@@ -75,24 +75,30 @@ def get_image_URL(img_prompt: str) -> str:
 # **************************************************
 #         Flask Functions
 # **************************************************
-@app.route('/post-story-beat', methods=['POST'])
+@app.route('/story', methods=['GET'])
 def post_story_beat():
-    """Returns data for front-end to utilize and display."""
+    """
+    Returns data to front-end to utilize and display.
+    """
     # Generate Information
     story_prompt = helpers.get_story_prompt(context)
     story_text = get_story_part(story_prompt, context.story_history)
-    # TODO, we may need to seperate the choices from the paragraph
-
-    image_prompt = helpers.get_image_prompt(context)
-    story_image = get_image_URL(image_prompt)
+    story_text, choice1, choice2, choice3 = helpers.split_choices(story_text)
 
     # Update Internal Data
+    # TODO - Implment this elsewhere so all context changed in same place
     context.story_history.append(story_prompt)
+
+    # Generate Image
+    image_prompt = helpers.get_image_prompt(context)
+    story_image = get_image_URL(image_prompt)
 
     # Return Data
     response_data = {
         'story_text': story_text,
-        # 'story_choices': story_choices,
+        'choice_1': choice1,
+        'choice_2': choice2,
+        'choice_3': choice3,
         'story_image': story_image,
         'current_beat': context.current_beat,
         'current_lives': context.current_lives
@@ -100,17 +106,35 @@ def post_story_beat():
     return jsonify(response_data)
 
 
-def update_story_context(story_prompt):
-    """Grabs data from front-end to update backend data."""
-    # Adjust History
-    context.story_history.append(story_prompt)
-    # Update Tags
-    context.prev_tags = context.cur_tags
-    context.cur_tags = helpers.get_choice_tags(context)
-    # Update other data
+# TODO - Can this be combined with the post beat?
+# Can we get data from front end, process it, then return results
+# all in the same function call?
+@app.route('/next-beat', methods=['POST'])
+def get_next_beat():
+    """
+    When user moves to the next story beats:
+    - Retrieves their choice
+    - Iterates story context
+    """
+    # Get frontend paramters
+    # TODO - not sure how this is stored/passed yet
+    # Will either save text directly or index choice_tags if given int
+    json_object = request.json
+    context.user_choice = json_object.get("userChoice")
+
+    # Update Context
     context.current_beat += 1
-    # TODO - Adjust Lives
-    # TODO - Store choice user selected
+    context.choice_tags = helpers.get_choice_tags(context)
+
+    # Update Lives
+    for tag in context.user_choice:
+        if tag == "gain_life" and context.current_lives < context.max_lives:
+            context.current_lives += 1
+        if tag == "lose_life":
+            context.current_lives -= 1
+        if context.current_lives <= 0:
+            context.gameover = True
+            # TODO - Remove choices entirely if frontend does not do so
 
 
 @app.route('/customization', methods=['POST'])
@@ -118,19 +142,22 @@ def get_parameters():
     """Update context with parameters from frontend"""
 
     # DEBUG: Confirm HTTP request
-    print(f"Received {request.method} request at {request.url}")
+    print(f"Received request at {request.url}")
 
     # Get frontend parameters
     json_object = request.json
 
     context.genre = json_object.get("genre")
-    context.max_beats = json_object.get("selectedLength")
-    context.user_name = json_object.get("selectedName")
+    context.max_beats = json_object.get("storyLength")
+    context.user_name = json_object.get("name")
 
     # DEBUG: Confirm receiving parameters
     print(f"Genre: {context.genre}")
     print(f"Length: {context.max_beats}")
     print(f"Name: {context.user_name}")
+
+    # Must include return statement or it will result in error
+    return jsonify({'message': 'parameters received'})
 
 
 # **************************************************
@@ -149,7 +176,7 @@ if __name__ == "__main__":
     # TODO: Create a path and/or function to reset story context back to start
 
     # Initialize App
-    app.run(host='localhost', port=5172, debug=True)
+    app.run(debug=True)
 
     # Eliminated the loop in place of app.run.
     # TODO - I think we need to set up an end-point.
