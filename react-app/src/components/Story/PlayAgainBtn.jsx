@@ -10,6 +10,7 @@ import '../../styles/Story/StoryButton.css';
 function PlayAgainBtn({genre, popUpHandler}){
     const genreStyle = genre.charAt(0).toLowerCase() + genre.slice(1);
 
+
     // function showDisplay(){
     //     popUpHandler();
     // }

@@ -59,15 +59,35 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     function handleUserChoice(user_choice){
         setUserChoice(user_choice);
+        //TEST: verify user selection is saved
+        console.log(`setting user choice to ${user_choice}`)
     }
 
-    function handleSendUserChoice(){
+    async function handleSendUserChoice(){
+        const formData = {
+            user_choice: userChoice
+        }
+
         //TEST: verify sending correct user choice
-        console.log(`Sending ${userChoice} to backend`);
+        console.log(`Sending ${jsonObject.user_choice} to backend`);
 
-        //buffer while we send user choice to backend and start new story beat
-        setIsLoading(true);
+        //POST REQUEST
+        try {
+            const res = await axios.post('http://localhost:5172/user-choice', formData);
 
+            if (res.status === 200) {
+                console.log("form submission successful");
+                //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
+                setIsLoading(true);
+            } else {
+                console.error("Couldn't post form data with user choice:", res.status);
+            }
+        } catch (error) {
+            console.error("Error submitting the form data");
+        }
+
+        //TODO: listen for backend's data
+        
         //TEST: automatically switch buttons
         setShowChoices(!showChoices);
     }
