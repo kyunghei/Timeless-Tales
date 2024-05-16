@@ -10,13 +10,13 @@ import '../../styles/Story/StoryButton.css';
 function PlayAgainBtn({genre, popUpHandler}){
     const genreStyle = genre.charAt(0).toLowerCase() + genre.slice(1);
 
-    function showDisplay(){
-        popUpHandler(true);
-    }
+    // function showDisplay(){
+    //     popUpHandler();
+    // }
 
     return(
         <>
-            <button id="playAgainBtn" className={genreStyle}  onClick={showDisplay}>Play Again?</button>
+            <button id="playAgainBtn" className={genreStyle}  onClick={popUpHandler}>Play Again?</button>
         </>
     )
 }

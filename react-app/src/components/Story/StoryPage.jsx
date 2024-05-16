@@ -5,6 +5,9 @@ import AvatarDisplay from './AvatarDisplay';
 import StoryButton from './StoryButton';
 import AvatarLife from './AvatarLife';
 import ProgressBar from './ProgressBar';
+import PopUpScreen from './PopUpScreen';
+import SelectChoiceBtn from './SelectChoiceBtn';
+import PlayAgainBtn from './PlayAgainBtn';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -20,6 +23,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     // Bool state that controls whether to show story text or story choices
     const [showChoices, setShowChoices] = useState(false);
+
+    // Bool state for pop up display
+    const [showGameOver, setShowGameOver] = useState(false);
 
     // Fetch first story beat data from backend when component mounts.
     useEffect(() => {
@@ -43,19 +49,33 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         setShowChoices(!showChoices);
     }
 
+    function handlePopUp(isDisplayed){
+        setShowGameOver(isDisplayed);
+    }
+
     return (
         <>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
                 <div>
+                    {/* Static info display */}
                     <StoryBackgroundImage genre={currentBeatData.genre} />
                     <AvatarDisplay name={selectedName} avatar={selectedAvatar} genre={selectedGenre} />
+
+                    {/* Update beginning of story beat */}
                     <AvatarLife genre={selectedGenre} lives={currentBeatData} />
                     <StoryBeatText text={currentBeatData.story_text} />
                     <StoryBeatImage imageUrl={currentBeatData.story_image} />
                     <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
-                    <StoryButton onClick={handleNext} genre={selectedGenre} lives={currentBeatData.current_lives} />
+
+                    {/* Displays correct button */}
+                    <StoryButton onClick={handleNext} genre={selectedGenre} />
+                    {currentBeatData.lives == 0 ? <><PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/></> : null}
+                    {currentBeatData.lives > 0 && isStory ? <SelectChoiceBtn genre={currentBeatData.genre}/> : null}
+
+                    {/* Displays pop up screen */}
+                    {showGameOver? <PopUpScreen/> : null}
                 </div>
             )}
 
