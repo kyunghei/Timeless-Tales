@@ -1,0 +1,177 @@
+/* Imports */
+@import url("https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
+/* Variables */
+body {
+  background-color: #F2EACE;
+}
+
+/* Header Styling */
+.header {
+  background-color: #090118;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 0%;
+}
+
+.header-text {
+  color: #FFFAE5;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  text-decoration: none;
+  vertical-align: top;
+  width: 100%;
+}
+
+.header-logo {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+/* Home Styling */
+.home-div {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+.home-div h1 {
+  color: #0B1133;
+  font-family: Oregano;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 68px; /* 70.833% */
+  text-transform: capitalize;
+}
+.home-div h2 {
+  color: #0B1133;
+  font-family: Oregano;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 68px; /* 70.833% */
+  text-transform: capitalize;
+}
+.home-div p {
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+}
+
+.text-div {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+.text-div h1 {
+  font-size: 80px;
+}
+.text-div p {
+  font-size: 20px;
+}
+
+.logo-div {
+  display: flex;
+  align-items: center;
+}
+.logo-div img {
+  width: 400px;
+  max-width: 100%;
+}
+
+.choose {
+  text-align: left;
+  margin: 15px 0;
+}
+
+.craft {
+  text-align: right;
+  margin: 15px 0;
+}
+
+.button-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button-div h2 {
+  font-size: 50px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.button-div h2 h1 {
+  color: #0B1133;
+  font-family: Oregano;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 68px; /* 70.833% */
+  text-transform: capitalize;
+}
+.button-div h2 h2 {
+  color: #0B1133;
+  font-family: Oregano;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 68px; /* 70.833% */
+  text-transform: capitalize;
+}
+
+.get-started {
+  width: 439px;
+  height: 114px;
+  flex-shrink: 0;
+  border-radius: 29px;
+  background: #512667;
+  color: #FEF3D0;
+  font-family: "Roboto Flex";
+  font-size: 55px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 68px; /* 123.636% */
+  text-transform: capitalize;
+}
+
+.accordian-button {
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  margin: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.accordian-button p {
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+}
+
+.accordian {
+  font-size: 18px;
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+/* Customization Styline */
+/* Fantasy Theme Styling */
+/* Western Theme Styling */
+/* SciFi Theme Styling */
+.underline {
+  text-decoration: underline;
+  margin-top: 0;
+}
+
+.no-margin {
+  margin: 0;
+}/*# sourceMappingURL=styles.css.map */

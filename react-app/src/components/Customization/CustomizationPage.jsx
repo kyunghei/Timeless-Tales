@@ -86,7 +86,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
     }
 
     return (
-        <>
+        <div className='customization'>
             <h1>Customize Your Adventure</h1>
             <ProgressIndicator currentStep={currentStep} />
             {currentStep === 1 && <GenreStep selectedGenre={selectedGenre} onGenreSelect={handleGenreSelection} />}
@@ -102,8 +102,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
                 {/* Start button only on the last step */}
                 {currentStep === 3 && <StartButton onClick={handleStart} disabled={!(isStepValid[currentStep] && isStepValid[currentStep + 1])} />}
             </div>
-        </>
-
+        </div>
     );
 }
 

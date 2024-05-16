@@ -1,0 +1,177 @@
+/* Imports */
+@import url('https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
+
+/* Variables */
+$header-bg: #090118;
+$base-bg: #F2EACE;
+$base-text-color: #0B1133;
+$base-button-purple: #512667;
+$base-button-white: #FFFFFF;
+
+
+
+@mixin base-header-text {
+    h1 {
+        color: $base-text-color;
+        font-family: Oregano;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 68px; /* 70.833% */
+        text-transform: capitalize;        
+    }
+    h2 {
+        color: $base-text-color;
+        font-family: Oregano;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 68px; /* 70.833% */
+        text-transform: capitalize;        
+    }
+}
+
+@mixin base-body-text {
+    p {
+        color: #0B1133;
+        font-family: "Roboto Flex", sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 30px; /* 150% */        
+    }
+}
+
+body {
+    background-color: $base-bg;
+}
+
+/* Header Styling */
+.header {
+    background-color: $header-bg;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin:0%;
+}
+.header-text {
+    color: #FFFAE5;
+    font-family: "Roboto Flex", sans-serif;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+    text-decoration: none;
+    vertical-align: top;
+    width: 100%;
+}
+.header-logo {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+}
+
+/* Home Styling */
+.home-div {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    @include base-header-text();
+    @include base-body-text();
+}
+.text-div {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15%;
+    padding-right: 15%;
+    h1 {
+        font-size: 80px;
+    }
+    p {
+        font-size: 20px;
+    }
+}
+.logo-div {
+    display: flex;
+    align-items: center;
+    img {
+        width: 400px;
+        max-width: 100%;
+    }
+}
+
+.choose {
+    text-align: left;
+    margin: 15px 0;
+}
+.craft {
+    text-align: right;
+    margin: 15px 0;
+}
+.button-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+        @include base-header-text();
+        font-size: 50px;    
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+}
+.get-started {
+    width: 439px;
+    height: 114px;
+    flex-shrink: 0;
+    border-radius: 29px;
+    background: #512667;
+    color: #FEF3D0;
+    font-family: "Roboto Flex";
+    font-size: 55px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 68px; /* 123.636% */
+    text-transform: capitalize;
+}
+.accordian-button {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    margin: none;
+    @include base-body-text();
+    font-size: 20px;
+    cursor: pointer;
+}
+.accordian {
+    font-size: 18px;
+    color: #0B1133;
+    font-family: "Roboto Flex", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+/* Customization Styline */
+
+
+
+/* Fantasy Theme Styling */
+
+
+
+
+/* Western Theme Styling */
+
+
+
+
+/* SciFi Theme Styling */
+
+
+.underline {
+    text-decoration: underline;
+    margin-top: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
