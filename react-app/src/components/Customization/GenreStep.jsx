@@ -16,13 +16,13 @@ function GenreStep({ selectedGenre, onGenreSelect }) {
         <form onSubmit={(e) => e.preventDefault()} >
             <h2>What Kind of Story Will You Tell?</h2>
             <div className='genre-selection'>
-                <div className='fantasy'>
+                <div>
                     <GenreOption genre='Fantasy' isSelected={selectedGenre === 'Fantasy'} onSelectGenre={onGenreSelect} imageSrc={fantasyImg} />
                 </div>
-                <div className='western'>
+                <div className='western-genre'>
                     <GenreOption genre='Western' isSelected={selectedGenre === 'Western'} onSelectGenre={onGenreSelect} imageSrc={westernImg} />
                 </div>
-                <div className='scifi'>
+                <div>
                     <GenreOption genre='SciFi' isSelected={selectedGenre === 'SciFi'} onSelectGenre={onGenreSelect} imageSrc={scifiImg} />
                 </div>                
             </div>
@@ -53,7 +53,7 @@ function GenreOption({ genre, isSelected, onSelectGenre, imageSrc }) {
     return (
         <>
             <div style={style} onClick={() => onSelectGenre(genre)}>
-                <img src={imageSrc} alt="genre option" width='300px' height='300px' margin='25px' />
+                <img src={imageSrc} alt="genre option" width='300px' height='300px' />
                 {genre}
             </div>
 
