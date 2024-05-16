@@ -112,7 +112,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
  */
 function StartButton({ onClick, disabled }) {
     return (
-        <button onClick={onClick} disabled={disabled}>Start</button>
+        <button className='start-button right-align' onClick={onClick} disabled={disabled}>Start</button>
     );
 }
 
