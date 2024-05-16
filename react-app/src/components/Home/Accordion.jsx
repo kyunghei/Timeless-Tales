@@ -1,17 +1,21 @@
 import AccordionItem from './AccordionItem';
+// import ReactHtmlParser from 'html-react-parser';
 
 // This is the main container for all accordion items.
 function Accordion() {
     return (
         <div>
-            <AccordionItem header="+ Customize Your Adventure" 
-            body="Get ready to embark on your very own interactive storytelling adventure.
-            Here's how to customize your journey:\n\n
+            <AccordionItem header="+ Customize Your Adventure"
+            body= {ReactHtmlParser(`Get ready to embark on your very own interactive storytelling adventure.
+            This text should be on a new line.
+               
+            Here's how to customize your journey:
             <ul>
                 <li>Choose your Genre: Select from three exciting story genres - Fantasy, Western, or Sci-Fi.</li>
                 <li>Select Story Length: Decide how long you want your adventure to be - Short, Medium, or Long.</li>
                 <li>Create your Character: Pick an avatar and give your character a name to represent you in the story.</li>
-            </ul>" />
+             </ul>`)}
+            />
             
             <AccordionItem header="+ Dive into the Story" 
             body="Now that you've customized your adventure, it's time to dive into the story! Sit back, relax, and let the AI
