@@ -1,30 +1,43 @@
 import PropTypes from 'prop-types';
+//import { useState } from 'react';
 
 /**
  * Displays the story beat choices
- * @param {string} choices 
+ * @param {array} choices 
+ * @param {func} userChoiceHandler
  */
 
 
-function StoryBeatChoices() {
+function StoryBeatChoices({choices, userChoiceHandler}) {
 
-    let choice1;
-    let choice2;
-    let choice3;
+    // const [userChoice, setUserChoice] = useState();
+
+    function handleUserChoice(e){
+        const userChoice = e.target.value;
+        userChoiceHandler(userChoice)
+    }
 
     return (
-        <div>
-            <select name="choices" id="choices">
-                <option value="1">{choice1}</option>
-                <option value="2">{choice2}</option>
-                <option value="3">{choice3}</option>
-            </select>
-        </div>
+        <>
+            <div>
+                <input type="radio" name="choices" id="choice_1" value="choice_1" onClick={handleUserChoice}/> 
+                <label htmlFor="choice_1">{choices[0]}</label>
+            </div>
+            <div>
+                <input type="radio" name="choices" id="choice_2" value="choice_2" onClick={handleUserChoice}/> 
+                <label htmlFor="choice_2">{choices[1]}</label>
+            </div>
+            <div>
+                <input type="radio" name="choices" id="choice_3" value="choice_3" onClick={handleUserChoice}/> 
+                <label htmlFor="choice_3">{choices[2]}</label>
+            </div>
+        </>
     );
 }
 
 export default StoryBeatChoices;
 
 StoryBeatChoices.propTypes = {
-    choices: PropTypes.string.isRequired,
+    choices: PropTypes.array.isRequired,
+    userChoiceHandler: PropTypes.func.isRequired
 }
