@@ -47,7 +47,6 @@ function StoryPageTemplate() {
 
     // linting errors
     console.log(setCurrentBeatData);
-    console.log(setIsStory);
     console.log(userChoice);
 
 
