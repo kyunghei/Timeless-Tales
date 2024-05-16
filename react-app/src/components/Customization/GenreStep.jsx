@@ -23,7 +23,7 @@ function GenreStep({ selectedGenre, onGenreSelect }) {
                     <GenreOption genre='Western' isSelected={selectedGenre === 'Western'} onSelectGenre={onGenreSelect} imageSrc={westernImg} />
                 </div>
                 <div className='scifi'>
-                    <GenreOption genre='Sci-Fi' isSelected={selectedGenre === 'Sci-Fi'} onSelectGenre={onGenreSelect} imageSrc={scifiImg} />
+                    <GenreOption genre='SciFi' isSelected={selectedGenre === 'SciFi'} onSelectGenre={onGenreSelect} imageSrc={scifiImg} />
                 </div>                
             </div>
         </form>

@@ -250,4 +250,8 @@ body h1, body h2 {
   flex-direction: column;
   margin: 15px;
   cursor: pointer;
+}
+
+.left {
+  text-align: left;
 }/*# sourceMappingURL=styles.css.map */

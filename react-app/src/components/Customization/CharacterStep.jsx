@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 
 // Map genre to respective avatar image paths
 const avatars = {
-    Western: ['/avatars/western1.png', '/avatars/western2.webp', '/avatars/western3.webp'],
+    Western: ['/avatars/western1-250.png', '/avatars/western2-250.png', '/avatars/western3-250.png'],
     SciFi: ['/avatars/scifi1-250.png', '/avatars/scifi2-250.png', '/avatars/scifi3-250.png'],
-    Fantasy: ['/avatars/fantasy1.webp', '/avatars/fantasy2.webp', '/avatars/fantasy3.webp']
+    Fantasy: ['/avatars/fantasy1-250.png', '/avatars/fantasy2-250.png', '/avatars/fantasy3-250.png']
 }
 
 /**
@@ -30,7 +30,7 @@ function CharacterStep({ selectedGenre, selectedAvatar, onAvatarSelect, selected
                     <AvatarOption avatar={genreAvatars[1]} isSelected={selectedAvatar === 1} onSelectAvatar={() => onAvatarSelect(1)} />
                     <AvatarOption avatar={genreAvatars[2]} isSelected={selectedAvatar === 2} onSelectAvatar={() => onAvatarSelect(2)} />
                 </div>
-                <label htmlFor="character-name">Name:</label>
+                <label className='left' htmlFor="character-name">Name:</label>
                 <br />
                 <input type="text" id="character-name" value={selectedName} onChange={onNameSelect} />
             </form >
