@@ -1,4 +1,3 @@
-import React from 'react';
 import Accordion from './Accordion.jsx';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.webp';

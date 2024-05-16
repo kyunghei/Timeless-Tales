@@ -1,11 +1,10 @@
-import React from 'react';
 import hourglass from '../../assets/hourglass.png';
 
 function Header() {
     return (
         <header class='header'>
             <img src={hourglass} alt="Logo image of an hourglass with stars and swirls" className='header-logo' />
-            <a href="/" class='header-text'>Timeless Tales</a>
+            <a href="/" className='header-text'>Timeless Tales</a>
         </header>
     );
 }
