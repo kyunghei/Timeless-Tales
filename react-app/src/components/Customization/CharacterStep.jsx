@@ -32,7 +32,7 @@ function CharacterStep({ selectedGenre, selectedAvatar, onAvatarSelect, selected
                 </div>
                 <label className='left' htmlFor="character-name">Name:</label>
                 <br />
-                <input type="text" id="character-name" value={selectedName} onChange={onNameSelect} />
+                <input type="text" size="20" style={{fontSize: "20px"}} id="character-name" value={selectedName} onChange={onNameSelect} />
             </form >
         </>
     );

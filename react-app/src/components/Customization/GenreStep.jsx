@@ -53,7 +53,7 @@ function GenreOption({ genre, isSelected, onSelectGenre, imageSrc }) {
     return (
         <>
             <div style={style} onClick={() => onSelectGenre(genre)}>
-                <img src={imageSrc} alt="genre option" width='200px' height='200px' margin='25px' />
+                <img src={imageSrc} alt="genre option" width='300px' height='300px' margin='25px' />
                 {genre}
             </div>
 

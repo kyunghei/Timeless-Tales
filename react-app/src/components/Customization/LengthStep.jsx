@@ -18,16 +18,7 @@ function LengthStep({ selectedLength, onLengthSelect }) {
                     }} ></button>
                     <div>Short</div>
                 </div>
-                <button className='button custom' style={{
-                        backgroundColor: selectedLength === 4 ? 'purple' : selectedLength === 8 ? 'purple' : selectedLength === 12 ? 'purple' : 'white',
-                        border: selectedLength === 4 ? 'transparent' : selectedLength === 8 ? 'transparent' : selectedLength === 12 ? 'transparent' : ' purple',
-                    }} onClick={() => onLengthSelect(4)}></button>
-                
-                <button className='button custom' style={{
-                        backgroundColor: selectedLength === 8 ? 'purple' : selectedLength === 12 ? 'purple' : 'white',
-                        border: selectedLength === 8 ? 'transparent' : selectedLength === 12 ? 'transparent' : 'purple',
-                        color: selectedLength === 8 ? 'white' : selectedLength === 12 ? 'white' : 'black'
-                    }} onClick={() => onLengthSelect(8)}></button>
+
                 <div className='custom' onClick={() => onLengthSelect(8)}>
                     <button className='button' style={{
                         backgroundColor: selectedLength === 8 ? 'purple' : selectedLength === 12 ? 'purple' : 'white',
@@ -35,16 +26,7 @@ function LengthStep({ selectedLength, onLengthSelect }) {
                     }}></button>
                     <div>Medium</div>                    
                 </div>
-                <button className='button custom' style={{
-                        backgroundColor: selectedLength === 8 ? 'purple' : selectedLength === 12 ? 'purple' : 'white',
-                        border: selectedLength === 8 ? 'transparent' : selectedLength === 12 ? 'transparent' : 'purple',
-                        color: selectedLength === 8 ? 'white' : selectedLength === 12 ? 'white' : 'black'
-                    }} onClick={() => onLengthSelect(8)}></button>
-                
-                <button className='button custom' style={{
-                        backgroundColor: selectedLength === 12 ? 'purple' : 'white',
-                        border: selectedLength === 12 ? 'transparent' : 'purple',
-                    }} onClick={() => onLengthSelect(12)}></button>
+
                 <div className='custom' onClick={() => onLengthSelect(12)}>
                     <button className='button' style={{
                         backgroundColor: selectedLength === 12 ? 'purple' : 'white',
