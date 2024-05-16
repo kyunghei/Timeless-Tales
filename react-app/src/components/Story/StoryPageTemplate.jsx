@@ -20,7 +20,7 @@ function StoryPageTemplate() {
         avatar: 1,
         genre: "Western",
         name: "Doobs",
-        current_lives: 0,
+        current_lives: 2,
         story_text: 
         "velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus",
         choice_1: "This is choice 1",
