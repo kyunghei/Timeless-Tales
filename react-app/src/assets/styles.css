@@ -154,6 +154,15 @@ body {
   line-height: 30px; /* 150% */
 }
 
+.accordian {
+  font-size: 18px;
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+}
+
 /* Customization Styline */
 /* Fantasy Theme Styling */
 /* Western Theme Styling */

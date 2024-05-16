@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import HTMLReactParser from 'html-react-parser/lib/index';
 
 // Each item in the accordion that can be expanded or collapsed.
 function AccordionItem({ header, body }) {
@@ -14,7 +15,7 @@ function AccordionItem({ header, body }) {
             {/* Check if accordion is open. If so, render a div that contains the body props. */}
             {isOpen && (
                 <div style={{ padding: '10px' }}>
-                    {body}
+                    {HTMLReactParser(body)}
                 </div>
             )}
         </div>
