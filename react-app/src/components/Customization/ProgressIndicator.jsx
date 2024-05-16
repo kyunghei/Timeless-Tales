@@ -8,39 +8,24 @@ import PropTypes from 'prop-types';
 function ProgressIndicator({ currentStep }) {
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }} >
-            <div style={{
-                padding: '15px',
+        <div className='progress' >
+            <div className='progress-step left-curve' style={{
                 backgroundColor: currentStep === 1 ? 'white' : 'purple',
                 color: currentStep === 1 ? 'purple' : 'white',
-                fontWeight: 'bold',
-                borderRadius: '25px',
-                width: '5%',
-                textAlign: 'center',
-                border: '1px solid purple',
-                margin: '0 15px'
+                borderColor: currentStep === 1 ? 'purple' : 'transparent'
             }}>Genre</div>
-            <div style={{
-                padding: '15px',
+            
+            <div className='progress-step' style={{
                 backgroundColor: currentStep === 2 ? 'white' : 'purple',
                 color: currentStep === 2 ? 'purple' : 'white',
-                fontWeight: 'bold',
-                borderRadius: '25px',
-                width: '5%',
-                textAlign: 'center',
-                border: '1px solid purple',
-                margin: '0 15px'
+                borderLeftColor: currentStep === 3 ? 'white' : 'transparent',
+                borderRightColor: currentStep === 1 ? 'white' : 'transparent'
             }}>Length</div>
-            <div style={{
-                padding: '15px',
+            
+            <div className='progress-step right-curve' style={{
                 backgroundColor: currentStep === 3 ? 'white' : 'purple',
                 color: currentStep === 3 ? 'purple' : 'white',
-                fontWeight: 'bold',
-                borderRadius: '25px',
-                width: '5%',
-                textAlign: 'center',
-                border: '1px solid purple',
-                margin: '0 15px'
+                borderColor: currentStep === 3 ? 'purple': 'transparent'
             }}>Character</div>
 
         </div >

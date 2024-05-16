@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  */
 function NextButton({ onClick, disabled }) {
     return (
-        <button onClick={onClick} disabled={disabled}>&gt;</button>
+        <button className='button right-align' onClick={onClick} disabled={disabled}>&gt;</button>
     );
 
 }

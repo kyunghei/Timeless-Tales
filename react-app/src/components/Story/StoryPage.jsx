@@ -2,9 +2,13 @@ import StoryBeatText from './StoryBeatText';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import StoryBeatImage from './StoryBeatImage';
 import AvatarDisplay from './AvatarDisplay';
-import StoryButton from './StoryButton';
+import StoryNextButton from './StoryNextButton';
 import AvatarLife from './AvatarLife';
 import ProgressBar from './ProgressBar';
+import PopUpScreen from './PopUpScreen';
+import SelectChoiceBtn from './SelectChoiceBtn';
+import PlayAgainBtn from './PlayAgainBtn';
+import StoryBeatChoices from './StoryBeatChoices';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -20,6 +24,12 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     // Bool state that controls whether to show story text or story choices
     const [showChoices, setShowChoices] = useState(false);
+
+    // Bool state for pop up display
+    const [showGameOver, setShowGameOver] = useState(false);
+
+    // State to track user's answer choice
+    const [userChoice, setUserChoice] = useState("");
 
     // Fetch first story beat data from backend when component mounts.
     useEffect(() => {
@@ -43,19 +53,73 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         setShowChoices(!showChoices);
     }
 
+    function handlePopUp(){
+        setShowGameOver(!showGameOver);
+    }
+
+    function handleUserChoice(user_choice){
+        setUserChoice(user_choice);
+        //TEST: verify user selection is saved
+        console.log(`setting user choice to ${user_choice}`)
+    }
+
+    async function handleSendUserChoice(){
+        const formData = {
+            user_choice: userChoice
+        }
+
+        //TEST: verify sending correct user choice
+        console.log(`Sending ${formData.user_choice} to backend`);
+
+        //POST REQUEST
+        try {
+            const res = await axios.post('http://localhost:5172/user-choice', formData);
+
+            if (res.status === 200) {
+                console.log("form submission successful");
+                //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
+                setIsLoading(true);
+            } else {
+                console.error("Couldn't post form data with user choice:", res.status);
+            }
+        } catch (error) {
+            console.error("Error submitting the form data");
+        }
+
+        //TODO: listen for backend's data
+
+        //TEST: automatically switch buttons
+        setShowChoices(!showChoices);
+    }
+
     return (
         <>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
                 <div>
+                    {/* Static info display */}
                     <StoryBackgroundImage genre={currentBeatData.genre} />
                     <AvatarDisplay name={selectedName} avatar={selectedAvatar} genre={selectedGenre} />
-                    <AvatarLife genre={selectedGenre} lives={currentBeatData} />
-                    <StoryBeatText text={currentBeatData.story_text} />
+
+                    {/* Update beginning of story beat */}
+                    <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
                     <StoryBeatImage imageUrl={currentBeatData.story_image} />
+                    {showChoices ? 
+                    <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : 
+                    <StoryBeatText story={currentBeatData.story_text}/>}
                     <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
-                    <StoryButton onClick={handleNext} genre={selectedGenre} lives={currentBeatData.current_lives} />
+
+                    {/* Displays correct button */}
+                    {currentBeatData.current_lives == 0 ? 
+                    <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp}/> : null}
+                    {currentBeatData.current_lives != 0 && showChoices ? 
+                    <SelectChoiceBtn genre={selectedGenre} userChoice = {userChoice} nextHandler={handleSendUserChoice}/> : null}
+                    {currentBeatData.current_lives != 0 && !showChoices ? 
+                    <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
+
+                    {/* Displays pop up screen */}
+                    {showGameOver? <PopUpScreen/> : null}
                 </div>
             )}
 

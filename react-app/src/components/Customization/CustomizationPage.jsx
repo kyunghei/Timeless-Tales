@@ -86,24 +86,23 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
     }
 
     return (
-        <>
+        <div className='customization'>
             <h1>Customize Your Adventure</h1>
             <ProgressIndicator currentStep={currentStep} />
             {currentStep === 1 && <GenreStep selectedGenre={selectedGenre} onGenreSelect={handleGenreSelection} />}
             {currentStep === 2 && <LengthStep selectedLength={selectedLength} onLengthSelect={handleLengthSelection} />}
             {currentStep === 3 && <CharacterStep selectedGenre={selectedGenre} selectedAvatar={selectedAvatar} onAvatarSelect={handleAvatarSelection} selectedName={selectedName} onNameSelect={handleNameSelection} />}
-            <div style={{ textAlign: 'center', padding: '20px' }}>
+            <div className='button-container'>
                 {/* Previous button displayed except on the first step */}
                 {currentStep > 1 && <PreviousButton onClick={handlePreviousStep} disabled={currentStep === 1} />}
 
                 {/* Next button displayed except on the last step */}
-                {currentStep < 3 && <NextButton onClick={handleNextStep} disabled={!isStepValid[currentStep]} />}
+                {currentStep < 3 && <NextButton className='right-align' onClick={handleNextStep} disabled={!isStepValid[currentStep]} />}
 
                 {/* Start button only on the last step */}
                 {currentStep === 3 && <StartButton onClick={handleStart} disabled={!(isStepValid[currentStep] && isStepValid[currentStep + 1])} />}
             </div>
-        </>
-
+        </div>
     );
 }
 
@@ -113,7 +112,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
  */
 function StartButton({ onClick, disabled }) {
     return (
-        <button onClick={onClick} disabled={disabled}>Start</button>
+        <button className='start-button right-align' onClick={onClick} disabled={disabled}>Start</button>
     );
 }
 
