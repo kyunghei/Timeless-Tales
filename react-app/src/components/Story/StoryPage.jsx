@@ -138,7 +138,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                         <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
 
                     {/* Displays pop up screen */}
-                    {showGameOver ? <PopUpScreen /> : null}
+                    {showGameOver ? <PopUpScreen popUpHandler={handlePopUp} /> : null}
                 </div>
             )}
 
