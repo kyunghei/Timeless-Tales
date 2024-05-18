@@ -32,7 +32,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
     const [userChoice, setUserChoice] = useState("");
 
     // Access backend URL from env
-    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+    const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
     // Fetch first story beat data from backend when component mounts.
     useEffect(() => {

@@ -21,7 +21,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
     const navigate = useNavigate(); // Hook for navigation
 
     // Access backend URL from env
-    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+    const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
     // Asynchronously submits all customization data to the backend. On success, navigates user to the story page. 
     async function handleStart() {
