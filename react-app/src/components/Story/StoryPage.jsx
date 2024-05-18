@@ -49,12 +49,12 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
             }
         }
         fetchFirstBeat();
-    }, []);
+    }, [BACKEND_URL]);
 
     // Fetch the next story beat
     async function fetchNextBeat() {
         try {
-            const res = await axios.get(`${BACKEND_URL}/next-story-beat`);
+            const res = await axios.get(`${BACKEND_URL}/next-beat`);
             setCurrentBeatData(res.data);
         } catch (error) {
             console.error('Error fetching next story beat:', error);
