@@ -109,11 +109,11 @@ def post_story_beat():
 # TODO - Can this be combined with the post beat?
 # Can we get data from front end, process it, then return results
 # all in the same function call?
-@app.route('/next-beat', methods=['POST'])
+@app.route('/user_choice', methods=['POST'])
 def get_next_beat():
     """
     When user moves to the next story beats:
-    - Retrieves their choice
+    - Retrieves user choice
     - Iterates story context
     """
     # Get frontend paramters

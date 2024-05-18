@@ -62,6 +62,9 @@ class StoryContext:
             print(f"Unexpected error occurred: {e}")
 
     def reset_to_default(self):
+        """
+        Resets all values to their starting state.
+        """
         # Basic Constants
         self.max_text_length: int = max_text_length
         self.num_of_choices: int = num_of_choices
@@ -87,6 +90,26 @@ class StoryContext:
         # Mutable Story History
         self.story_history: list[str] = story_history
         # self.previous_prompt: str = story_history[0]
+
+    def reset_to_start(self):
+        """
+        Resets (mutable) values to starting state.
+        Leaves constants untouched.
+        """
+        # Mutable Story Status
+        self.current_lives: int = current_lives
+        self.max_lives: int = max_lives
+        self.current_beat: int = current_beat
+        self.intensity: int = intensity
+        self.climax: bool = climax
+        self.gameover: bool = gameover
+
+        # Mutable Story Tags
+        self.user_choice: set[str] = user_choice
+        self.choice_tags: list[set[str]] = choice_tags
+
+        # Mutable Story History
+        self.story_history: list[str] = story_history
 
 
 # **************************************************
