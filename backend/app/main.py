@@ -112,9 +112,9 @@ def post_story_beat():
 @app.route('/user_choice', methods=['POST'])
 def get_next_beat():
     """
-    When user moves to the next story beats:
-    - Retrieves user choice
-    - Iterates story context
+    When user makes a choice, iterate to the next story beat:
+    - Retrieve user choice
+    - Iterate story context
     """
     # Get frontend paramters
     # TODO - not sure how this is stored/passed yet
@@ -158,6 +158,19 @@ def get_parameters():
 
     # Must include return statement or it will result in error
     return jsonify({'message': 'parameters received'})
+
+
+@app.route('/restart', methods=['POST'])
+def restart_story():
+    """
+    Restarts the story by maintaining customizable setting
+    but restarting story specific details.
+    """
+
+    context.reset_to_start()
+
+    # Must include return statement or it will result in error
+    return jsonify({'message': 'story reset'})
 
 
 # **************************************************
