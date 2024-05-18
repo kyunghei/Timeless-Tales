@@ -37,12 +37,12 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
         async function fetchFirstBeat() {
             try {
-                const res = await axios.post('/post-story-beat');
+                const res = await axios.get('/story');
                 setCurrentBeatData(res.data);
-                setIsLoading(false); // Remove loading after receipt of data
             } catch (error) {
                 console.error('Error fetching first story beat:', error);
-                setIsLoading(false);
+            } finally {
+                setIsLoading(false); // Remove loading after receipr of data or error
             }
         }
         fetchFirstBeat();
@@ -53,17 +53,17 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         setShowChoices(!showChoices);
     }
 
-    function handlePopUp(){
+    function handlePopUp() {
         setShowGameOver(!showGameOver);
     }
 
-    function handleUserChoice(user_choice){
+    function handleUserChoice(user_choice) {
         setUserChoice(user_choice);
         //TEST: verify user selection is saved
         console.log(`setting user choice to ${user_choice}`)
     }
 
-    async function handleSendUserChoice(){
+    async function handleSendUserChoice() {
         const formData = {
             user_choice: userChoice
         }
@@ -87,6 +87,8 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         }
 
         //TODO: listen for backend's data
+        // Fetch the next story beat
+        const nextBeat = await axios.post('http://localhost:5172/')
 
         //TEST: automatically switch buttons
         setShowChoices(!showChoices);
@@ -105,21 +107,21 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     {/* Update beginning of story beat */}
                     <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
                     <StoryBeatImage imageUrl={currentBeatData.story_image} />
-                    {showChoices ? 
-                    <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : 
-                    <StoryBeatText story={currentBeatData.story_text}/>}
+                    {showChoices ?
+                        <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
+                        <StoryBeatText story={currentBeatData.story_text} />}
                     <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
 
                     {/* Displays correct button */}
-                    {currentBeatData.current_lives == 0 ? 
-                    <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp}/> : null}
-                    {currentBeatData.current_lives != 0 && showChoices ? 
-                    <SelectChoiceBtn genre={selectedGenre} userChoice = {userChoice} nextHandler={handleSendUserChoice}/> : null}
-                    {currentBeatData.current_lives != 0 && !showChoices ? 
-                    <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
+                    {currentBeatData.current_lives == 0 ?
+                        <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
+                    {currentBeatData.current_lives != 0 && showChoices ?
+                        <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
+                    {currentBeatData.current_lives != 0 && !showChoices ?
+                        <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
 
                     {/* Displays pop up screen */}
-                    {showGameOver? <PopUpScreen/> : null}
+                    {showGameOver ? <PopUpScreen /> : null}
                 </div>
             )}
 
