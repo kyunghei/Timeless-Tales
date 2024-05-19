@@ -85,8 +85,8 @@ def post_story_beat():
         choice1, choice2, choice3 = list(context.choice_options.keys())
     else:
         # What do we do on first beat only
-        story_prompt = helpers.get_story_prompt(context)
-        story_text = get_story_part(story_prompt, context.story_history)
+        prompt = helpers.get_story_prompt(context)
+        story_text = get_story_part(prompt, context.story_history)
         story_text, choice1, choice2, choice3 = split_choices(story_text)
         context.choice_options = {choice1: {"regular"},
                                   choice2: {"regular"},
@@ -139,8 +139,11 @@ def get_next_beat():
     """
     json_object = request.json
     user_choice = json_object.get("user_choice")
-    story_prompt = helpers.get_story_prompt(context)
-    context.next_beat(user_choice, story_prompt)
+
+    prompt = helpers.get_story_prompt(context)
+    story_text = get_story_part(prompt, context.story_history)
+
+    context.next_beat(user_choice, story_text)
 
 
 @app.route('/restart', methods=['POST'])
@@ -150,7 +153,7 @@ def restart_story():
     but restarting story specific details.
     """
 
-    context.reset_to_start()
+    context.reset_mutables()
 
     # Must include return statement or it will result in error
     return jsonify({'message': 'story reset'})

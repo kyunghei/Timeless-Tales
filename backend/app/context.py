@@ -97,7 +97,7 @@ class StoryContext:
         self.story_history: list[str] = story_history
         # self.previous_prompt: str = story_history[0]
 
-    def reset_mutable(self):
+    def reset_mutables(self):
         """
         Resets (mutable) values to starting state.
         Leaves constants untouched.
