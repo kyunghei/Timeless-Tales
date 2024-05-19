@@ -133,32 +133,12 @@ def get_parameters():
 @app.route('/user-choice', methods=['POST'])
 def get_next_beat():
     """
-    When user makes a choice, iterate to the next story beat:
-    - Retrieve user choice
-    - Iterate story context
+    Updates story context based on user choice.
     """
-
-    # Get frontend paramters
-    # TODO - not sure how this is stored/passed yet
-    # Will either save text directly or index choice_tags if given int
     json_object = request.json
-    context.user_choice = json_object.get("userChoice")
-
-    # Update Context
-    context.current_beat += 1
-    context.choice_tags = helpers.get_choice_tags(context)
-
-    # Update Lives
-    for tag in context.user_choice:
-        if tag == "gain_life" and context.current_lives < context.max_lives:
-            context.current_lives += 1
-        if tag == "lose_life":
-            context.current_lives -= 1
-        if context.current_lives <= 0:
-            context.gameover = True
-            # TODO - Remove choices entirely if frontend does not do so
-
-    # TODO - Can we generate story info here instead of in GET
+    user_choice = json_object.get("user_choice")
+    story_prompt = helpers.get_story_prompt(context)
+    context.next_beat(user_choice, story_prompt)
 
 
 @app.route('/restart', methods=['POST'])
