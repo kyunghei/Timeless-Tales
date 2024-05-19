@@ -127,6 +127,7 @@ def get_story_prompt(context: StoryContext) -> str:
     )
 
     return prompt
+    # TODO - Ensure last story beat (game over or final) has no choices.
 
 
 def get_image_prompt(context: StoryContext):

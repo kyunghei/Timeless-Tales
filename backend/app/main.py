@@ -106,37 +106,6 @@ def post_story_beat():
     return jsonify(response_data)
 
 
-# TODO - Can this be combined with the post beat?
-# Can we get data from front end, process it, then return results
-# all in the same function call?
-@app.route('/user_choice', methods=['POST'])
-def get_next_beat():
-    """
-    When user makes a choice, iterate to the next story beat:
-    - Retrieve user choice
-    - Iterate story context
-    """
-    # Get frontend paramters
-    # TODO - not sure how this is stored/passed yet
-    # Will either save text directly or index choice_tags if given int
-    json_object = request.json
-    context.user_choice = json_object.get("userChoice")
-
-    # Update Context
-    context.current_beat += 1
-    context.choice_tags = helpers.get_choice_tags(context)
-
-    # Update Lives
-    for tag in context.user_choice:
-        if tag == "gain_life" and context.current_lives < context.max_lives:
-            context.current_lives += 1
-        if tag == "lose_life":
-            context.current_lives -= 1
-        if context.current_lives <= 0:
-            context.gameover = True
-            # TODO - Remove choices entirely if frontend does not do so
-
-
 @app.route('/customization', methods=['POST'])
 def get_parameters():
     """Update context with parameters from frontend"""
@@ -158,6 +127,37 @@ def get_parameters():
 
     # Must include return statement or it will result in error
     return jsonify({'message': 'parameters received'})
+
+
+@app.route('/user-choice', methods=['POST'])
+def get_next_beat():
+    """
+    When user makes a choice, iterate to the next story beat:
+    - Retrieve user choice
+    - Iterate story context
+    """
+
+    # Get frontend paramters
+    # TODO - not sure how this is stored/passed yet
+    # Will either save text directly or index choice_tags if given int
+    json_object = request.json
+    context.user_choice = json_object.get("userChoice")
+
+    # Update Context
+    context.current_beat += 1
+    context.choice_tags = helpers.get_choice_tags(context)
+
+    # Update Lives
+    for tag in context.user_choice:
+        if tag == "gain_life" and context.current_lives < context.max_lives:
+            context.current_lives += 1
+        if tag == "lose_life":
+            context.current_lives -= 1
+        if context.current_lives <= 0:
+            context.gameover = True
+            # TODO - Remove choices entirely if frontend does not do so
+
+    # TODO - Can we generate story info here instead of in GET
 
 
 @app.route('/restart', methods=['POST'])
