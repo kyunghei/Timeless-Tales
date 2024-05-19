@@ -145,6 +145,8 @@ def get_next_beat():
 
     context.next_beat(user_choice, story_text)
 
+    return jsonify({'message': 'choice received.  story updated.'})
+
 
 @app.route('/restart', methods=['POST'])
 def restart_story():
