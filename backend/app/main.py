@@ -88,6 +88,7 @@ def post_story_beat():
     # Update Internal Data
     # TODO - Implment this elsewhere so all context changed in same place
     context.story_history.append(story_text)
+    context.choice_options = [choice1, choice2, choice3]
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)

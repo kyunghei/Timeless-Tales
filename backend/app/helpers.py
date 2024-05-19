@@ -121,8 +121,7 @@ def get_story_prompt(context: StoryContext) -> str:
     # Combine the elements into a cohesive prompt
     prompt = (
         f"{narrative} The scene is influenced by these themes: "
-        f"{', '.join(context.choice_options[context.user_choice])}. "
-        f"{climax_status} "
+        f"{', '.join(context.user_choice)}. {climax_status} "
         "Craft a scene that includes the following three choices, "
         "each option starting with !!: "
         f"{choices}"
