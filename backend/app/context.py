@@ -64,6 +64,9 @@ class StoryContext:
         except Exception as e:
             print(f"Unexpected error occurred: {e}")
 
+    # --------------------------------------------------
+    #                       Set-Up
+    # --------------------------------------------------
     def reset_all(self):
         """
         Resets all values to their starting state.
@@ -114,45 +117,10 @@ class StoryContext:
         # Mutable Story History
         self.story_history: list[str] = story_history
 
-    def _update_user_choice(self, user_choice):
-        self.user_choice = user_choice
-
-    def _update_context(self, api_response):
-        """
-        Given the latest api_response, updates story context.
-        """
-        self.current_beat += 1
-
-        # Update Story and Tags
-        story_text, choice1, choice2, choice3 = split_choices(api_response)
-        tag1, tag2, tag3 = self.get_choice_tags()
-
-        self.story_history.append(story_text)
-        self.choice_options = {choice1: tag1,
-                               choice2: tag2,
-                               choice3: tag3}
-
-        # Update Lives
-        for tag in self.choice_options[self.user_choice]:
-            if tag == "gain_life" and self.current_lives < self.max_lives:
-                self.current_lives += 1
-            if tag == "lose_life":
-                self.current_lives -= 1
-            if self.current_lives <= 0:
-                self.gameover = True
-
-    def next_beat(self, user_choice: str, api_response: str):
-        """
-        Public function that updates information for next beat.
-        Ensures user_choice & rest of context processed in correct order.
-        """
-        self._update_user_choice(user_choice)
-        self._update_context(api_response)
-
     # --------------------------------------------------
     #                       Tags
     # --------------------------------------------------
-    def get_choice_tags(self) -> list[set[str]]:
+    def _get_choice_tags(self) -> list[set[str]]:
         """Returns the tag options to be used in next story beat."""
         # Determine the combined weight of all options
         choice_weights = dict()  # {tag_name: weight}
@@ -203,6 +171,45 @@ class StoryContext:
             for key in self.choice_options:
                 self.choice_options[key].add("climax")
             self.climax = True
+    # TODO - Perhaps warn prompt ahead of time when context coming
+
+    # --------------------------------------------------
+    #                       Updating Context
+    # --------------------------------------------------
+    def _update_user_choice(self, user_choice):
+        self.user_choice = user_choice
+
+    def _update_context(self, api_response):
+        """
+        Given the latest api_response, updates story context.
+        """
+        self.current_beat += 1
+
+        # Update Story and Tags
+        story_text, choice1, choice2, choice3 = split_choices(api_response)
+        tag1, tag2, tag3 = self._get_choice_tags()
+
+        self.story_history.append(story_text)
+        self.choice_options = {choice1: tag1,
+                               choice2: tag2,
+                               choice3: tag3}
+
+        # Update Lives
+        for tag in self.choice_options[self.user_choice]:
+            if tag == "gain_life" and self.current_lives < self.max_lives:
+                self.current_lives += 1
+            if tag == "lose_life":
+                self.current_lives -= 1
+            if self.current_lives <= 0:
+                self.gameover = True
+
+    def next_beat(self, user_choice: str, api_response: str):
+        """
+        Public function that updates information for next beat.
+        Ensures user_choice & rest of context processed in correct order.
+        """
+        self._update_user_choice(user_choice)
+        self._update_context(api_response)
 
 
 # **************************************************
