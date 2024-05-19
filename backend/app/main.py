@@ -87,7 +87,7 @@ def post_story_beat():
 
     # Update Internal Data
     # TODO - Implment this elsewhere so all context changed in same place
-    context.story_history.append(story_prompt)
+    context.story_history.append(story_text)
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)

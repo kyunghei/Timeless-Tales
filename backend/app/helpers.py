@@ -92,6 +92,7 @@ def get_story_prompt(context: StoryContext) -> str:
 
     # TODO - Adjust the prompt phrasing potentially
     # Construct the narrative context
+    # Construct the narrative context
     narrative = (
         f"After the events of '{context.story_history[-1]}', "
         # TODO - Add the choice that was made
@@ -107,7 +108,7 @@ def get_story_prompt(context: StoryContext) -> str:
     for i in range(3):
         option = (
             f"{i+1}. A choice that features elements related to "
-            f"'{', '.join(context.choice_options[context.user_choice])}', "
+            f"'{', '.join(context.choice_tags[i])}', "
         )
         choices += option
 
