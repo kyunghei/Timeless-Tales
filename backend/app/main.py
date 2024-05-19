@@ -80,15 +80,12 @@ def post_story_beat():
     """
     Returns data to front-end to utilize and display.
     """
-    # Generate Information
-    story_prompt = helpers.get_story_prompt(context)
-    story_text = get_story_part(story_prompt, context.story_history)
-    story_text, choice1, choice2, choice3 = helpers.split_choices(story_text)
-
-    # Update Internal Data
-    # TODO - Implment this elsewhere so all context changed in same place
-    context.story_history.append(story_text)
-    context.choice_options = [choice1, choice2, choice3]
+    # Retrieve Story Info
+    if context.current_beat > 0:
+        choice1, choice2, choice3 = list(context.choice_options.keys())
+    else:
+        # What do we do on first beat only
+        pass
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)
@@ -96,7 +93,7 @@ def post_story_beat():
 
     # Return Data
     response_data = {
-        'story_text': story_text,
+        'story_text': context.story_history[-1],
         'choice_1': choice1,
         'choice_2': choice2,
         'choice_3': choice3,
