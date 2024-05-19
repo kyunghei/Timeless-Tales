@@ -107,7 +107,7 @@ def get_story_prompt(context: StoryContext) -> str:
     for i in range(3):
         option = (
             f"{i+1}. A choice that features elements related to "
-            f"'{', '.join(context.choice_tags[i])}', "
+            f"'{', '.join(context.choice_options[context.user_choice])}', "
         )
         choices += option
 
@@ -120,7 +120,8 @@ def get_story_prompt(context: StoryContext) -> str:
     # Combine the elements into a cohesive prompt
     prompt = (
         f"{narrative} The scene is influenced by these themes: "
-        f"{', '.join(context.user_choice)}. {climax_status} "
+        f"{', '.join(context.choice_options[context.user_choice])}. "
+        f"{climax_status} "
         "Craft a scene that includes the following three choices, "
         "each option starting with !!: "
         f"{choices}"
