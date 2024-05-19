@@ -88,6 +88,9 @@ def post_story_beat():
         story_prompt = helpers.get_story_prompt(context)
         story_text = get_story_part(story_prompt, context.story_history)
         story_text, choice1, choice2, choice3 = split_choices(story_text)
+        context.choice_options = {choice1: {"regular"},
+                                  choice2: {"regular"},
+                                  choice3: {"regular"}}
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)
