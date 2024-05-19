@@ -4,7 +4,7 @@ import os
 import openai
 from dotenv import load_dotenv
 import helpers
-from context import context
+from context import context, split_choices
 
 
 app = Flask(__name__)
@@ -85,7 +85,9 @@ def post_story_beat():
         choice1, choice2, choice3 = list(context.choice_options.keys())
     else:
         # What do we do on first beat only
-        pass
+        story_prompt = helpers.get_story_prompt(context)
+        story_text = get_story_part(story_prompt, context.story_history)
+        story_text, choice1, choice2, choice3 = split_choices(story_text)
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)
