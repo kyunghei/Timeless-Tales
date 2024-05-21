@@ -31,39 +31,40 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
     // State to track user's answer choice
     const [userChoice, setUserChoice] = useState("");
 
+    // Access backend URL from env
+    const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+
     // Fetch first story beat data from backend when component mounts.
     useEffect(() => {
         setIsLoading(true); // Loading before sending request
 
         async function fetchFirstBeat() {
             try {
-                const res = await axios.post('/post-story-beat');
+                const res = await axios.get(`${BACKEND_URL}/story`);
                 setCurrentBeatData(res.data);
-                setIsLoading(false); // Remove loading after receipt of data
             } catch (error) {
                 console.error('Error fetching first story beat:', error);
-                setIsLoading(false);
+            } finally {
+                setIsLoading(false); // Remove loading after receipt of data or error
             }
         }
         fetchFirstBeat();
-    }, []);
+    }, [BACKEND_URL]);
 
-
-    function handleNext() {
-        setShowChoices(!showChoices);
+    // Fetch the next story beat
+    async function fetchNextBeat() {
+        try {
+            const res = await axios.get(`${BACKEND_URL}/next-beat`);
+            setCurrentBeatData(res.data);
+        } catch (error) {
+            console.error('Error fetching next story beat:', error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
-    function handlePopUp(){
-        setShowGameOver(!showGameOver);
-    }
-
-    function handleUserChoice(user_choice){
-        setUserChoice(user_choice);
-        //TEST: verify user selection is saved
-        console.log(`setting user choice to ${user_choice}`)
-    }
-
-    async function handleSendUserChoice(){
+    // Handle user choice submission
+    async function handleSendUserChoice() {
         const formData = {
             user_choice: userChoice
         }
@@ -73,12 +74,16 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
         //POST REQUEST
         try {
-            const res = await axios.post('http://localhost:5172/user-choice', formData);
+            const res = await axios.post(`${BACKEND_URL}/user-choice`, formData);
 
             if (res.status === 200) {
                 console.log("form submission successful");
                 //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
                 setIsLoading(true);
+
+                // Fetch the next story beat
+                await fetchNextBeat();
+
             } else {
                 console.error("Couldn't post form data with user choice:", res.status);
             }
@@ -86,10 +91,24 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
             console.error("Error submitting the form data");
         }
 
-        //TODO: listen for backend's data
 
         //TEST: automatically switch buttons
         setShowChoices(!showChoices);
+    }
+
+
+    function handleNext() {
+        setShowChoices(!showChoices);
+    }
+
+    function handlePopUp() {
+        setShowGameOver(!showGameOver);
+    }
+
+    function handleUserChoice(user_choice) {
+        setUserChoice(user_choice);
+        //TEST: verify user selection is saved
+        console.log(`setting user choice to ${user_choice}`)
     }
 
     return (
@@ -105,21 +124,21 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     {/* Update beginning of story beat */}
                     <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
                     <StoryBeatImage imageUrl={currentBeatData.story_image} />
-                    {showChoices ? 
-                    <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : 
-                    <StoryBeatText story={currentBeatData.story_text}/>}
+                    {showChoices ?
+                        <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
+                        <StoryBeatText text={currentBeatData.story_text} />}
                     <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
 
                     {/* Displays correct button */}
-                    {currentBeatData.current_lives == 0 ? 
-                    <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp}/> : null}
-                    {currentBeatData.current_lives != 0 && showChoices ? 
-                    <SelectChoiceBtn genre={selectedGenre} userChoice = {userChoice} nextHandler={handleSendUserChoice}/> : null}
-                    {currentBeatData.current_lives != 0 && !showChoices ? 
-                    <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
+                    {currentBeatData.current_lives == 0 ?
+                        <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
+                    {currentBeatData.current_lives != 0 && showChoices ?
+                        <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
+                    {currentBeatData.current_lives != 0 && !showChoices ?
+                        <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
 
                     {/* Displays pop up screen */}
-                    {showGameOver? <PopUpScreen/> : null}
+                    {showGameOver ? <PopUpScreen popUpHandler={handlePopUp} /> : null}
                 </div>
             )}
 

@@ -1,5 +1,6 @@
 // import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 /**
  * Pop Up Screen Contents
@@ -16,16 +17,28 @@ function PopUpScreen() {
     //  #3 End Game, Navigate to Home Page
     const navigate = useNavigate();
 
-    function toCustomization(){
+    // Access backend URL from env
+    const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+
+    function toCustomization() {
         navigate('/customization')
-        //communicate with backend that we are restarting from beginning
     }
 
-    function keepCustomization(){
-        //pass prop to parent that game is not over
-        //close popup
-        //parent must send backend the same customization choices, Story with lives = 3, current_beat = 1
+    async function keepCustomization() {
+
+        // TEST
         console.log("keeping customization choices")
+
+        try {
+            const res = await axios.post(`${BACKEND_URL}/restart`);
+            if (res.status === 200) {
+                // navigating will refresh the states within 'StoryPage' to its original default values when remounted.
+                navigate('/story');
+            }
+        } catch (error) {
+            console.error('Error restarting story with current settings:', error);
+        }
+
     }
     return (
         <>
