@@ -79,7 +79,11 @@ def get_image_URL(img_prompt: str) -> str:
 def post_story_beat():
     """
     Returns data to front-end to utilize and display.
+    Includes condition for 1st iteration.
     """
+    # TODO - We either need to consolidate /story and /next-beat to this path
+    # OR remove the conditional and make each do their own thing.
+
     # Retrieve Story Info
     if context.current_beat > 0:
         choice1, choice2, choice3 = list(context.choice_options.keys())
@@ -91,6 +95,31 @@ def post_story_beat():
         context.choice_options = {choice1: {"regular"},
                                   choice2: {"regular"},
                                   choice3: {"regular"}}
+
+    # Generate Image
+    image_prompt = helpers.get_image_prompt(context)
+    story_image = get_image_URL(image_prompt)
+
+    # Return Data
+    response_data = {
+        'story_text': context.story_history[-1],
+        'choice_1': choice1,
+        'choice_2': choice2,
+        'choice_3': choice3,
+        'story_image': story_image,
+        'current_beat': context.current_beat,
+        'current_lives': context.current_lives
+    }
+    return jsonify(response_data)
+
+
+@app.route('/next-beat', methods=['GET'])
+def next_beat():
+    """
+    Same as /story but for subsequent beats only.
+    """
+    # Retrieve Story Info
+    choice1, choice2, choice3 = list(context.choice_options.keys())
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)
