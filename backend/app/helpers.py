@@ -11,7 +11,7 @@ intensity_descriptor = {0: "gentle, serene",
 
 
 # **************************************************
-#                    Prompts
+#                    Prompts Getters
 # **************************************************
 # TODO - Breakdown prompting into smaller chunks and multiple functions?
 # TODO - History is handled in the prompt request and can be omitted
@@ -20,17 +20,7 @@ def get_story_prompt(context: StoryContext) -> str:
     """Generates a prompt to feed the API to generate next paragrpah."""
     # Gameover Check
     if context.gameover:
-        narrative = (
-            f"After the events of '{context.story_history[-1]}', "
-            f"our story concludes in the genre of {context.genre}. "
-        )
-
-        game_over_reason = (
-            f"The choices made: {', '.join(context.user_choice)} "
-            "led to an outcome where the protagonist could no longer continue."
-        )
-
-        return (f"{narrative} {game_over_reason}")
+        return _gameover_text(context)
 
     # TODO - Adjust the prompt phrasing potentially
     # Construct the narrative context
@@ -83,12 +73,76 @@ def get_image_prompt(context: StoryContext):
     return prompt
 
 
-# Test helper functions
+# **************************************************
+#                    Prompts Helpers
+# **************************************************
+def _describe_background(context: StoryContext):
+    """
+    Gives the API the current background info.
+    Such as: genre, current progress, tone
+    Note - History is handled in the API request itself.
+    """
+    background = (
+        f"We are currently {context.current_beat} out of {context.max_beats}"
+        f"of the way though a story in the {context.genre} genre."
+        f"In the previous scene, the user chose to {context.user_choice}"
+    )
+    return background
+
+
+def _describe_narrative(context: StoryContext):
+    """
+    Request the API generate the narrative
+    """
+    narrative = (
+        f"Given this context, please describe what happens next."
+        f"Limiting this description to {context.max_text_length}."
+    )
+    return narrative
+
+
+def _describe_choices(context: StoryContext):
+    setup = (
+        f"Additionally, give the user {context.num_of_choices} choices"
+        f"allowing them to decide what they will do next. "
+    )
+
+    choices = ""
+
+    for _, tags in context.choice_options:
+        option = (
+            f"Include a choice that features elements related to "
+            f"these themes: '{', '.join(tags)}', "
+        )
+        choices += option
+
+    return setup + choices
+
+
+    def _gameover_text(context: StoryContext):
+        """
+        Gives the entirty of the prompt for a gameover state.
+        """
+        narrative = (
+            f"After the events of '{context.story_history[-1]}', "
+            f"our story concludes in the genre of {context.genre}. "
+        )
+
+        game_over_reason = (
+            f"The choices made: {', '.join(context.user_choice)} "
+            "led to an outcome where the protagonist could no longer continue."
+        )
+
+        return (f"{narrative} {game_over_reason}")
+
+
+# **************************************************
+#                    Main
+# **************************************************
 if __name__ == "__main__":
     prompt = get_story_prompt(test_context)
     print(prompt)
 
 
-# TODO - Document the different variable options in README.
 # TODO - Note choices start with !!
 # TODO - Adjust tag values

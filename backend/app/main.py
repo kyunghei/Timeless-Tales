@@ -169,8 +169,8 @@ def get_next_beat():
     json_object = request.json
     user_choice = json_object.get("user_choice")
 
-    prompt = helpers.get_story_prompt(context)
-    story_text = get_story_part(prompt, context.story_history)
+    story_prompt = helpers.get_story_prompt(context)
+    story_text = get_story_part(story_prompt, context.story_history)
 
     context.next_beat(user_choice, story_text)
 
