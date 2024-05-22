@@ -194,26 +194,5 @@ def restart_story():
 #         Main
 # **************************************************
 if __name__ == "__main__":
-    # Tweak Story Context
-    # TODO: Get frontend parameters and set context with them
-
-    # context.story_history[0] = (
-    #                       f"Give me an introduction to a {context.genre} "
-    #                       f"story with character named {context.user_name}."
-    #                       f"This introduction shall not "
-    #                       f"exceed {context.max_text_length}.")
-
-    # TODO: Create a path and/or function to reset story context back to start
-
     # Initialize App
     app.run(debug=True)
-
-    # Eliminated the loop in place of app.run.
-    # TODO - I think we need to set up an end-point.
-    """
-    Actually, I think we need two.
-    The first endpoint is triggered when story starts, prepping story
-    with the default values.
-    The second endpoint is triggered when a choiec is made, triggering
-    an update of all the story variables (same info from loop basically)
-    """
