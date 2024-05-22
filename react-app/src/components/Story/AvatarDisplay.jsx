@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
  */
 
 const avatars = {
-    Western: ['/avatars/western1.png', '/avatars/western2.webp', '/avatars/western3.webp'],
-    SciFi: ['/avatars/scifi1.webp', '/avatars/scifi2.webp', '/avatars/scifi3.webp'],
-    Fantasy: ['/avatars/fantasy1.webp', '/avatars/fantasy2.webp', '/avatars/fantasy3.webp']
+    Western: ['/avatars/western1-250.png', '/avatars/western2-250.webp', '/avatars/western3-250.webp'],
+    SciFi: ['/avatars/scifi1-250.webp', '/avatars/scifi2-250.webp', '/avatars/scifi3-250.webp'],
+    Fantasy: ['/avatars/fantasy1-250.webp', '/avatars/fantasy2-250.webp', '/avatars/fantasy3-250.webp']
 }
 
 function AvatarDisplay({ name, avatar, genre }) {

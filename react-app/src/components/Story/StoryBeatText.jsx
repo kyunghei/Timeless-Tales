@@ -2,15 +2,16 @@ import PropTypes from 'prop-types';
 
 /**
  * Displays the story beat text
- * @param {string} text
+ * @param {string} story
  */
 
 
-function StoryBeatText({ text }) {
+function StoryBeatText({ story }) {
+    console.log("text component");
 
     return (
         <div>
-            {text}
+            {story}
         </div>
     );
 }
@@ -18,5 +19,5 @@ function StoryBeatText({ text }) {
 export default StoryBeatText;
 
 StoryBeatText.propTypes = {
-    text: PropTypes.string.isRequired
+    story: PropTypes.string.isRequired
 }
