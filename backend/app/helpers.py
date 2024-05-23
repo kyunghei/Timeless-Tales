@@ -16,7 +16,9 @@ intensity_descriptor = {0: "gentle, serene",
 #                    Prompts Getters
 # **************************************************
 def get_story_prompt(context: StoryContext) -> str:
-    """Generates a prompt to feed the API to generate next paragrpah."""
+    """
+    Generates a prompt to feed the API to generate next paragrpah.
+    """
     prompt = []
     # General Details
     prompt.append(_describe_background(context))
@@ -35,7 +37,9 @@ def get_story_prompt(context: StoryContext) -> str:
 
 
 def get_image_prompt(context: StoryContext):
-    """Given current paragraph, u"""
+    """
+    Generates a prompt for an image.
+    """
     prompt = (
         f"Create an image in the {context.genre} style "
         f"based on the narrative: '"
@@ -97,7 +101,8 @@ def _describe_ending(context: StoryContext):
 def _describe_choices(context: StoryContext):
     setup = (
         f"Additionally, give the user {context.num_of_choices} choices "
-        f"allowing them to decide what they will do next: "
+        f"allowing them to decide what they will do next. "
+        f"Each generated choice option MUST begin with !!. "
     )
 
     choices = ""
