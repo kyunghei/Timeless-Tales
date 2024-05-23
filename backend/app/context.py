@@ -48,7 +48,7 @@ This helps reduce inputs on functions that require multiple bits of info.
 
 class StoryContext:
     def __init__(self):
-        self.reset_to_default()
+        self.reset_all()
 
         # Save story tag JSON file
         try:
