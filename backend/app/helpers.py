@@ -15,9 +15,6 @@ intensity_descriptor = {0: "gentle, serene",
 # **************************************************
 #                    Prompts Getters
 # **************************************************
-# TODO - Breakdown prompting into smaller chunks and multiple functions?
-# TODO - History is handled in the prompt request and can be omitted
-# TODO - Incldue the text from the users choice if possible in this request
 def get_story_prompt(context: StoryContext) -> str:
     """Generates a prompt to feed the API to generate next paragrpah."""
     prompt = []
