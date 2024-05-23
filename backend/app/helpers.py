@@ -115,7 +115,12 @@ def _describe_choices(context: StoryContext):
         )
         choices += choice_text
 
-    return setup + choices
+    instructions = (
+        "Avoid any text after the choices are given "
+        "and use !! instead of numbers for each option. "
+    )
+
+    return setup + choices + instructions
 
 
 # **************************************************
