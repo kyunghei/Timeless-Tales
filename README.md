@@ -36,8 +36,8 @@ This section details all the context variables used in the "Timeless Tales" appl
 
 ### Mutable Story Tags
 
-- **`user_choice`** (*set[str]*): The most recent choice made by the user, detailed enough to influence future story developments. Example: `{"regular"}`
-- **`choice_tags`** (*list[set[str]]*): List of current options given to the user, tagged to classify each type of choice. These tags help determine how the story progresses. Example: `[{"regular"}, {"regular", "foreshadow"}, {"climax", "lose_life}]`
+- **`user_choice`** (*str*): The most recent choice made by the user, detailed enough to influence future story developments. Example: `"regular"`
+- **`choice_options`** (*dict[str: set] *): List of current options given to the user, tagged to classify each type of choice. These tags help determine how the story progresses. Example: `{"Choice 1": {"regular"}, "Choice 2: {"regular", "foreshadow"}, "Choice 3": {"climax", "lose_life}}`
 
 ### Mutable Story History
 

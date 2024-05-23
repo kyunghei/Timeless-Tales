@@ -1,3 +1,5 @@
+# TODO - Adjust tag values
+
 from context import StoryContext
 from context import context as test_context
 
@@ -11,70 +13,33 @@ intensity_descriptor = {0: "gentle, serene",
 
 
 # **************************************************
-#                    Prompts
+#                    Prompts Getters
 # **************************************************
-# TODO - Breakdown prompting into smaller chunks and multiple functions?
-# TODO - History is handled in the prompt request and can be omitted
-# TODO - Incldue the text from the users choice if possible in this request
 def get_story_prompt(context: StoryContext) -> str:
-    """Generates a prompt to feed the API to generate next paragrpah."""
-    # Gameover Check
-    if context.gameover:
-        narrative = (
-            f"After the events of '{context.story_history[-1]}', "
-            f"our story concludes in the genre of {context.genre}. "
-        )
-
-        game_over_reason = (
-            f"The choices made: {', '.join(context.user_choice)} "
-            "led to an outcome where the protagonist could no longer continue."
-        )
-
-        return (f"{narrative} {game_over_reason}")
-
-    # TODO - Adjust the prompt phrasing potentially
-    # Construct the narrative context
-    # Construct the narrative context
-    narrative = (
-        f"After the events of '{context.story_history[-1]}', "
-        # TODO - Add the choice that was made
-        f"our story continues in the genre of {context.genre}, "
-        f"reaching a pivotal moment at beat {context.current_beat} of "
-        f"{context.max_beats}, with the current intensity described as "
-        f"{intensity_descriptor[context.intensity]}."
-    )
-
-    # Construct the choice options
-    # TODO - Consider translating tag phrasing for this section
-    choices = ""
-    for i in range(3):
-        option = (
-            f"{i+1}. A choice that features elements related to "
-            f"'{', '.join(context.choice_tags[i])}', "
-        )
-        choices += option
-
-    # Construct the climax status
+    """
+    Generates a prompt to feed the API to generate next paragrpah.
+    """
+    prompt = []
+    # General Details
+    prompt.append(_describe_background(context))
+    prompt.append(_describe_narrative(context))
+    # Determine if story is about to end
+    end_state = context.gameover or context.max_beats == context.current_beat
+    # Add conditional details
+    if end_state:
+        prompt.append(_describe_ending(context))
     if context.climax:
-        climax_status = "This should be constructed as a climactic moment."
-    else:
-        climax_status = ""
+        prompt.append(_describe_climax)
+    if not end_state:
+        prompt.append(_describe_choices(context))
 
-    # Combine the elements into a cohesive prompt
-    prompt = (
-        f"{narrative} The scene is influenced by these themes: "
-        f"{', '.join(context.user_choice)}. {climax_status} "
-        "Craft a scene that includes the following three choices, "
-        "each option starting with !!: "
-        f"{choices}"
-    )
-
-    return prompt
-    # TODO - Ensure last story beat (game over or final) has no choices.
+    return " ".join(prompt)
 
 
 def get_image_prompt(context: StoryContext):
-    """Given current paragraph, u"""
+    """
+    Generates a prompt for an image.
+    """
     prompt = (
         f"Create an image in the {context.genre} style "
         f"based on the narrative: '"
@@ -83,12 +48,84 @@ def get_image_prompt(context: StoryContext):
     return prompt
 
 
-# Test helper functions
+# **************************************************
+#                    Prompts Helpers
+# **************************************************
+def _describe_background(context: StoryContext):
+    """
+    Gives the API the current background info.
+    Such as: genre, current progress, tone
+    Note - History is handled in the API request itself.
+    """
+    background = (
+        f"We are currently {context.current_beat} out of {context.max_beats} "
+        f"of the way though a story in the {context.genre} genre. "
+        f"In the previous scene, the user chose to {context.user_choice}. "
+    )
+    return background
+
+
+def _describe_narrative(context: StoryContext):
+    """
+    Request the API generate the narrative
+    """
+    narrative = (
+        f"Given this context, please describe what happens next. "
+        f"Limit this description to {context.max_text_length} words."
+    )
+    return narrative
+
+
+def _describe_climax(context: StoryContext):
+    """
+    Request the API work in a climatic description.
+    """
+    # TODO - This is its own function so we can split climax
+    # from the scene leading to the climax.
+    return "Construct this response as the story's climax."
+
+
+def _describe_ending(context: StoryContext):
+    """
+    Request the API generate the end of the story.
+    """
+    narrative = []
+    narrative.append("This is the final paragraph of the story.")
+    if context.gameover:
+        narrative.append("The most recent choice has led to a gameover.")
+    narrative.append("Please write a satisfying conclusion.")
+
+    return " ".join(narrative)
+
+
+def _describe_choices(context: StoryContext):
+    setup = (
+        f"Additionally, give the user {context.num_of_choices} choices "
+        f"allowing them to decide what they will do next. "
+        f"Each generated choice option MUST begin with !!. "
+    )
+
+    choices = ""
+    print(context.choice_options)
+    for _, tags_set in context.choice_options.items():
+        tags = list(tags_set)
+        choice_text = (
+            f"Include a choice that features elements related to "
+            f"these themes: '{', '.join(tags)}'. "
+        )
+        choices += choice_text
+
+    instructions = (
+        "Avoid any text after the choices are given "
+        "and use !! instead of numbers for each option. "
+    )
+
+    return setup + choices + instructions
+
+
+# **************************************************
+#                    Main
+# **************************************************
 if __name__ == "__main__":
     prompt = get_story_prompt(test_context)
     print(prompt)
-
-
-# TODO - Document the different variable options in README.
-# TODO - Note choices start with !!
-# TODO - Adjust tag values

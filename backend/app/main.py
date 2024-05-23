@@ -79,7 +79,11 @@ def get_image_URL(img_prompt: str) -> str:
 def post_story_beat():
     """
     Returns data to front-end to utilize and display.
+    Includes condition for 1st iteration.
     """
+    # TODO - We either need to consolidate /story and /next-beat to this path
+    # OR remove the conditional and make each do their own thing.
+
     # Retrieve Story Info
     if context.current_beat > 0:
         choice1, choice2, choice3 = list(context.choice_options.keys())
@@ -91,6 +95,31 @@ def post_story_beat():
         context.choice_options = {choice1: {"regular"},
                                   choice2: {"regular"},
                                   choice3: {"regular"}}
+
+    # Generate Image
+    image_prompt = helpers.get_image_prompt(context)
+    story_image = get_image_URL(image_prompt)
+
+    # Return Data
+    response_data = {
+        'story_text': context.story_history[-1],
+        'choice_1': choice1,
+        'choice_2': choice2,
+        'choice_3': choice3,
+        'story_image': story_image,
+        'current_beat': context.current_beat,
+        'current_lives': context.current_lives
+    }
+    return jsonify(response_data)
+
+
+@app.route('/next-beat', methods=['GET'])
+def next_beat():
+    """
+    Same as /story but for subsequent beats only.
+    """
+    # Retrieve Story Info
+    choice1, choice2, choice3 = list(context.choice_options.keys())
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)
@@ -140,8 +169,8 @@ def get_next_beat():
     json_object = request.json
     user_choice = json_object.get("user_choice")
 
-    prompt = helpers.get_story_prompt(context)
-    story_text = get_story_part(prompt, context.story_history)
+    story_prompt = helpers.get_story_prompt(context)
+    story_text = get_story_part(story_prompt, context.story_history)
 
     context.next_beat(user_choice, story_text)
 
@@ -165,26 +194,5 @@ def restart_story():
 #         Main
 # **************************************************
 if __name__ == "__main__":
-    # Tweak Story Context
-    # TODO: Get frontend parameters and set context with them
-
-    # context.story_history[0] = (
-    #                       f"Give me an introduction to a {context.genre} "
-    #                       f"story with character named {context.user_name}."
-    #                       f"This introduction shall not "
-    #                       f"exceed {context.max_text_length}.")
-
-    # TODO: Create a path and/or function to reset story context back to start
-
     # Initialize App
     app.run(debug=True)
-
-    # Eliminated the loop in place of app.run.
-    # TODO - I think we need to set up an end-point.
-    """
-    Actually, I think we need two.
-    The first endpoint is triggered when story starts, prepping story
-    with the default values.
-    The second endpoint is triggered when a choiec is made, triggering
-    an update of all the story variables (same info from loop basically)
-    """
