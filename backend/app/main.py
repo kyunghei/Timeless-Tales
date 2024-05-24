@@ -81,49 +81,25 @@ def post_story_beat():
     Returns data to front-end to utilize and display.
     Includes condition for 1st iteration.
     """
-    # TODO - We either need to consolidate /story and /next-beat to this path
-    # OR remove the conditional and make each do their own thing.
-
     # Retrieve Story Info
     if context.current_beat > 0:
         choice1, choice2, choice3 = list(context.choice_options.keys())
     else:
+        # DEBUG
+        print("First /story call")
         # What do we do on first beat only
         prompt = helpers.get_story_prompt(context)
         story_text = get_story_part(prompt, context.story_history)
         story_text, choice1, choice2, choice3 = split_choices(story_text)
+        context.story_history.append(story_text)
         context.choice_options = {choice1: {"regular"},
                                   choice2: {"regular"},
                                   choice3: {"regular"}}
 
     # Generate Image
-    image_prompt = helpers.get_image_prompt(context)
-    story_image = get_image_URL(image_prompt)
-
-    # Return Data
-    response_data = {
-        'story_text': context.story_history[-1],
-        'choice_1': choice1,
-        'choice_2': choice2,
-        'choice_3': choice3,
-        'story_image': story_image,
-        'current_beat': context.current_beat,
-        'current_lives': context.current_lives
-    }
-    return jsonify(response_data)
-
-
-@app.route('/next-beat', methods=['GET'])
-def next_beat():
-    """
-    Same as /story but for subsequent beats only.
-    """
-    # Retrieve Story Info
-    choice1, choice2, choice3 = list(context.choice_options.keys())
-
-    # Generate Image
-    image_prompt = helpers.get_image_prompt(context)
-    story_image = get_image_URL(image_prompt)
+    # image_prompt = helpers.get_image_prompt(context)
+    # story_image = get_image_URL(image_prompt)
+    story_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4NvLQAn3DFg-KAeSiGOuZBsiXDcdtK8__Pgokt4NMjQ&s"  # noqa
 
     # Return Data
     response_data = {
@@ -144,6 +120,7 @@ def get_parameters():
 
     # DEBUG: Confirm HTTP request
     print(f"Received request at {request.url}")
+    print("CUSTOMIZATION")
 
     # Get frontend parameters
     json_object = request.json
@@ -166,12 +143,13 @@ def get_next_beat():
     """
     Updates story context based on user choice.
     """
+    # Get user choice
     json_object = request.json
-    user_choice = json_object.get("user_choice")
+    user_choice = helpers.convert_choice(context,
+                                         json_object.get("user_choice"))
 
     story_prompt = helpers.get_story_prompt(context)
     story_text = get_story_part(story_prompt, context.story_history)
-
     context.next_beat(user_choice, story_text)
 
     return jsonify({'message': 'choice received.  story updated.'})
@@ -183,7 +161,6 @@ def restart_story():
     Restarts the story by maintaining customizable setting
     but restarting story specific details.
     """
-
     context.reset_mutables()
 
     # Must include return statement or it will result in error
