@@ -140,9 +140,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         <>
             {isLoading ? (
                 <div>Loading...</div>
-            ) : error ? (
+            ) : error.context ? (
                 <div>
-                    {error}
+                    {error.message}
                     <button onClick={retry}>Retry</button>
                 </div>
             ) : (
