@@ -4,7 +4,7 @@ import os
 import openai
 from dotenv import load_dotenv
 import helpers
-from context import context
+from context import context, split_choices
 
 
 app = Flask(__name__)
@@ -79,15 +79,22 @@ def get_image_URL(img_prompt: str) -> str:
 def post_story_beat():
     """
     Returns data to front-end to utilize and display.
+    Includes condition for 1st iteration.
     """
-    # Generate Information
-    story_prompt = helpers.get_story_prompt(context)
-    story_text = get_story_part(story_prompt, context.story_history)
-    story_text, choice1, choice2, choice3 = helpers.split_choices(story_text)
+    # TODO - We either need to consolidate /story and /next-beat to this path
+    # OR remove the conditional and make each do their own thing.
 
-    # Update Internal Data
-    # TODO - Implment this elsewhere so all context changed in same place
-    context.story_history.append(story_prompt)
+    # Retrieve Story Info
+    if context.current_beat > 0:
+        choice1, choice2, choice3 = list(context.choice_options.keys())
+    else:
+        # What do we do on first beat only
+        prompt = helpers.get_story_prompt(context)
+        story_text = get_story_part(prompt, context.story_history)
+        story_text, choice1, choice2, choice3 = split_choices(story_text)
+        context.choice_options = {choice1: {"regular"},
+                                  choice2: {"regular"},
+                                  choice3: {"regular"}}
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)
@@ -95,7 +102,34 @@ def post_story_beat():
 
     # Return Data
     response_data = {
-        'story_text': story_text,
+        'story_text': context.story_history[-1],
+        'choice_1': choice1,
+        'choice_2': choice2,
+        'choice_3': choice3,
+        'story_image': story_image,
+        'current_beat': context.current_beat,
+        'current_lives': context.current_lives
+    }
+    # DEBUG
+    print(f"RESPONSE DATA: {response_data}")
+    return jsonify(response_data)
+
+
+@app.route('/next-beat', methods=['GET'])
+def next_beat():
+    """
+    Same as /story but for subsequent beats only.
+    """
+    # Retrieve Story Info
+    choice1, choice2, choice3 = list(context.choice_options.keys())
+
+    # Generate Image
+    image_prompt = helpers.get_image_prompt(context)
+    story_image = get_image_URL(image_prompt)
+
+    # Return Data
+    response_data = {
+        'story_text': context.story_history[-1],
         'choice_1': choice1,
         'choice_2': choice2,
         'choice_3': choice3,
@@ -104,37 +138,6 @@ def post_story_beat():
         'current_lives': context.current_lives
     }
     return jsonify(response_data)
-
-
-# TODO - Can this be combined with the post beat?
-# Can we get data from front end, process it, then return results
-# all in the same function call?
-@app.route('/next-beat', methods=['POST'])
-def get_next_beat():
-    """
-    When user moves to the next story beats:
-    - Retrieves their choice
-    - Iterates story context
-    """
-    # Get frontend paramters
-    # TODO - not sure how this is stored/passed yet
-    # Will either save text directly or index choice_tags if given int
-    json_object = request.json
-    context.user_choice = json_object.get("userChoice")
-
-    # Update Context
-    context.current_beat += 1
-    context.choice_tags = helpers.get_choice_tags(context)
-
-    # Update Lives
-    for tag in context.user_choice:
-        if tag == "gain_life" and context.current_lives < context.max_lives:
-            context.current_lives += 1
-        if tag == "lose_life":
-            context.current_lives -= 1
-        if context.current_lives <= 0:
-            context.gameover = True
-            # TODO - Remove choices entirely if frontend does not do so
 
 
 @app.route('/customization', methods=['POST'])
@@ -160,30 +163,38 @@ def get_parameters():
     return jsonify({'message': 'parameters received'})
 
 
+@app.route('/user-choice', methods=['POST'])
+def get_next_beat():
+    """
+    Updates story context based on user choice.
+    """
+    json_object = request.json
+    user_choice = json_object.get("user_choice")
+
+    story_prompt = helpers.get_story_prompt(context)
+    story_text = get_story_part(story_prompt, context.story_history)
+
+    context.next_beat(user_choice, story_text)
+
+    return jsonify({'message': 'choice received.  story updated.'})
+
+
+@app.route('/restart', methods=['POST'])
+def restart_story():
+    """
+    Restarts the story by maintaining customizable setting
+    but restarting story specific details.
+    """
+
+    context.reset_mutables()
+
+    # Must include return statement or it will result in error
+    return jsonify({'message': 'story reset'})
+
+
 # **************************************************
 #         Main
 # **************************************************
 if __name__ == "__main__":
-    # Tweak Story Context
-    # TODO: Get frontend parameters and set context with them
-
-    # context.story_history[0] = (
-    #                       f"Give me an introduction to a {context.genre} "
-    #                       f"story with character named {context.user_name}."
-    #                       f"This introduction shall not "
-    #                       f"exceed {context.max_text_length}.")
-
-    # TODO: Create a path and/or function to reset story context back to start
-
     # Initialize App
     app.run(debug=True)
-
-    # Eliminated the loop in place of app.run.
-    # TODO - I think we need to set up an end-point.
-    """
-    Actually, I think we need two.
-    The first endpoint is triggered when story starts, prepping story
-    with the default values.
-    The second endpoint is triggered when a choiec is made, triggering
-    an update of all the story variables (same info from loop basically)
-    """

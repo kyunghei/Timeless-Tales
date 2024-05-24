@@ -1,4 +1,5 @@
-import random
+# TODO - Adjust tag values
+
 from context import StoryContext
 from context import context as test_context
 
@@ -12,125 +13,33 @@ intensity_descriptor = {0: "gentle, serene",
 
 
 # **************************************************
-#                    Tags
+#                    Prompts Getters
 # **************************************************
-def get_choice_tags(context: StoryContext) -> list[set[str]]:
-    """Returns the tag options to be used in next story beat."""
-    # Determine the combined weight of all options
-    choice_weights = dict()  # {tag_name: weight}
-
-    # Add weights associated with each tag
-    for outer_tag in context.user_choice:
-        for inner_tag, weight in context.tag_weights[outer_tag].items():
-            # Fetches current weight or sets to 0 if non-existant
-            current_weight = choice_weights.setdefault(inner_tag, 0)
-            # Adds the new weight
-            choice_weights[inner_tag] = current_weight + weight
-
-    # Randomly select tags based on weight
-    future_tag_options = []  # [{"tag", "tag"}, {"tag"}...]
-    keys = list(choice_weights.keys())
-    weights = list(choice_weights.values())
-    for _ in range(context.num_of_choices):
-        future_tag_options.append(_select_tag_set(keys, weights))
-
-    # Determine if climax tag needs added
-    _update_climax_status(context)
-
-    return future_tag_options
-
-
-def _select_tag_set(keys, weights) -> set:
-    """
-    Helper func that determines a set of tags for ONE choice.
-    Call this for each choice the user will be presented.
-    """
-    choice = []
-    # Pick first tag
-    choice.append(random.choices(keys, weights=weights, k=1)[0])
-    # Pick additional tags at increasingly lower chances
-    if random.randint(1, 100) <= 25:
-        choice.append(random.choices(keys, weights=weights, k=1)[0])
-    if random.randint(1, 100) <= 5:
-        choice.append(random.choices(keys, weights=weights, k=1)[0])
-    return set(choice)
-
-
-def _update_climax_status(context: StoryContext):
-    """Use AFTER new tags generated.  Determines if climax should be used.
-    Updates the tags AND internal variables in StoryContext"""
-    climax_ready = (context.max_beats * 3 / 4) > context.current_beat
-    # Turn off climax if it already happened
-    if context.climax is True:
-        context.climax = False
-    # Otherwise check if it should be activated
-    elif climax_ready:
-        for tag_set in context.cur_tags:
-            tag_set.add("climax")
-        context.climax = True
-
-
-# **************************************************
-#                    Prompts
-# **************************************************
-# TODO - Breakdown prompting into smaller chunks and multiple functions?
 def get_story_prompt(context: StoryContext) -> str:
-    """Generates a prompt to feed the API to generate next paragrpah."""
-    # Gameover Check
-    if context.gameover:
-        narrative = (
-            f"After the events of '{context.story_history[-1]}', "
-            f"our story concludes in the genre of {context.genre}. "
-        )
-
-        game_over_reason = (
-            f"The choices made: {', '.join(context.user_choice)} "
-            "led to an outcome where the protagonist could no longer continue."
-        )
-
-        return (f"{narrative} {game_over_reason}")
-
-    # TODO - Adjust the prompt phrasing potentially
-    # Construct the narrative context
-    narrative = (
-        f"After the events of '{context.story_history[-1]}', "
-        # TODO - Add the choice that was made
-        f"our story continues in the genre of {context.genre}, "
-        f"reaching a pivotal moment at beat {context.current_beat} of "
-        f"{context.max_beats}, with the current intensity described as "
-        f"{intensity_descriptor[context.intensity]}."
-    )
-
-    # Construct the choice options
-    # TODO - Consider translating tag phrasing for this section
-    choices = ""
-    for i in range(3):
-        option = (
-            f"{i+1}. A choice that features elements related to "
-            f"'{', '.join(context.choice_tags[i])}', "
-        )
-        choices += option
-
-    # Construct the climax status
+    """
+    Generates a prompt to feed the API to generate next paragrpah.
+    """
+    prompt = []
+    # General Details
+    prompt.append(_describe_background(context))
+    prompt.append(_describe_narrative(context))
+    # Determine if story is about to end
+    end_state = context.gameover or context.max_beats == context.current_beat
+    # Add conditional details
+    if end_state:
+        prompt.append(_describe_ending(context))
     if context.climax:
-        climax_status = "This should be constructed as a climactic moment."
-    else:
-        climax_status = ""
+        prompt.append(_describe_climax)
+    if not end_state:
+        prompt.append(_describe_choices(context))
 
-    # Combine the elements into a cohesive prompt
-    prompt = (
-        f"{narrative} The scene is influenced by these themes: "
-        f"{', '.join(context.user_choice)}. {climax_status} "
-        "Craft a scene that includes the following three choices, "
-        "each option starting with !!: "
-        f"{choices}"
-    )
-
-    return prompt
+    return " ".join(prompt)
 
 
 def get_image_prompt(context: StoryContext):
-    """Given current paragraph, u"""
+    """
+    Generates a prompt for an image.
+    """
     prompt = (
         f"Create an image in the {context.genre} style "
         f"based on the narrative: '"
@@ -139,27 +48,84 @@ def get_image_prompt(context: StoryContext):
     return prompt
 
 
-def split_choices(input_string):
+# **************************************************
+#                    Prompts Helpers
+# **************************************************
+def _describe_background(context: StoryContext):
     """
-    Given prompt generated by API, splits it into story text and three choices.
-    Assumes choices are divived at !!.
+    Gives the API the current background info.
+    Such as: genre, current progress, tone
+    Note - History is handled in the API request itself.
     """
-    choices = input_string.split("!!")
-    story_text = choices[0].strip()
-    choice_1 = choices[1].strip()
-    choice_2 = choices[2].strip()
-    choice_3 = "!!".join(choices[3:]).strip()
-
-    return story_text, choice_1, choice_2, choice_3
-    # TODO - what's the back-up if GPT does not make a !! divider?
+    background = (
+        f"We are currently {context.current_beat} out of {context.max_beats} "
+        f"of the way though a story in the {context.genre} genre. "
+        f"In the previous scene, the user chose to {context.user_choice}. "
+    )
+    return background
 
 
-# Test helper functions
+def _describe_narrative(context: StoryContext):
+    """
+    Request the API generate the narrative
+    """
+    narrative = (
+        f"Given this context, please describe what happens next. "
+        f"Limit this description to {context.max_text_length} words."
+    )
+    return narrative
+
+
+def _describe_climax(context: StoryContext):
+    """
+    Request the API work in a climatic description.
+    """
+    # TODO - This is its own function so we can split climax
+    # from the scene leading to the climax.
+    return "Construct this response as the story's climax."
+
+
+def _describe_ending(context: StoryContext):
+    """
+    Request the API generate the end of the story.
+    """
+    narrative = []
+    narrative.append("This is the final paragraph of the story.")
+    if context.gameover:
+        narrative.append("The most recent choice has led to a gameover.")
+    narrative.append("Please write a satisfying conclusion.")
+
+    return " ".join(narrative)
+
+
+def _describe_choices(context: StoryContext):
+    setup = (
+        f"Additionally, give the user {context.num_of_choices} choices "
+        f"allowing them to decide what they will do next. "
+        f"Each generated choice option MUST begin with !!. "
+    )
+
+    choices = ""
+
+    for _, tags_set in context.choice_options.items():
+        tags = list(tags_set)
+        choice_text = (
+            f"Include a choice that features elements related to "
+            f"these themes: '{', '.join(tags)}'. "
+        )
+        choices += choice_text
+
+    clarification = (
+        "Avoid any text after the choices are given "
+        "and use !! instead of numbers for each option. "
+    )
+
+    return setup + choices + clarification
+
+
+# **************************************************
+#                    Main
+# **************************************************
 if __name__ == "__main__":
     prompt = get_story_prompt(test_context)
     print(prompt)
-
-
-# TODO - Document the different variable options in README.
-# TODO - Note choices start with !!
-# TODO - Adjust tag values

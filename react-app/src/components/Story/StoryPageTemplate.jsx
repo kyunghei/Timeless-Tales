@@ -102,7 +102,7 @@ function StoryPageTemplate() {
             <StoryBeatImage imageUrl={currentBeatData.story_image}/>
             {showChoices? 
             <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : 
-            <StoryBeatText story={currentBeatData.story_text}/>}
+            <StoryBeatText text={currentBeatData.story_text}/>}
             <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
 
             {/* Displays correct button */}

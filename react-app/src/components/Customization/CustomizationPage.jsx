@@ -20,6 +20,9 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
 
     const navigate = useNavigate(); // Hook for navigation
 
+    // Access backend URL from env
+    const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+    console.log(BACKEND_URL);
 
     // Asynchronously submits all customization data to the backend. On success, navigates user to the story page. 
     async function handleStart() {
@@ -31,7 +34,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
 
         console.log(formData);
         try {
-            const res = await axios.post('http://localhost:5172/customization-data', formData);
+            const res = await axios.post(`${BACKEND_URL}/customization`, formData);
 
             if (res.status === 200) {
                 console.log("form submission successful");
