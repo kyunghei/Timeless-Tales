@@ -59,9 +59,12 @@ def _describe_background(context: StoryContext):
     """
     background = (
         f"We are currently {context.current_beat} out of {context.max_beats} "
-        f"of the way though a story in the {context.genre} genre. "
-        f"In the previous scene, the user chose to {context.user_choice}. "
+        f"of the way through a story in the {context.genre} genre. "
     )
+    if context.current_beat != 0:
+        background += (
+            f"In the previous scene, the user chose to {context.user_choice}. "
+        )
     return background
 
 
@@ -121,6 +124,24 @@ def _describe_choices(context: StoryContext):
     )
 
     return setup + choices + clarification
+
+
+# **************************************************
+#                    Other Helpers
+# **************************************************
+def convert_choice(context: StoryContext, user_choice_json):
+    """
+    Front-end gives user choice in format: "choice_1"
+    This function uses the output to instead get the
+    text associated with that choice.
+    """
+    print("CONVERT", user_choice_json)
+    number = int(user_choice_json.split('_')[1]) - 1
+    print(number)
+    choice_list = list(context.choice_options.keys())
+    user_choice = choice_list[number]
+    print(user_choice)
+    return user_choice
 
 
 # **************************************************
