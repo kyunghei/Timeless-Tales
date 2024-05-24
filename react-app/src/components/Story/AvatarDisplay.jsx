@@ -19,12 +19,12 @@ function AvatarDisplay({ name, avatar, genre }) {
     const avatarDisplay = avatars[genre][avatarIdx];
 
     return (
-        <div>
+        <div className='avatar-container'>
             <div>
-                <img src={avatarDisplay} alt="Avatar Image" width='100px' height='100px' />
+                <img src={avatarDisplay} alt="Avatar Image" className='avatar' />
             </div>
             <div>
-                <div>{name}</div>
+                <div className='avatar-name' >{name}</div>
             </div>
         </div>
     );

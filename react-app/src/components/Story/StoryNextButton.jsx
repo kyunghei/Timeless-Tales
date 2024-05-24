@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import '../../styles/Story/StoryButton.css'
+// import '../../styles/Story/StoryButton.css'
 
 /**
  * Displays the story button given genre and number of lives

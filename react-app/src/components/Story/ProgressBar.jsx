@@ -11,7 +11,7 @@ function ProgressBar({ currentBeat, maxBeat }) {
 
 
     return (
-        <div>
+        <div className='progress-bar'>
             <p>Progress: {currentBeat} out of {maxBeat}</p>
         </div>
     );

@@ -4,7 +4,7 @@ import HomeContent from './components/Home/HomeContent.jsx';
 import CustomizePage from './components/Customization/CustomizationPage.jsx';
 import './assets/styles.css';
 
-import StoryPageTemplate from './components/Story/StoryPageTemplate.jsx';
+// import StoryPageTemplate from './components/Story/StoryPageTemplate.jsx';
 import StoryPage from './components/Story/StoryPage.jsx';
 import { useState } from 'react';
 
@@ -49,7 +49,7 @@ function App() {
               selectedAvatar={selectedAvatar}
               selectedName={selectedName}
               selectedLength={selectedLength} />} />
-          <Route path='/story1' element={<StoryPageTemplate />} />
+          {/* <Route path='/story1' element={<StoryPageTemplate />} /> */}
 
         </Routes>
       </div>

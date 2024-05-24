@@ -17,7 +17,7 @@ function StoryBackgroundImage({ genre }) {
 
     return (
         <div>
-            <img src={imageBgUrl} alt="Story Background Image" />
+            <img src={imageBgUrl} className='bg-image' alt="Story Background Image" />
         </div>
     );
 }

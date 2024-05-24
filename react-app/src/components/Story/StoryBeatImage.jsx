@@ -10,7 +10,7 @@ function StoryBeatImage({ imageUrl }) {
 
     return (
         <div>
-            <img src={imageUrl} alt="Story Beat Image" />
+            <img src={imageUrl} alt="Story Beat Image" className='storybeat-image' />
         </div>
     );
 }

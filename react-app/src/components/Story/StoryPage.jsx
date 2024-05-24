@@ -116,26 +116,34 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
-                <div>
+                <div className='story-container' >
                     {/* Static info display */}
                     <StoryBackgroundImage genre={selectedGenre} />
                     <AvatarDisplay name={selectedName} avatar={selectedAvatar} genre={selectedGenre} />
 
                     {/* Update beginning of story beat */}
                     <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
-                    <StoryBeatImage imageUrl={currentBeatData.story_image} />
-                    {showChoices ?
-                        <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
-                        <StoryBeatText text={currentBeatData.story_text} />}
-                    <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
 
-                    {/* Displays correct button */}
-                    {currentBeatData.current_lives == 0 ?
-                        <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
-                    {currentBeatData.current_lives != 0 && showChoices ?
-                        <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
-                    {currentBeatData.current_lives != 0 && !showChoices ?
-                        <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
+                    <div className='storybeat-container' >
+                        <StoryBeatImage imageUrl={currentBeatData.story_image} />                        
+                        <div className='storybeat-text-container'>
+                            {showChoices ?
+                                <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
+                                <StoryBeatText text={currentBeatData.story_text} />}
+                            
+                            <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
+                            
+                            {/* Displays correct button */}
+                            {currentBeatData.current_lives == 0 ?
+                                <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
+                            {currentBeatData.current_lives != 0 && showChoices ?
+                                <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
+                            {currentBeatData.current_lives != 0 && !showChoices ?
+                                <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
+                        </div>
+                    </div>
+
+
 
                     {/* Displays pop up screen */}
                     {showGameOver ? <PopUpScreen popUpHandler={handlePopUp} /> : null}
