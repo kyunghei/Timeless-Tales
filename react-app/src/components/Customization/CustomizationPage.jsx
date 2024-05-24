@@ -35,7 +35,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
 
             if (res.status === 200) {
                 console.log("form submission successful");
-                navigate('/story');
+                navigate('/story1');
             } else {
                 console.error("Couldn't post form data:", res.status);
             }

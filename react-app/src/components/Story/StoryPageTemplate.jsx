@@ -62,32 +62,32 @@ function StoryPageTemplate() {
         console.log(`setting user choice to ${user_choice}`)
     }
 
-    async function handleSendUserChoice(){
-        const formData = {
-            user_choice: userChoice
-        }
+    // async function handleSendUserChoice(){
+    //     const formData = {
+    //         user_choice: userChoice
+    //     }
 
-        //TEST: verify sending correct user choice
-        console.log(`Sending ${formData.user_choice} to backend`);
+    //     //TEST: verify sending correct user choice
+    //     console.log(`Sending ${formData.user_choice} to backend`);
 
-        //POST REQUEST
-        try {
-            const res = await axios.post('http://localhost:5172/user-choice', formData);
+    //     //POST REQUEST
+    //     try {
+    //         const res = await axios.post('http://localhost:5172/user-choice', formData);
 
-            if (res.status === 200) {
-                console.log("form submission successful");
-                //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
-                //setIsLoading(true);
-            } else {
-                console.error("Couldn't post form data with user choice:", res.status);
-            }
-        } catch (error) {
-            console.error("Error submitting the form data");
-        }
+    //         if (res.status === 200) {
+    //             console.log("form submission successful");
+    //             //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
+    //             //setIsLoading(true);
+    //         } else {
+    //             console.error("Couldn't post form data with user choice:", res.status);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error submitting the form data");
+    //     }
 
-        //TEST: automatically switch buttons
-        setShowChoices(!showChoices);
-    }
+    //     //TEST: automatically switch buttons
+    //     setShowChoices(!showChoices);
+    // }
 
 
     return (
