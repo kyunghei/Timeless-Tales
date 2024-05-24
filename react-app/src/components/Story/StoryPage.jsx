@@ -9,7 +9,7 @@ import PopUpScreen from './PopUpScreen';
 import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
 import StoryBeatChoices from './StoryBeatChoices';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -31,25 +31,33 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
     // State to track user's answer choice
     const [userChoice, setUserChoice] = useState("");
 
+    // State to store error message and the context 
+    const [error, setError] = useState({ message: "", context: null });
+
     // Access backend URL from env
     const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
+    // Defined using useCallback to memoize it
+    // This function fetches the first story beat from the backend
+    const fetchFirstBeat = useCallback(async () => {
+        setIsLoading(true); // Loading before sending request
+        try {
+            const res = await axios.get(`${BACKEND_URL}/story`);
+            setCurrentBeatData(res.data);
+        } catch (error) {
+            console.error('Error fetching first story beat:', error);
+            setError({ message: "Error fetching story", context: "fetchFirstBeat" })
+        }
+        finally {
+            setIsLoading(false); // Remove loading after receipt of data or error
+        }
+    }, [BACKEND_URL]);
+
     // Fetch first story beat data from backend when component mounts.
     useEffect(() => {
-        setIsLoading(true); // Loading before sending request
-
-        async function fetchFirstBeat() {
-            try {
-                const res = await axios.get(`${BACKEND_URL}/story`);
-                setCurrentBeatData(res.data);
-            } catch (error) {
-                console.error('Error fetching first story beat:', error);
-            } finally {
-                setIsLoading(false); // Remove loading after receipt of data or error
-            }
-        }
         fetchFirstBeat();
-    }, [BACKEND_URL]);
+    }, [fetchFirstBeat]);
+
 
     // Fetch the next story beat
     async function fetchNextBeat() {
@@ -58,6 +66,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
             setCurrentBeatData(res.data);
         } catch (error) {
             console.error('Error fetching next story beat:', error);
+            setError({ message: "Error fetching story", context: "fetchNextBeat" })
         } finally {
             setIsLoading(false);
         }
@@ -89,6 +98,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
             }
         } catch (error) {
             console.error("Error submitting the form data");
+            setError({ message: "Error submitting customization", context: "handleUserChoice" })
         }
 
 
@@ -111,10 +121,30 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         console.log(`setting user choice to ${user_choice}`)
     }
 
+    // retry function that checks the context and call the correct function based on context
+    function retry() {
+        if (!error.context) return;
+
+        setError({ message: "", context: null }); //Reset error state before retrying
+
+        if (error.context === "fetchFirstBeat") {
+            fetchFirstBeat();
+        } else if (error.context === "fetchNextBeat") {
+            fetchNextBeat();
+        } else if (error.context === "handleUserChoice") {
+            handleUserChoice();
+        }
+    }
+
     return (
         <>
             {isLoading ? (
                 <div>Loading...</div>
+            ) : error ? (
+                <div>
+                    {error}
+                    <button onClick={retry}>Retry</button>
+                </div>
             ) : (
                 <div>
                     {/* Static info display */}
