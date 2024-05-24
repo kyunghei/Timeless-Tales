@@ -118,7 +118,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
             ) : (
                 <div>
                     {/* Static info display */}
-                    <StoryBackgroundImage genre={currentBeatData.genre} />
+                    <StoryBackgroundImage genre={selectedGenre} />
                     <AvatarDisplay name={selectedName} avatar={selectedAvatar} genre={selectedGenre} />
 
                     {/* Update beginning of story beat */}

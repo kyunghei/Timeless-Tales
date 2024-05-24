@@ -22,6 +22,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
 
     // Access backend URL from env
     const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+    console.log(BACKEND_URL);
 
     // Asynchronously submits all customization data to the backend. On success, navigates user to the story page. 
     async function handleStart() {
