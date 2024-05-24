@@ -106,7 +106,7 @@ def _describe_choices(context: StoryContext):
     )
 
     choices = ""
-    print(context.choice_options)
+
     for _, tags_set in context.choice_options.items():
         tags = list(tags_set)
         choice_text = (
@@ -115,12 +115,12 @@ def _describe_choices(context: StoryContext):
         )
         choices += choice_text
 
-    instructions = (
+    clarification = (
         "Avoid any text after the choices are given "
         "and use !! instead of numbers for each option. "
     )
 
-    return setup + choices + instructions
+    return setup + choices + clarification
 
 
 # **************************************************
