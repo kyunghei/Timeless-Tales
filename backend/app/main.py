@@ -114,6 +114,31 @@ def post_story_beat():
     return jsonify(response_data)
 
 
+@app.route('/next-beat', methods=['GET'])
+def next_beat():
+    """
+    Same as /story but for subsequent beats only.
+    """
+    # Retrieve Story Info
+    choice1, choice2, choice3 = list(context.choice_options.keys())
+
+    # Generate Image
+    image_prompt = helpers.get_image_prompt(context)
+    story_image = get_image_URL(image_prompt)
+
+    # Return Data
+    response_data = {
+        'story_text': context.story_history[-1],
+        'choice_1': choice1,
+        'choice_2': choice2,
+        'choice_3': choice3,
+        'story_image': story_image,
+        'current_beat': context.current_beat,
+        'current_lives': context.current_lives
+    }
+    return jsonify(response_data)
+
+
 @app.route('/customization', methods=['POST'])
 def get_parameters():
     """Update context with parameters from frontend"""

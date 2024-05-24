@@ -135,10 +135,12 @@ def convert_choice(context: StoryContext, user_choice_json):
     This function uses the output to instead get the
     text associated with that choice.
     """
-    pass
+    print("CONVERT", user_choice_json)
     number = int(user_choice_json.split('_')[1]) - 1
+    print(number)
     choice_list = list(context.choice_options.keys())
     user_choice = choice_list[number]
+    print(user_choice)
     return user_choice
 
 
