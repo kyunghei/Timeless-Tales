@@ -4,3 +4,6 @@ node_modules
 backend/.DS_Store
 __pycache__/
 backend/app/.env
+backend/app/venv/
+backend/.env
+backend/venv/

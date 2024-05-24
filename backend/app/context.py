@@ -187,6 +187,14 @@ class StoryContext:
         Given the latest api_response, updates story context.
         """
         self.current_beat += 1
+        # Update Lives
+        for tag in self.choice_options[self.user_choice]:
+            if tag == "gain_life" and self.current_lives < self.max_lives:
+                self.current_lives += 1
+            if tag == "lose_life":
+                self.current_lives -= 1
+            if self.current_lives <= 0:
+                self.gameover = True
 
         # Update Story and Tags
         story_text, choice1, choice2, choice3 = split_choices(api_response)
@@ -196,15 +204,6 @@ class StoryContext:
         self.choice_options = {choice1: tag1,
                                choice2: tag2,
                                choice3: tag3}
-
-        # Update Lives
-        for tag in self.choice_options[self.user_choice]:
-            if tag == "gain_life" and self.current_lives < self.max_lives:
-                self.current_lives += 1
-            if tag == "lose_life":
-                self.current_lives -= 1
-            if self.current_lives <= 0:
-                self.gameover = True
 
     def next_beat(self, user_choice: str, api_response: str):
         """
