@@ -109,6 +109,8 @@ def post_story_beat():
         'current_beat': context.current_beat,
         'current_lives': context.current_lives
     }
+    # DEBUG
+    print(f"RESPONSE DATA: {response_data}")
     return jsonify(response_data)
 
 

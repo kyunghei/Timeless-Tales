@@ -8,6 +8,9 @@ import random
 """
 This section sets up default values for StoryContext.
 """
+# Tag File Name
+tag_file_name = 'tags.json'
+
 # Basic Constant
 max_text_length = 1000
 num_of_choices = 3
@@ -53,8 +56,7 @@ class StoryContext:
         # Save story tag JSON file
         try:
             directory = os.path.dirname(os.path.abspath(__file__))
-            # TODO - Should file name be hardcoded like this?
-            json_path = os.path.join(directory, 'tags.json')
+            json_path = os.path.join(directory, tag_file_name)
             with open(json_path, 'r') as file:
                 self.tag_weights = json.load(file)
         except FileNotFoundError:
@@ -171,7 +173,8 @@ class StoryContext:
             for key in self.choice_options:
                 self.choice_options[key].add("climax")
             self.climax = True
-    # TODO - Perhaps warn prompt ahead of time when context coming
+    # TODO - OPTIONAL.  Use int instead of bool
+    # This would let us account for scene leading to climax
 
     # --------------------------------------------------
     #                       Updating Context
@@ -222,12 +225,13 @@ def split_choices(input_string):
     """
     choices = input_string.split("!!")
     story_text = choices[0].strip()
-    choice_1 = choices[1].strip()
-    choice_2 = choices[2].strip()
-    choice_3 = "!!".join(choices[3:]).strip()
+
+    # Save choices (make blank if parsing error and not enough options made)
+    choice_1 = choices[1].strip() if len(choices) > 1 else ""
+    choice_2 = choices[2].strip() if len(choices) > 2 else ""
+    choice_3 = "!!".join(choices[3:]).strip() if len(choices) > 3 else ""
 
     return story_text, choice_1, choice_2, choice_3
-    # TODO - what's the back-up if GPT does not make a !! divider?
 
 
 # **************************************************
