@@ -19,5 +19,5 @@ function StoryBeatText({ text }) {
 export default StoryBeatText;
 
 StoryBeatText.propTypes = {
-    story: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired
 }
