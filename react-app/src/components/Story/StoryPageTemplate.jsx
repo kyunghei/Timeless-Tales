@@ -5,7 +5,7 @@ import StoryNextButton from './StoryNextButton';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
 import AvatarLife from './AvatarLife';
-import ProgressBar from './ProgressBar';
+import StoryProgressBar from './StoryProgressBar';
 import PopUpScreen from './PopUpScreen';
 import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
@@ -100,7 +100,7 @@ function StoryPageTemplate() {
             {showChoices? 
             <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : 
             <StoryBeatText text={currentBeatData.story_text}/>}
-            <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
+            <StoryProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
 
             {/* Displays correct button */}
             {currentBeatData.current_lives == 0 ? 
