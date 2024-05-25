@@ -28,6 +28,7 @@ def get_story_prompt(context: StoryContext) -> str:
     # Add conditional details
     if end_state:
         prompt.append(_describe_ending(context))
+        prompt.append("!!. !!. !!.")
     if context.climax:
         prompt.append(_describe_climax(context))
     if not end_state:
