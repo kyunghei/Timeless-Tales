@@ -40,7 +40,7 @@ def get_story_part(prompt: str, story_history: list) -> str:
             model="gpt-3.5-turbo",
             messages=[{"role": "system",
                        "content": f"Story history for "
-                                  f"context: {story_history}"},
+                       f"context: {story_history}"},
                       {"role": "user", "content": prompt}]
         )
     else:
