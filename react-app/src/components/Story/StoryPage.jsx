@@ -9,7 +9,7 @@ import PopUpScreen from './PopUpScreen';
 import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
 import StoryBeatChoices from './StoryBeatChoices';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -34,6 +34,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
     // State to store error message and the context 
     const [error, setError] = useState({ message: "", context: null });
 
+    // Used to handle re-renders when using React Strict Mode
+    const firstMount = useRef(true);
+
     // Access backend URL from env
     const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
@@ -55,7 +58,11 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     // Fetch first story beat data from backend when component mounts.
     useEffect(() => {
-        fetchFirstBeat();
+        console.log("useEffect called.")
+        if (firstMount.current) {
+            firstMount.current = false;
+            fetchFirstBeat();
+        }
     }, [fetchFirstBeat]);
 
 
