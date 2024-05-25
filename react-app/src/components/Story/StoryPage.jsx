@@ -74,6 +74,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     // Handle user choice submission
     async function handleSendUserChoice() {
+        //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
+        setIsLoading(true);
+
         const formData = {
             user_choice: userChoice
         }
@@ -87,8 +90,6 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
             if (res.status === 200) {
                 console.log("form submission successful");
-                //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
-                setIsLoading(true);
 
                 // Fetch the next story beat
                 await fetchNextBeat();
@@ -99,6 +100,8 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         } catch (error) {
             console.error("Error submitting the form data");
             setError({ message: "Error submitting customization", context: "handleUserChoice" })
+        } finally {
+            setIsLoading(false);
         }
 
 
