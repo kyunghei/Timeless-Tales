@@ -9,6 +9,7 @@ import PopUpScreen from './PopUpScreen';
 import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
 import StoryBeatChoices from './StoryBeatChoices';
+import Loading from './Loading';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -149,7 +150,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
     return (
         <>
             {isLoading ? (
-                <div>Loading...</div>
+                <div>
+                    <Loading currentBeat={currentBeatData.current_beat} maxBeat={selectedLength}/>
+                </div>
             ) : error.context ? (
                 <div>
                     {error.message}

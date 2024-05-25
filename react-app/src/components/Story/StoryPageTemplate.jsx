@@ -37,9 +37,6 @@ function StoryPageTemplate() {
     // boolean to determine pop up display
     const [showGameOver, setShowGameOver] = useState(false);
 
-    // boolean to display story text or choices
-    //const [isStory, setIsStory] = useState(true);
-
     // Bool state that controls whether to show story text or story choices
     const [showChoices, setShowChoices] = useState(false);
 
