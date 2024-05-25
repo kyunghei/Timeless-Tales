@@ -17,10 +17,10 @@ function StoryPageTemplate() {
 
     // // State to save the current story beat data (text, possible choices, images) sent from backend
     const [currentBeatData, setCurrentBeatData] = useState({
-        avatar: 1,
-        genre: "Western",
+        avatar: 3,
+        genre: "Fantasy",
         name: "Doobs",
-        current_lives: 2,
+        current_lives: 0,
         story_text: 
         "velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus",
         choice_1: "This is choice 1",

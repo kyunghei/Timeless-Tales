@@ -42,7 +42,8 @@ function PopUpScreen() {
     }
     return (
         <>
-            <div>
+            <dialog open>
+                <form method="dialog">
                 <div>Hey there, Adventurer!</div>
                 <div>Ready for more action with your current setup, or feeling like a bit of a change this time around?</div>
                 <div>
@@ -55,8 +56,8 @@ function PopUpScreen() {
                 </div>
                 <button onClick={keepCustomization}>Stick With It</button>
                 <button onClick={toCustomization}>Mix Things Up</button>
-
-            </div>
+                </form>
+            </dialog>
         </>
 
     );
