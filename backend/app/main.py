@@ -80,6 +80,9 @@ def post_story_beat():
     Returns data to front-end to utilize and display.
     Includes condition for 1st iteration.
     """
+    # DEBUG: Confirm HTTP request
+    print(f"Received request at {request.url}")
+
     # Retrieve Story Info
     if context.current_beat > 0:
         choice1, choice2, choice3 = list(context.choice_options.keys())
@@ -121,12 +124,17 @@ def next_beat():
     """
     Same as /story but for subsequent beats only.
     """
+    # DEBUG: Confirm HTTP request
+    print(f"Received request at {request.url}")
+
     # Retrieve Story Info
     choice1, choice2, choice3 = list(context.choice_options.keys())
 
     # Generate Image
     image_prompt = helpers.get_image_prompt(context)
     story_image = get_image_URL(image_prompt)
+    # DEBUG IMAGE to save API costs
+    # story_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4NvLQAn3DFg-KAeSiGOuZBsiXDcdtK8__Pgokt4NMjQ&s"  # noqa
 
     # Return Data
     response_data = {
@@ -138,6 +146,7 @@ def next_beat():
         'current_beat': context.current_beat,
         'current_lives': context.current_lives
     }
+    print(f"RESPONSE DATA: {response_data}")
     return jsonify(response_data)
 
 
@@ -147,7 +156,6 @@ def get_parameters():
 
     # DEBUG: Confirm HTTP request
     print(f"Received request at {request.url}")
-    print("CUSTOMIZATION")
 
     # Get frontend parameters
     json_object = request.json
@@ -170,6 +178,9 @@ def get_next_beat():
     """
     Updates story context based on user choice.
     """
+    # DEBUG: Confirm HTTP request
+    print(f"Received request at {request.url}")
+
     # Get user choice
     json_object = request.json
     user_choice = helpers.convert_choice(context,
@@ -188,6 +199,9 @@ def restart_story():
     Restarts the story by maintaining customizable setting
     but restarting story specific details.
     """
+    # DEBUG: Confirm HTTP request
+    print(f"Received request at {request.url}")
+
     context.reset_mutables()
 
     # Must include return statement or it will result in error
