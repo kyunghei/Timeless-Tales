@@ -4,11 +4,12 @@ import StoryBeatImage from './StoryBeatImage';
 import AvatarDisplay from './AvatarDisplay';
 import StoryNextButton from './StoryNextButton';
 import AvatarLife from './AvatarLife';
-import ProgressBar from './ProgressBar';
+import StoryProgressBar from './StoryProgressBar';
 import PopUpScreen from './PopUpScreen';
 import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
 import StoryBeatChoices from './StoryBeatChoices';
+import Loading from './Loading';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -149,7 +150,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
     return (
         <>
             {isLoading ? (
-                <div>Loading...</div>
+                <div>
+                    <Loading currentBeat={currentBeatData.current_beat} maxBeat={selectedLength}/>
+                </div>
             ) : error.context ? (
                 <div>
                     {error.message}
@@ -167,7 +170,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     {showChoices ?
                         <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
                         <StoryBeatText text={currentBeatData.story_text} />}
-                    <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
+                    <StoryProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
 
                     {/* Displays correct button */}
                     {currentBeatData.current_lives == 0 ?
