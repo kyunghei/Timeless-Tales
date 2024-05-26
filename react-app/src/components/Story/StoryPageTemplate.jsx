@@ -11,7 +11,7 @@ import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
 import StoryBeatChoices from './StoryBeatChoices';
 import { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 function StoryPageTemplate() {
 
@@ -40,7 +40,7 @@ function StoryPageTemplate() {
     // Bool state that controls whether to show story text or story choices
     const [showChoices, setShowChoices] = useState(false);
 
-    const [userChoice, setUserChoice] = useState("");
+    // const [userChoice, setUserChoice] = useState("");
 
     // linting errors
     console.log(setCurrentBeatData);
@@ -55,7 +55,7 @@ function StoryPageTemplate() {
     }
 
     function handleUserChoice(user_choice){
-        setUserChoice(user_choice);
+        user_choice(user_choice);
         console.log(`setting user choice to ${user_choice}`)
     }
 
@@ -106,7 +106,7 @@ function StoryPageTemplate() {
             {currentBeatData.current_lives == 0 ? 
             <PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/> : null}
             {currentBeatData.current_lives != 0 && showChoices ? 
-            <SelectChoiceBtn genre={currentBeatData.genre} nextHandler={handleSendUserChoice}/> : null}
+            <SelectChoiceBtn genre={currentBeatData.genre} nextHandler={handleUserChoice}/> : null}
             {currentBeatData.current_lives != 0 && !showChoices ? 
             <StoryNextButton genre={currentBeatData.genre} nextHandler={handleNext} /> : null}
             
