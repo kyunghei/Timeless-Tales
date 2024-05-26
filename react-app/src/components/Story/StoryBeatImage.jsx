@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 
+
 /**
  * Displays the story beat image given imageUrl
  * @param {string} imageUrl 
@@ -10,7 +11,7 @@ function StoryBeatImage({ imageUrl }) {
 
     return (
         <div>
-            <img src={imageUrl} alt="Story Beat Image" />
+            <img src={imageUrl} alt="Story Beat Image" id='storybeat-image' />
         </div>
     );
 }

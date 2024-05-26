@@ -11,7 +11,7 @@ import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
 import StoryBeatChoices from './StoryBeatChoices';
 import { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 function StoryPageTemplate() {
 
@@ -40,7 +40,7 @@ function StoryPageTemplate() {
     // Bool state that controls whether to show story text or story choices
     const [showChoices, setShowChoices] = useState(false);
 
-    const [userChoice, setUserChoice] = useState("");
+    // const [userChoice, setUserChoice] = useState("");
 
     // linting errors
     console.log(setCurrentBeatData);
@@ -55,36 +55,36 @@ function StoryPageTemplate() {
     }
 
     function handleUserChoice(user_choice){
-        setUserChoice(user_choice);
+        user_choice(user_choice);
         console.log(`setting user choice to ${user_choice}`)
     }
 
-    async function handleSendUserChoice(){
-        const formData = {
-            user_choice: userChoice
-        }
+    // async function handleSendUserChoice(){
+    //     const formData = {
+    //         user_choice: userChoice
+    //     }
 
-        //TEST: verify sending correct user choice
-        console.log(`Sending ${formData.user_choice} to backend`);
+    //     //TEST: verify sending correct user choice
+    //     console.log(`Sending ${formData.user_choice} to backend`);
 
-        //POST REQUEST
-        try {
-            const res = await axios.post('http://localhost:5172/user-choice', formData);
+    //     //POST REQUEST
+    //     try {
+    //         const res = await axios.post('http://localhost:5172/user-choice', formData);
 
-            if (res.status === 200) {
-                console.log("form submission successful");
-                //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
-                //setIsLoading(true);
-            } else {
-                console.error("Couldn't post form data with user choice:", res.status);
-            }
-        } catch (error) {
-            console.error("Error submitting the form data");
-        }
+    //         if (res.status === 200) {
+    //             console.log("form submission successful");
+    //             //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
+    //             //setIsLoading(true);
+    //         } else {
+    //             console.error("Couldn't post form data with user choice:", res.status);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error submitting the form data");
+    //     }
 
-        //TEST: automatically switch buttons
-        setShowChoices(!showChoices);
-    }
+    //     //TEST: automatically switch buttons
+    //     setShowChoices(!showChoices);
+    // }
 
 
     return (
@@ -106,7 +106,7 @@ function StoryPageTemplate() {
             {currentBeatData.current_lives == 0 ? 
             <PlayAgainBtn genre={currentBeatData.genre} popUpHandler={handlePopUp}/> : null}
             {currentBeatData.current_lives != 0 && showChoices ? 
-            <SelectChoiceBtn genre={currentBeatData.genre} nextHandler={handleSendUserChoice}/> : null}
+            <SelectChoiceBtn genre={currentBeatData.genre} nextHandler={handleUserChoice}/> : null}
             {currentBeatData.current_lives != 0 && !showChoices ? 
             <StoryNextButton genre={currentBeatData.genre} nextHandler={handleNext} /> : null}
             

@@ -16,7 +16,7 @@ function StoryButton({ genre, nextHandler }) {
 
     return (
         <>
-            <button className={genreStyle} id="storyBtn" onClick={nextHandler}>Story Next</button>
+            <button className={genreStyle} id="storyBtn" onClick={nextHandler}>Next</button>
         </>
 
     );
