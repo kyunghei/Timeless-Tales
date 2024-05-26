@@ -42,7 +42,26 @@
     width: 230px; 
     height: 90px;
     margin: auto;
-    /* margin-top: 20px;   */
+    padding: 7px;
+    position: absolute;
+    bottom: 0;
+}
+
+#playAgainBtn.fantasy, #selectChoiceBtn.fantasy, #storyBtn.fantasy{
+    background: #274466;
+    color: whitesmoke;
+    text-align: center;
+    font-family: "Roboto Flex";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 68px; /* 170% */
+    text-transform: capitalize;
+    border-radius: 29px;
+    border: none;
+    width: 230px; 
+    height: 90px;
+    margin: auto;
     padding: 7px;
     position: absolute;
     bottom: 0;

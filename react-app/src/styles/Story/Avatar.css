@@ -52,3 +52,15 @@
     color: #F0D899;
     transform: translateX(-50%);
 }
+
+#avatar-name.fantasy {
+    position: absolute;
+    bottom: 25px;
+    padding: 3px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #F6F1DB;
+    color: #274466;
+    transform: translateX(-50%);
+    border-radius: 15px;
+}
