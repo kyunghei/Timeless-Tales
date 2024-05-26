@@ -1,5 +1,9 @@
-#playAgainBtn, #selectChoiceBtn{
-    font-size: 30px;
+#playAgainBtn, #selectChoiceBtn, #storyBtn{
+    width: 150px;
+    margin: auto;
+    margin-top: 20px;  
+    padding: 7px;
+    font-size: 20px;
 }
 
 .western{
@@ -15,3 +19,10 @@
 .fantasy{
     background-color: yellow;
 }
+
+#storyBtn.fantasy {
+    background-color: purple;
+}
+/* #storyBtn.sciFi {
+    background-color: red;
+} */

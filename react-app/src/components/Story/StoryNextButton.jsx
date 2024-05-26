@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-// import '../../styles/Story/StoryButton.css'
+import '../../styles/Story/StoryButton.css'
 
 /**
  * Displays the story button given genre and number of lives
@@ -16,7 +16,7 @@ function StoryButton({ genre, nextHandler }) {
 
     return (
         <>
-            <button className={genreStyle} id="storyBtn" onClick={nextHandler}>Story Next</button>
+            <button className={genreStyle} id="storyBtn" onClick={nextHandler}>Continue</button>
         </>
 
     );

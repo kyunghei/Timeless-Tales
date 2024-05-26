@@ -1,0 +1,21 @@
+#storybeat-container {
+    border-radius: 40px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    /* top: 50%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    z-index: 2;
+}
+
+#storybeat-container.sciFi {
+    background-color: #D0E8EA;
+    height: 500px;
+    width: 75%;  
+    margin: auto;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

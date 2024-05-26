@@ -13,7 +13,7 @@ import Loading from './Loading';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
+import '../../styles/Story/StorybeatContainer.css';
 
 function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength }) {
 
@@ -40,6 +40,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     // Access backend URL from env
     const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+
+    // Genre as a string to be used as class name for unique genre-based styling
+    const genreStyle = selectedGenre.charAt(0).toLowerCase() + selectedGenre.slice(1);
 
     // Defined using useCallback to memoize it
     // This function fetches the first story beat from the backend
@@ -167,7 +170,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     {/* Update beginning of story beat */}
                     <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
 
-                    <div className='storybeat-container' >
+                    <div id='storybeat-container' className={genreStyle} >
                         <StoryBeatImage imageUrl={currentBeatData.story_image} />                        
                         <div className='storybeat-text-container'>
                             {showChoices ?

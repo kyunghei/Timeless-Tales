@@ -189,9 +189,11 @@ body {
 /*****************/
 
 .story-container {
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    // display: flex;
+    // justify-content: space-between;
     width: 100%;
 }
 .bg-image {
@@ -200,36 +202,36 @@ body {
     width: 100%;
     z-index: 1;
 }
-.avatar-container {
-    position: absolute;
-    left: 47%;
-    top: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-    margin: auto;
-}
-.avatar {
-    height: 219px;
-    width: 219px;
-    border-radius: 100%;
-}
-.avatar-name {
-    font-size: 25px;
-}
-.storybeat-container {
-    background-color: $base-bg;    
-    border-radius: 40px;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    height: 50%;
-    width: 80%;  
-    margin: auto;
-    padding: 30px;
-    position: relative;
-    z-index: 2;
-}
+// .avatar-container {
+//     position: absolute;
+//     left: 47%;
+//     top: 25%;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     z-index: 2;
+//     margin: auto;
+// }
+// .avatar {
+//     height: 219px;
+//     width: 219px;
+//     border-radius: 100%;
+// }
+// .avatar-name {
+//     font-size: 25px;
+// }
+// .storybeat-container {
+//     background-color: $base-bg;    
+//     border-radius: 40px;
+//     display: grid;
+//     grid-template-columns: 1fr 3fr;
+//     height: 50%;
+//     width: 80%;  
+//     margin: auto;
+//     padding: 30px;
+//     position: relative;
+//     z-index: 2;
+// }
 .storybeat-image {
     // position: absolute;
     height: 400px;
