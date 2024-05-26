@@ -291,4 +291,19 @@ body h1, body h2 {
   border-radius: 25px;
   cursor: pointer;
   margin-bottom: 30px;
+}
+
+#loading {
+  height: 500px;
+  width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+#loading p {
+  font-size: 20px;
 }/*# sourceMappingURL=styles.css.map */

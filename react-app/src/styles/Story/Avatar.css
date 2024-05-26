@@ -1,20 +1,19 @@
 #avatar-container {
     background-color: transparent;
-    /* position: fixed; */
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 3;
-    /* height: 275px; */
-}
-
-#avatar-container {
     width: 287px;
     position: fixed;
     bottom: 0;
     right: 0;
     margin-bottom: 10px;
     margin-right: 10px;
+}
+
+#avatar-container {
+
 }
 
 #avatar-image.sciFi {
@@ -25,11 +24,6 @@
     width: 275px;
     border-radius: 100%;
     border: solid 6px #F90BE1;
-    /* visibility: hidden; */
-}
-
-#avatar-image.western {
-
 }
 
 #avatar-name.sciFi {
@@ -41,6 +35,8 @@
     background-color: #D9D9D9;
     color: black;
     transform: translateX(-50%);
+    width: 250px;
+    text-align: center;
 }
 
 #avatar-name.western {
@@ -51,6 +47,8 @@
     background-color: #1d252b;
     color: #F0D899;
     transform: translateX(-50%);
+    width: 250px;
+    text-align: center;
 }
 
 #avatar-name.fantasy {
@@ -63,4 +61,6 @@
     color: #274466;
     transform: translateX(-50%);
     border-radius: 15px;
+    width: 250px;
+    text-align: center;
 }
