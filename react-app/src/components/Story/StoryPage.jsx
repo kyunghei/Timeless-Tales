@@ -151,7 +151,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         <>
             {isLoading ? (
                 <div>
-                    <Loading currentBeat={currentBeatData.current_beat} maxBeat={selectedLength}/>
+                    <Loading currentBeat={currentBeatData?.current_beat ?? 0} maxBeat={selectedLength} />
                 </div>
             ) : error.context ? (
                 <div>
