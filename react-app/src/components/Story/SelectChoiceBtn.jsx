@@ -12,7 +12,7 @@ function SelectChoiceBtn({genre,nextHandler}){
 
     return(
         <>
-            <button id="selectChoiceBtn" className={genreStyle} onClick={nextHandler}>Select Choice</button>
+            <button id="selectChoiceBtn" className={genreStyle} onClick={nextHandler}>Select</button>
         </>
     )
 }

@@ -24,3 +24,26 @@
 #playAgainBtn.sciFi {
     width: 300px;
 }
+
+
+
+#playAgainBtn.western, #selectChoiceBtn.western, #storyBtn.western{
+    background: #6F170B;
+    color: #E6C485;
+    text-align: center;
+    font-family: "Roboto Flex";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 68px; /* 170% */
+    text-transform: capitalize;
+    border-radius: 29px;
+    border: 3px solid #E6C485;
+    width: 230px; 
+    height: 90px;
+    margin: auto;
+    /* margin-top: 20px;   */
+    padding: 7px;
+    position: absolute;
+    bottom: 0;
+}

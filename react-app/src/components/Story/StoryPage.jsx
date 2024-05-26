@@ -172,13 +172,12 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
 
                     <div id='storybeat-container' className={genreStyle} >
-                        <div id='storybeat-text-container'>
-
+                        <div id='storybeat-text-container'className={genreStyle} >
                             {showChoices ?
                                 <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
                                 <StoryBeatText text={currentBeatData.story_text} />}
                         </div>
-                        <div id='storybeat-image-container'>
+                        <div id='storybeat-image-container' className={genreStyle} >
                             <StoryBeatImage imageUrl={currentBeatData.story_image} />                        
                             {/* Displays correct button */}
                             {currentBeatData.current_lives == 0 ?
@@ -188,10 +187,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                             {currentBeatData.current_lives != 0 && !showChoices ?
                                 <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}                            
                         </div>
-
                     </div>
-
-
 
                     {/* Displays pop up screen */}
                     {showGameOver ? <PopUpScreen popUpHandler={handlePopUp} /> : null}

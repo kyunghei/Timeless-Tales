@@ -8,7 +8,7 @@
     /* height: 275px; */
 }
 
-#avatar-container.sciFi {
+#avatar-container {
     width: 287px;
     position: fixed;
     bottom: 0;
@@ -28,6 +28,10 @@
     /* visibility: hidden; */
 }
 
+#avatar-image.western {
+
+}
+
 #avatar-name.sciFi {
     position: absolute;
     bottom: 25px;
@@ -36,5 +40,15 @@
     font-weight: bold;
     background-color: #D9D9D9;
     color: black;
+    transform: translateX(-50%);
+}
+
+#avatar-name.western {
+    position: absolute;
+    bottom: 25px;
+    padding: 3px 10px;
+    font-size: 18px;
+    background-color: #1d252b;
+    color: #F0D899;
     transform: translateX(-50%);
 }
