@@ -28,8 +28,9 @@ def get_story_prompt(context: StoryContext) -> str:
     # Add conditional details
     if end_state:
         prompt.append(_describe_ending(context))
+        prompt.append("!!. !!. !!.")
     if context.climax:
-        prompt.append(_describe_climax)
+        prompt.append(_describe_climax(context))
     if not end_state:
         prompt.append(_describe_choices(context))
 
@@ -60,6 +61,7 @@ def _describe_background(context: StoryContext):
     background = (
         f"We are currently {context.current_beat} out of {context.max_beats} "
         f"of the way through a story in the {context.genre} genre. "
+        f"Our character is named: {context.user_name}. "
     )
     if context.current_beat != 0:
         background += (
@@ -135,12 +137,10 @@ def convert_choice(context: StoryContext, user_choice_json):
     This function uses the output to instead get the
     text associated with that choice.
     """
-    print("CONVERT", user_choice_json)
     number = int(user_choice_json.split('_')[1]) - 1
-    print(number)
     choice_list = list(context.choice_options.keys())
     user_choice = choice_list[number]
-    print(user_choice)
+
     return user_choice
 
 

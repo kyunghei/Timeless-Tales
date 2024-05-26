@@ -5,7 +5,7 @@ import StoryNextButton from './StoryNextButton';
 import StoryBackgroundImage from './StoryBackgroundImage';
 import AvatarDisplay from './AvatarDisplay';
 import AvatarLife from './AvatarLife';
-import ProgressBar from './ProgressBar';
+import StoryProgressBar from './StoryProgressBar';
 import PopUpScreen from './PopUpScreen';
 import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
@@ -17,10 +17,10 @@ function StoryPageTemplate() {
 
     // // State to save the current story beat data (text, possible choices, images) sent from backend
     const [currentBeatData, setCurrentBeatData] = useState({
-        avatar: 1,
-        genre: "Western",
+        avatar: 3,
+        genre: "Fantasy",
         name: "Doobs",
-        current_lives: 2,
+        current_lives: 0,
         story_text: 
         "velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus",
         choice_1: "This is choice 1",
@@ -36,9 +36,6 @@ function StoryPageTemplate() {
 
     // boolean to determine pop up display
     const [showGameOver, setShowGameOver] = useState(false);
-
-    // boolean to display story text or choices
-    //const [isStory, setIsStory] = useState(true);
 
     // Bool state that controls whether to show story text or story choices
     const [showChoices, setShowChoices] = useState(false);
@@ -103,7 +100,7 @@ function StoryPageTemplate() {
             {showChoices? 
             <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice}/> : 
             <StoryBeatText text={currentBeatData.story_text}/>}
-            <ProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
+            <StoryProgressBar currentBeat={currentBeatData.current_beat} maxBeat={currentBeatData.max_beat}/>
 
             {/* Displays correct button */}
             {currentBeatData.current_lives == 0 ? 

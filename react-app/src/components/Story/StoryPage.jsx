@@ -4,12 +4,13 @@ import StoryBeatImage from './StoryBeatImage';
 import AvatarDisplay from './AvatarDisplay';
 import StoryNextButton from './StoryNextButton';
 import AvatarLife from './AvatarLife';
-import ProgressBar from './ProgressBar';
+import StoryProgressBar from './StoryProgressBar';
 import PopUpScreen from './PopUpScreen';
 import SelectChoiceBtn from './SelectChoiceBtn';
 import PlayAgainBtn from './PlayAgainBtn';
 import StoryBeatChoices from './StoryBeatChoices';
-import { useState, useEffect } from 'react';
+import Loading from './Loading';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -31,25 +32,40 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
     // State to track user's answer choice
     const [userChoice, setUserChoice] = useState("");
 
+    // State to store error message and the context 
+    const [error, setError] = useState({ message: "", context: null });
+
+    // Used to handle re-renders when using React Strict Mode
+    const firstMount = useRef(true);
+
     // Access backend URL from env
     const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
+    // Defined using useCallback to memoize it
+    // This function fetches the first story beat from the backend
+    const fetchFirstBeat = useCallback(async () => {
+        setIsLoading(true); // Loading before sending request
+        try {
+            const res = await axios.get(`${BACKEND_URL}/story`);
+            setCurrentBeatData(res.data);
+        } catch (error) {
+            console.error('Error fetching first story beat:', error);
+            setError({ message: "Error fetching story", context: "fetchFirstBeat" })
+        }
+        finally {
+            setIsLoading(false); // Remove loading after receipt of data or error
+        }
+    }, [BACKEND_URL]);
+
     // Fetch first story beat data from backend when component mounts.
     useEffect(() => {
-        setIsLoading(true); // Loading before sending request
-
-        async function fetchFirstBeat() {
-            try {
-                const res = await axios.get(`${BACKEND_URL}/story`);
-                setCurrentBeatData(res.data);
-            } catch (error) {
-                console.error('Error fetching first story beat:', error);
-            } finally {
-                setIsLoading(false); // Remove loading after receipt of data or error
-            }
+        console.log("useEffect called.")
+        if (firstMount.current) {
+            firstMount.current = false;
+            fetchFirstBeat();
         }
-        fetchFirstBeat();
-    }, [BACKEND_URL]);
+    }, [fetchFirstBeat]);
+
 
     // Fetch the next story beat
     async function fetchNextBeat() {
@@ -58,6 +74,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
             setCurrentBeatData(res.data);
         } catch (error) {
             console.error('Error fetching next story beat:', error);
+            setError({ message: "Error fetching story", context: "fetchNextBeat" })
         } finally {
             setIsLoading(false);
         }
@@ -65,6 +82,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     // Handle user choice submission
     async function handleSendUserChoice() {
+        //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
+        setIsLoading(true);
+
         const formData = {
             user_choice: userChoice
         }
@@ -78,8 +98,6 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
             if (res.status === 200) {
                 console.log("form submission successful");
-                //STORYPAGE ONLY: buffer while we send user choice to backend and start new story beat
-                setIsLoading(true);
 
                 // Fetch the next story beat
                 await fetchNextBeat();
@@ -89,6 +107,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
             }
         } catch (error) {
             console.error("Error submitting the form data");
+            setError({ message: "Error submitting customization", context: "handleUserChoice" })
+        } finally {
+            setIsLoading(false);
         }
 
 
@@ -111,10 +132,32 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         console.log(`setting user choice to ${user_choice}`)
     }
 
+    // retry function that checks the context and call the correct function based on context
+    function retry() {
+        if (!error.context) return;
+
+        setError({ message: "", context: null }); //Reset error state before retrying
+
+        if (error.context === "fetchFirstBeat") {
+            fetchFirstBeat();
+        } else if (error.context === "fetchNextBeat") {
+            fetchNextBeat();
+        } else if (error.context === "handleUserChoice") {
+            handleUserChoice();
+        }
+    }
+
     return (
         <>
             {isLoading ? (
-                <div>Loading...</div>
+                <div>
+                    <Loading currentBeat={currentBeatData.current_beat} maxBeat={selectedLength}/>
+                </div>
+            ) : error.context ? (
+                <div>
+                    {error.message}
+                    <button onClick={retry}>Retry</button>
+                </div>
             ) : (
                 <div className='story-container' >
                     {/* Static info display */}

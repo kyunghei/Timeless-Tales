@@ -1,25 +1,26 @@
 import PropTypes from 'prop-types';
 
 /**
- * Displays the story progress
+ * Displays the loading screen
  * @param {number} currentBeat 
  * @param {number} maxBeat
  */
 
 
-function ProgressBar({ currentBeat, maxBeat }) {
+function Loading({ currentBeat, maxBeat }) {
 
 
     return (
-        <div className='progress-bar'>
-            <p>Progress: {currentBeat} out of {maxBeat}</p>
+        <div>
+            <h1>Loading...</h1>
+            <p>Currently {currentBeat} out of {maxBeat}!</p>
         </div>
     );
 }
 
-export default ProgressBar;
+export default Loading;
 
-ProgressBar.propTypes = {
+Loading.propTypes = {
     currentBeat: PropTypes.number.isRequired,
     maxBeat: PropTypes.number.isRequired,
 }

@@ -15,7 +15,7 @@ const avatars = {
 
 function AvatarDisplay({ name, avatar, genre }) {
 
-    const avatarIdx = avatar - 1
+    const avatarIdx = avatar;
     const avatarDisplay = avatars[genre][avatarIdx];
 
     return (
