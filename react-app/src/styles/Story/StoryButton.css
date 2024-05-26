@@ -1,28 +1,26 @@
-#playAgainBtn, #selectChoiceBtn, #storyBtn{
-    width: 150px;
-    margin: auto;
-    margin-top: 20px;  
-    padding: 7px;
-    font-size: 20px;
-}
-
-.western{
-    background-color: brown;
-    border: 3px solid #E6C485;
-}
-
-.sciFi{
+#playAgainBtn.sciFi, #selectChoiceBtn.sciFi, #storyBtn.sciFi{
     background: #FF4AED;
-
+    color: black;
+    text-align: center;
+    font-family: "Roboto Flex";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 68px; /* 170% */
+    text-transform: capitalize;
+    border-radius: 29px;
+    border: none;
+    width: 230px; 
+    height: 90px;
+    margin: auto;
+    /* margin-top: 20px;   */
+    padding: 7px;
 }
 
-.fantasy{
-    background-color: yellow;
+#selectChoiceBtn.sciFi {
+    width: 250px;
 }
 
-#storyBtn.fantasy {
-    background-color: purple;
+#playAgainBtn.sciFi {
+    width: 300px;
 }
-/* #storyBtn.sciFi {
-    background-color: red;
-} */

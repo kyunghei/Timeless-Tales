@@ -195,26 +195,6 @@ body h1, body h2 {
   z-index: 1;
 }
 
-.storybeat-image {
-  height: 400px;
-  width: 400px;
-  border-radius: 40px;
-}
-
-.storybeat-text-container {
-  background-color: blue;
-  display: flex;
-  flex-direction: column;
-  height: 80%;
-  margin-left: 30px;
-}
-
-.storybeat-text {
-  font-size: 20px;
-  overflow: auto;
-  background-color: yellow;
-}
-
 .storybeat-button {
   position: fixed;
   bottom: 0;

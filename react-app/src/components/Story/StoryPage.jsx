@@ -168,25 +168,27 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     <AvatarDisplay name={selectedName} avatar={selectedAvatar} genre={selectedGenre} />
 
                     {/* Update beginning of story beat */}
+                    <StoryProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
                     <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
 
                     <div id='storybeat-container' className={genreStyle} >
-                        <StoryBeatImage imageUrl={currentBeatData.story_image} />                        
-                        <div className='storybeat-text-container'>
+                        <div id='storybeat-text-container'>
+
                             {showChoices ?
                                 <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
                                 <StoryBeatText text={currentBeatData.story_text} />}
-                            
-                            <StoryProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
-                            
+                        </div>
+                        <div id='storybeat-image-container'>
+                            <StoryBeatImage imageUrl={currentBeatData.story_image} />                        
                             {/* Displays correct button */}
                             {currentBeatData.current_lives == 0 ?
                                 <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
                             {currentBeatData.current_lives != 0 && showChoices ?
                                 <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
                             {currentBeatData.current_lives != 0 && !showChoices ?
-                                <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
+                                <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}                            
                         </div>
+
                     </div>
 
 

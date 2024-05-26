@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 function StoryBeatText({ text }) {
 
     return (
-        <div className='storybeat-text'>
+        <div id='storybeat-text'>
             {text}
         </div>
     );

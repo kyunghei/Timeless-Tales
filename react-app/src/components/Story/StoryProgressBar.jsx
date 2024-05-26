@@ -14,7 +14,7 @@ function StoryProgressBar({ currentBeat, maxBeat }) {
     console.log(progress);
 
     return (
-        <div>
+        <div id='progress-bar'>
             {/* <p>Progress: {currentBeat} out of {maxBeat}</p> */}
             <ProgressBar completed={progress}/>
         </div>
