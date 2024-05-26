@@ -30,7 +30,7 @@ body h1, body h2 {
 }
 
 .header-text {
-  color: #FFFAE5;
+  color: #F2EACE;
   font-family: "Roboto Flex", sans-serif;
   font-size: 60px;
   font-style: normal;
@@ -178,9 +178,27 @@ body h1, body h2 {
   margin-right: 50px;
 }
 
-/* Fantasy Theme Styling */
-/* Western Theme Styling */
-/* SciFi Theme Styling */
+/*****************/
+/* STORY STYLING */
+/*****************/
+.story-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.bg-image {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+}
+
+/*********************/
+/* END STORY STYLING */
+/*********************/
 .underline {
   text-decoration: underline;
   margin-top: 0;
@@ -273,4 +291,19 @@ body h1, body h2 {
   border-radius: 25px;
   cursor: pointer;
   margin-bottom: 30px;
+}
+
+#loading {
+  height: 500px;
+  width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+#loading p {
+  font-size: 20px;
 }/*# sourceMappingURL=styles.css.map */

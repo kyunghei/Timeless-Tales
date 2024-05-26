@@ -13,7 +13,7 @@ import Loading from './Loading';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
+import '../../styles/Story/StorybeatContainer.css';
 
 function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength }) {
 
@@ -40,6 +40,9 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     // Access backend URL from env
     const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+
+    // Genre as a string to be used as class name for unique genre-based styling
+    const genreStyle = selectedGenre.charAt(0).toLowerCase() + selectedGenre.slice(1);
 
     // Defined using useCallback to memoize it
     // This function fetches the first story beat from the backend
@@ -158,19 +161,16 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     <button onClick={retry}>Retry</button>
                 </div>
             ) : (
-                <div>
+                <div className='story-container' >
                     {/* Static info display */}
                     <StoryBackgroundImage genre={selectedGenre} />
                     <AvatarDisplay name={selectedName} avatar={selectedAvatar} genre={selectedGenre} />
 
                     {/* Update beginning of story beat */}
-                    <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
-                    <StoryBeatImage imageUrl={currentBeatData.story_image} />
-                    {showChoices ?
-                        <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
-                        <StoryBeatText text={currentBeatData.story_text} />}
                     <StoryProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
+                    <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
 
+<<<<<<< HEAD
                     {/* Displays correct button */}
                     {currentBeatData.current_lives == 0 || currentBeatData.current_beat == selectedLength ?
                         <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
@@ -178,6 +178,25 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                         <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
                     {currentBeatData.current_lives != 0 && !showChoices && currentBeatData != selectedLength ?
                         <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
+=======
+                    <div id='storybeat-container' className={genreStyle} >
+                        <div id='storybeat-text-container'className={genreStyle} >
+                            {showChoices ?
+                                <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
+                                <StoryBeatText text={currentBeatData.story_text} />}
+                        </div>
+                        <div id='storybeat-image-container' className={genreStyle} >
+                            <StoryBeatImage imageUrl={currentBeatData.story_image} />                        
+                            {/* Displays correct button */}
+                            {currentBeatData.current_lives == 0 ?
+                                <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
+                            {currentBeatData.current_lives != 0 && showChoices ?
+                                <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
+                            {currentBeatData.current_lives != 0 && !showChoices ?
+                                <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}                            
+                        </div>
+                    </div>
+>>>>>>> 201776927aa67674a6d36274f59c23c89c2e4d6f
 
                     {/* Displays pop up screen */}
                     {showGameOver ? <PopUpScreen popUpHandler={handlePopUp} /> : null}

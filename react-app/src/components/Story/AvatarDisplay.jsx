@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import '../../styles/Story/Avatar.css';
 
 /**
  * Displays the avatar image and name given the character name, genre, and avatar identification number
@@ -17,14 +18,15 @@ function AvatarDisplay({ name, avatar, genre }) {
 
     const avatarIdx = avatar;
     const avatarDisplay = avatars[genre][avatarIdx];
+    const genreStyle = genre.charAt(0).toLowerCase() + genre.slice(1);
 
     return (
-        <div>
+        <div id='avatar-container' className={genreStyle}>
             <div>
-                <img src={avatarDisplay} alt="Avatar Image" width='100px' height='100px' />
+                <img src={avatarDisplay} alt="Avatar Image" id='avatar-image' className={genreStyle} />
             </div>
             <div>
-                <div>{name}</div>
+                <div id='avatar-name' className={genreStyle} >{name}</div>
             </div>
         </div>
     );

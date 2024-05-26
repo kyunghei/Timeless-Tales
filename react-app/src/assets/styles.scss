@@ -47,7 +47,7 @@ body {
     margin:0%;
 }
 .header-text {
-    color: #FFFAE5;
+    color: $base-bg;
     font-family: "Roboto Flex", sans-serif;
     font-size: 60px;
     font-style: normal;
@@ -184,18 +184,43 @@ body {
     margin-right: 50px;
 }
 
-/* Fantasy Theme Styling */
+/*****************/
+/* STORY STYLING */
+/*****************/
 
+.story-container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+.bg-image {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    z-index: 1;
+}
 
-
-
-/* Western Theme Styling */
-
-
-
-
-/* SciFi Theme Styling */
-
+// .storybeat-button {
+//     position: fixed;
+//     bottom: 0;
+//     width: 50px;
+//     height: 50px;
+//     font-size: x-large;
+//     font-weight: bolder;
+//     border: transparent;
+//     border-radius: 100%;
+//     cursor: pointer;
+// }
+// .progress-bar {
+//     position: absolute;
+//     bottom: 0;
+//     right: 2%;
+// }
+/*********************/
+/* END STORY STYLING */
+/*********************/
 
 .underline {
     text-decoration: underline;
@@ -279,4 +304,18 @@ body {
     border-radius: 25px;
     cursor: pointer;
     margin-bottom: 30px;
+}
+
+#loading {
+    height: 500px;
+    width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+#loading p {
+    font-size: 20px;
 }

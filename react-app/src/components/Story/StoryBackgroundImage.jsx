@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
  */
 
 const background = {
-    Western: '/background/westernBg.png',
-    SciFi: '/background/scifiBg.webp',
-    Fantasy: '/background/fantasyBg.webp'
+    Western: '/background/western-bg.png',
+    SciFi: '/background/scifi-bg.png',
+    Fantasy: '/background/fantasy-bg.png'
 }
 
 function StoryBackgroundImage({ genre }) {
@@ -17,7 +17,7 @@ function StoryBackgroundImage({ genre }) {
 
     return (
         <div>
-            <img src={imageBgUrl} alt="Story Background Image" />
+            <img src={imageBgUrl} className='bg-image' alt="Story Background Image" />
         </div>
     );
 }
