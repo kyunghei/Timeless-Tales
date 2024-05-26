@@ -59,7 +59,6 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
 
     // Fetch first story beat data from backend when component mounts.
     useEffect(() => {
-        console.log("useEffect called.")
         if (firstMount.current) {
             firstMount.current = false;
             fetchFirstBeat();
@@ -173,11 +172,11 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     <StoryProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
 
                     {/* Displays correct button */}
-                    {currentBeatData.current_lives == 0 ?
+                    {currentBeatData.current_lives == 0 || currentBeatData.current_beat == selectedLength ?
                         <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
-                    {currentBeatData.current_lives != 0 && showChoices ?
+                    {currentBeatData.current_lives != 0 && showChoices && currentBeatData != selectedLength ?
                         <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
-                    {currentBeatData.current_lives != 0 && !showChoices ?
+                    {currentBeatData.current_lives != 0 && !showChoices && currentBeatData != selectedLength ?
                         <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
 
                     {/* Displays pop up screen */}
