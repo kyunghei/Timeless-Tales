@@ -189,6 +189,7 @@ def get_next_beat():
 
     # Get user choice
     json_object = request.json
+    print("USER CHOSE", json_object.get("user_choice"))
     user_choice = helpers.convert_choice(context,
                                          json_object.get("user_choice"))
 
