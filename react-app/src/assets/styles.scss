@@ -319,3 +319,40 @@ body {
 #loading p {
     font-size: 20px;
 }
+
+#popup {
+    height: 400px;
+    width: 700px;
+    padding: 20px;
+    margin: auto;
+    font-size: 20px;
+    background-color: $base-bg;
+    border: 5px solid $base-button-purple;
+    h1 {
+        font-size: 40px;
+        text-align: center;
+    }
+    p {
+        font-size: 20px;
+    }
+}
+
+#popup-button-div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: auto;
+}
+.popup-button {
+    @include base-body-text();
+    background-color: $base-button-purple;
+    color: $base-button-white;
+    width: auto;
+    height: 50px;
+    font-size: 25px;
+    border: transparent;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 10px 10px;
+    padding: 10px 20px;
+}
