@@ -24,11 +24,10 @@ def get_story_prompt(context: StoryContext) -> str:
     prompt.append(_describe_background(context))
     prompt.append(_describe_narrative(context))
     # Determine if story is about to end
-    end_state = context.gameover or context.max_beats == context.current_beat
+    end_state = context.gameover or context.max_beats <= context.current_beat
     # Add conditional details
     if end_state:
         prompt.append(_describe_ending(context))
-        prompt.append("!!. !!. !!.")
     if context.climax:
         prompt.append(_describe_climax(context))
     if not end_state:
