@@ -1,4 +1,6 @@
-#playAgainBtn.sciFi, #selectChoiceBtn.sciFi, #storyBtn.sciFi{
+#playAgainBtn.sciFi,
+#selectChoiceBtn.sciFi,
+#storyBtn.sciFi {
     background: #FF4AED;
     color: black;
     text-align: center;
@@ -6,11 +8,12 @@
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
-    line-height: 68px; /* 170% */
+    line-height: 68px;
+    /* 170% */
     text-transform: capitalize;
     border-radius: 29px;
     border: none;
-    width: 230px; 
+    width: 230px;
     height: 90px;
     margin: auto;
     /* margin-top: 20px;   */
@@ -27,7 +30,9 @@
 
 
 
-#playAgainBtn.western, #selectChoiceBtn.western, #storyBtn.western{
+#playAgainBtn.western,
+#selectChoiceBtn.western,
+#storyBtn.western {
     background: #6F170B;
     color: #E6C485;
     text-align: center;
@@ -35,11 +40,12 @@
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
-    line-height: 68px; /* 170% */
+    line-height: 68px;
+    /* 170% */
     text-transform: capitalize;
     border-radius: 29px;
     border: 3px solid #E6C485;
-    width: 230px; 
+    width: 230px;
     height: 90px;
     margin: auto;
     padding: 7px;
@@ -47,7 +53,9 @@
     bottom: 0;
 }
 
-#playAgainBtn.fantasy, #selectChoiceBtn.fantasy, #storyBtn.fantasy{
+#playAgainBtn.fantasy,
+#selectChoiceBtn.fantasy,
+#storyBtn.fantasy {
     background: #274466;
     color: whitesmoke;
     text-align: center;
@@ -55,11 +63,12 @@
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
-    line-height: 68px; /* 170% */
+    line-height: 68px;
+    /* 170% */
     text-transform: capitalize;
     border-radius: 29px;
     border: none;
-    width: 230px; 
+    width: 230px;
     height: 90px;
     margin: auto;
     padding: 7px;

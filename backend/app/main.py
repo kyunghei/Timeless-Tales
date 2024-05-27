@@ -103,7 +103,7 @@ def post_story_beat():
     image_prompt = helpers.get_image_prompt(context)
     story_image = get_image_URL(image_prompt)
     # DEBUG IMAGE to save API costs
-    # story_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4NvLQAn3DFg-KAeSiGOuZBsiXDcdtK8__Pgokt4NMjQ&s"  # noqa
+    story_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4NvLQAn3DFg-KAeSiGOuZBsiXDcdtK8__Pgokt4NMjQ&s"  # noqa
 
     # Return Data
     response_data = {
@@ -135,7 +135,7 @@ def next_beat():
     image_prompt = helpers.get_image_prompt(context)
     story_image = get_image_URL(image_prompt)
     # DEBUG IMAGE to save API costs
-    # story_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4NvLQAn3DFg-KAeSiGOuZBsiXDcdtK8__Pgokt4NMjQ&s"  # noqa
+    story_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4NvLQAn3DFg-KAeSiGOuZBsiXDcdtK8__Pgokt4NMjQ&s"  # noqa
 
     # Return Data
     response_data = {

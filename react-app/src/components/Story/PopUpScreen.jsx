@@ -1,5 +1,6 @@
 // import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 /**
@@ -9,7 +10,7 @@ import axios from 'axios';
 
 
 
-function PopUpScreen() {
+function PopUpScreen({ handleRestart }) {
     //onclick
     //  #1 Alert Box asking if we would like to play again or end game
     //  #2a playagain & don't keep customization, Navigate to Customization Page
@@ -33,7 +34,7 @@ function PopUpScreen() {
             const res = await axios.post(`${BACKEND_URL}/restart`);
             if (res.status === 200) {
                 // navigating will refresh the states within 'StoryPage' to its original default values when remounted.
-                navigate('/story');
+                handleRestart();
             }
         } catch (error) {
             console.error('Error restarting story with current settings:', error);
@@ -42,20 +43,20 @@ function PopUpScreen() {
     }
     return (
         <>
-            <dialog open>
-                <form method="dialog">
-                <div>Hey there, Adventurer!</div>
-                <div>Ready for more action with your current setup, or feeling like a bit of a change this time around?</div>
-                <div>
-                    <span>Stick With it -</span>
-                    <span>Just right back in with all your current settings!</span>
-                </div>
-                <div>
-                    <span>Mix Things Up -</span>
-                    <span>Take the customization quiz again and see what new twists you can add to your adventure!</span>
-                </div>
-                <button onClick={keepCustomization}>Stick With It</button>
-                <button onClick={toCustomization}>Mix Things Up</button>
+            <dialog open style={{ zIndex: 1000 }}>
+                <form method="dialog" >
+                    <div>Hey there, Adventurer!</div>
+                    <div>Ready for more action with your current setup, or feeling like a bit of a change this time around?</div>
+                    <div>
+                        <span>Stick With it -</span>
+                        <span>Just right back in with all your current settings!</span>
+                    </div>
+                    <div>
+                        <span>Mix Things Up -</span>
+                        <span>Take the customization quiz again and see what new twists you can add to your adventure!</span>
+                    </div>
+                    <button onClick={keepCustomization}>Stick With It</button>
+                    <button onClick={toCustomization}>Mix Things Up</button>
                 </form>
             </dialog>
         </>
@@ -66,3 +67,6 @@ function PopUpScreen() {
 
 export default PopUpScreen;
 
+PopUpScreen.propTypes = {
+    handleRestart: PropTypes.func.isRequired,
+}
