@@ -306,4 +306,46 @@ body h1, body h2 {
 
 #loading p {
   font-size: 20px;
+}
+
+#popup {
+  height: 400px;
+  width: 700px;
+  padding: 20px;
+  margin: auto;
+  font-size: 20px;
+  background-color: #F2EACE;
+  border: 5px solid #512667;
+}
+#popup h1 {
+  font-size: 40px;
+  text-align: center;
+}
+#popup p {
+  font-size: 20px;
+}
+
+#popup-button-div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+}
+
+.popup-button {
+  color: #0B1133;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+  background-color: #512667;
+  color: #FFFFFF;
+  width: auto;
+  height: 50px;
+  font-size: 25px;
+  border: transparent;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px 10px;
+  padding: 10px 20px;
 }/*# sourceMappingURL=styles.css.map */

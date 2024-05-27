@@ -43,26 +43,25 @@ function PopUpScreen({ handleRestart }) {
     }
     return (
         <>
-            <dialog open style={{ zIndex: 1000 }}>
-                <form method="dialog" >
-                    <div>Hey there, Adventurer!</div>
-                    <div>Ready for more action with your current setup, or feeling like a bit of a change this time around?</div>
+            <dialog id='popup' open style={{ zIndex: 1000 }}>
+                <form method="dialog">
                     <div>
-                        <span>Stick With it -</span>
-                        <span>Just right back in with all your current settings!</span>
+                        <h1>Hey there, Adventurer!</h1>
+                        <p>Ready for more action with your current setup, or feeling like a bit of a change this time around?</p>
+                        <ul>
+                            <li><strong>Stick With it - </strong>Jump right back in with all your current settings!</li>
+                            <li><strong>Mix Things Up - </strong>Take the customization quiz again and see what new twists you can add to your adventure!</li>
+                        </ul>
+                        <div id='popup-button-div' >                        
+                            <button className='popup-button' onClick={keepCustomization}>Stick With It</button>
+                            <button className='popup-button' onClick={toCustomization}>Mix Things Up</button>
+                        </div>
+
                     </div>
-                    <div>
-                        <span>Mix Things Up -</span>
-                        <span>Take the customization quiz again and see what new twists you can add to your adventure!</span>
-                    </div>
-                    <button onClick={keepCustomization}>Stick With It</button>
-                    <button onClick={toCustomization}>Mix Things Up</button>
                 </form>
             </dialog>
         </>
-
     );
-
 }
 
 export default PopUpScreen;
