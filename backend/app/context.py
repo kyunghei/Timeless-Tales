@@ -225,10 +225,14 @@ def split_choices(input_string):
     choices = input_string.split("!!")
     story_text = choices[0].strip()
 
-    # Save choices (make blank if parsing error and not enough options made)
-    choice_1 = choices[1].strip() if len(choices) > 1 else ""
-    choice_2 = choices[2].strip() if len(choices) > 2 else ""
-    choice_3 = "!!".join(choices[3:]).strip() if len(choices) > 3 else ""
+    # Save choices (make "..." if parsing error and not enough options made)
+    choice_1 = choices[1].strip() if len(choices) > 1 else "..."
+    choice_2 = choices[2].strip() if len(choices) > 2 else "..."
+    choice_3 = "!!".join(choices[3:]).strip() if len(choices) > 3 else "..."
+
+    print("       ")
+    print("STORY:", story_text)
+    print("CHOICES:", choice_1, choice_2, choice_3)
 
     return story_text, choice_1, choice_2, choice_3
 
