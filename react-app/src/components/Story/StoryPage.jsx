@@ -15,7 +15,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../../styles/Story/StorybeatContainer.css';
 
-function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength }) {
+function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength, handleRestart }) {
 
     // State to save the current story beat data (story_text, story_image, current_beat, current_lives) sent from backend
     const [currentBeatData, setCurrentBeatData] = useState(null);
@@ -153,7 +153,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
         <>
             {isLoading ? (
                 <div>
-                    <Loading currentBeat={currentBeatData?.current_beat ?? 0} maxBeat={selectedLength} />
+                    <Loading currentBeat={currentBeatData?.current_beat ?? -1} maxBeat={selectedLength} />
                 </div>
             ) : error.context ? (
                 <div>
@@ -170,36 +170,26 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     <StoryProgressBar currentBeat={currentBeatData.current_beat} maxBeat={selectedLength} />
                     <AvatarLife genre={selectedGenre} lives={currentBeatData.current_lives} />
 
-<<<<<<< HEAD
-                    {/* Displays correct button */}
-                    {currentBeatData.current_lives == 0 || currentBeatData.current_beat == selectedLength ?
-                        <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
-                    {currentBeatData.current_lives != 0 && showChoices && currentBeatData != selectedLength ?
-                        <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
-                    {currentBeatData.current_lives != 0 && !showChoices && currentBeatData != selectedLength ?
-                        <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
-=======
                     <div id='storybeat-container' className={genreStyle} >
-                        <div id='storybeat-text-container'className={genreStyle} >
+                        <div id='storybeat-text-container' className={genreStyle} >
                             {showChoices ?
                                 <StoryBeatChoices choices={[currentBeatData.choice_1, currentBeatData.choice_2, currentBeatData.choice_3]} userChoiceHandler={handleUserChoice} /> :
                                 <StoryBeatText text={currentBeatData.story_text} />}
                         </div>
                         <div id='storybeat-image-container' className={genreStyle} >
-                            <StoryBeatImage imageUrl={currentBeatData.story_image} />                        
+                            <StoryBeatImage imageUrl={currentBeatData.story_image} />
                             {/* Displays correct button */}
-                            {currentBeatData.current_lives == 0 ?
+                            {currentBeatData.current_lives == 0 || currentBeatData.current_beat == selectedLength ?
                                 <PlayAgainBtn genre={selectedGenre} popUpHandler={handlePopUp} /> : null}
-                            {currentBeatData.current_lives != 0 && showChoices ?
+                            {currentBeatData.current_lives != 0 && showChoices && currentBeatData.current_beat != selectedLength ?
                                 <SelectChoiceBtn genre={selectedGenre} userChoice={userChoice} nextHandler={handleSendUserChoice} /> : null}
-                            {currentBeatData.current_lives != 0 && !showChoices ?
-                                <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}                            
+                            {currentBeatData.current_lives != 0 && !showChoices && currentBeatData.current_beat != selectedLength ?
+                                <StoryNextButton genre={selectedGenre} nextHandler={handleNext} /> : null}
                         </div>
                     </div>
->>>>>>> 201776927aa67674a6d36274f59c23c89c2e4d6f
 
                     {/* Displays pop up screen */}
-                    {showGameOver ? <PopUpScreen popUpHandler={handlePopUp} /> : null}
+                    {showGameOver ? <PopUpScreen handleRestart={handleRestart} /> : null}
                 </div>
             )}
 
@@ -214,5 +204,7 @@ StoryPage.propTypes = {
     selectedGenre: PropTypes.string.isRequired,
     selectedAvatar: PropTypes.number.isRequired,
     selectedName: PropTypes.string.isRequired,
-    selectedLength: PropTypes.number.isRequired
+    selectedLength: PropTypes.number.isRequired,
+    key: PropTypes.number.isRequired,
+    handleRestart: PropTypes.func.isRequired
 }

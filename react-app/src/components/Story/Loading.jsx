@@ -14,7 +14,7 @@ function Loading({ currentBeat, maxBeat }) {
     return (
         <div id='loading'>
             <h1>Loading...</h1>
-            <p>Currently {currentBeat} out of {maxBeat}!</p>
+            <p>Currently {currentBeat + 1} out of {maxBeat}!</p>
         </div>
     );
 }

@@ -7,7 +7,7 @@ import '../../styles/Story/StoryButton.css';
  * @param {func} popUpHandler
  */
 
-function PlayAgainBtn({genre, popUpHandler}){
+function PlayAgainBtn({ genre, popUpHandler }) {
     const genreStyle = genre.charAt(0).toLowerCase() + genre.slice(1);
 
 
@@ -15,9 +15,9 @@ function PlayAgainBtn({genre, popUpHandler}){
     //     popUpHandler();
     // }
 
-    return(
+    return (
         <>
-            <button id="playAgainBtn" className={genreStyle}  onClick={popUpHandler}>Play Again?</button>
+            <button id="playAgainBtn" className={genreStyle} onClick={popUpHandler}>Play Again?</button>
         </>
     )
 }
