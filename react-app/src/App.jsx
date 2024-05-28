@@ -11,8 +11,8 @@ import { useState } from 'react';
 // App component serves as the root. 
 // Sets up routing and global states that will be passed to components.
 function App() {
-  // State to force StoryComponent to re-render when restarting
-  const [key, setKey] = useState(0);
+  // State to force Story Component to re-render when restarting
+  const [key, setStoryKey] = useState(0);
 
   // State to track the genre selected.
   const [selectedGenre, setSelectedGenre] = useState('');
@@ -29,8 +29,17 @@ function App() {
 
   function handleRestart() {
     // Updates key number to force remount.
-    setKey(key + 1);
+    setStoryKey(key + 1);
   }
+
+  function resetCustomization() {
+    // Resets the customization states
+    setSelectedGenre('');
+    setSelectedAvatar(3);
+    setSelectedName('');
+    setSelectedLength(0);
+  }
+
 
   return (
     <Router>
@@ -49,13 +58,13 @@ function App() {
               setSelectedLength={setSelectedLength}
               setSelectedAvatar={setSelectedAvatar}
               setSelectedGenre={setSelectedGenre}
-              setSelectedName={setSelectedName} />} />
+              setSelectedName={setSelectedName} handleRestart={handleRestart} />} />
 
           <Route path='/story' element={
             <StoryPage selectedGenre={selectedGenre}
               selectedAvatar={selectedAvatar}
               selectedName={selectedName}
-              selectedLength={selectedLength} key={key} handleRestart={handleRestart} />} />
+              selectedLength={selectedLength} key={key} handleRestart={handleRestart} resetCustomization={resetCustomization} />} />
           {/* <Route path='/story1' element={<StoryPageTemplate />} /> */}
 
         </Routes>
