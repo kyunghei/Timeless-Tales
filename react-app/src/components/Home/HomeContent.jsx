@@ -1,6 +1,6 @@
 import Accordion from './Accordion.jsx';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/logo.webp';
+import logo from '../../assets/logo-revised.png';
 
 // Bulk of the home page, where we introduce Timeless Tales
 function HomeContent() {
