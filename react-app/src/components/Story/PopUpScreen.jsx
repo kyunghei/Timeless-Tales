@@ -10,7 +10,7 @@ import axios from 'axios';
 
 
 
-function PopUpScreen({ handleRestart }) {
+function PopUpScreen({ handleRestart, resetCustomization }) {
     //onclick
     //  #1 Alert Box asking if we would like to play again or end game
     //  #2a playagain & don't keep customization, Navigate to Customization Page
@@ -21,8 +21,16 @@ function PopUpScreen({ handleRestart }) {
     // Access backend URL from env
     const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
-    function toCustomization() {
-        navigate('/customization')
+    async function toCustomization() {
+        try {
+            const res = await axios.post(`${BACKEND_URL}/restart`);
+            if (res.status === 200) {
+                resetCustomization();
+                navigate('/customization');
+            }
+        } catch (error) {
+            console.error('Error restarting story with new customization setting')
+        }
     }
 
     async function keepCustomization() {
@@ -52,7 +60,7 @@ function PopUpScreen({ handleRestart }) {
                             <li><strong>Stick With it - </strong>Jump right back in with all your current settings!</li>
                             <li><strong>Mix Things Up - </strong>Take the customization quiz again and see what new twists you can add to your adventure!</li>
                         </ul>
-                        <div id='popup-button-div' >                        
+                        <div id='popup-button-div' >
                             <button className='popup-button' onClick={keepCustomization}>Stick With It</button>
                             <button className='popup-button' onClick={toCustomization}>Mix Things Up</button>
                         </div>
@@ -68,4 +76,6 @@ export default PopUpScreen;
 
 PopUpScreen.propTypes = {
     handleRestart: PropTypes.func.isRequired,
+    handleCustomizationRestart: PropTypes.func.isRequired,
+    resetCustomization: PropTypes.func.isRequired
 }

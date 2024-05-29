@@ -15,7 +15,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../../styles/Story/StorybeatContainer.css';
 
-function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength, handleRestart }) {
+function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength, handleRestart, resetCustomization }) {
 
     // State to save the current story beat data (story_text, story_image, current_beat, current_lives) sent from backend
     const [currentBeatData, setCurrentBeatData] = useState(null);
@@ -189,7 +189,7 @@ function StoryPage({ selectedGenre, selectedName, selectedAvatar, selectedLength
                     </div>
 
                     {/* Displays pop up screen */}
-                    {showGameOver ? <PopUpScreen handleRestart={handleRestart} /> : null}
+                    {showGameOver ? <PopUpScreen handleRestart={handleRestart} resetCustomization={resetCustomization} /> : null}
                 </div>
             )}
 
@@ -205,6 +205,6 @@ StoryPage.propTypes = {
     selectedAvatar: PropTypes.number.isRequired,
     selectedName: PropTypes.string.isRequired,
     selectedLength: PropTypes.number.isRequired,
-    key: PropTypes.number.isRequired,
-    handleRestart: PropTypes.func.isRequired
+    handleRestart: PropTypes.func.isRequired,
+    resetCustomization: PropTypes.func.isRequired
 }
