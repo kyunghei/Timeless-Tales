@@ -1,6 +1,10 @@
 {
   "name": "timeless-tales",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=14.0.0 <15.0.0",
+    "npm": ">=6.0.0 < 7.0.0"
+  },
   "description": "A web application utilizing AI to create custom choose-your-own-adventure stories with dynamic choices/outcomes and relevant artwork.",
   "main": "index.js",
   "scripts": {
@@ -38,9 +42,5 @@
     "axios": "^1.6.8",
     "prop-types": "^15.8.1",
     "react-router-dom": "^6.23.0"
-  },
-  "engines": {
-    "node": ">=14.0.0 <15.0.0",
-    "npm": ">=6.0.0 < 7.0.0"
   }
 }
