@@ -6,6 +6,10 @@ from dotenv import load_dotenv
 import helpers
 from context import context, split_choices
 
+import sys
+print("Current working directory:", os.getcwd())
+print("Files in current directory:", os.listdir(os.getcwd()))
+print("Python path:", sys.path)
 
 app = Flask(__name__)
 CORS(app)
