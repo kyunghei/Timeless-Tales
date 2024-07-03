@@ -13,7 +13,7 @@ import axios from 'axios';
 /**
  * CustomizationPage component serves as the container for the multi-step customization form.
  */
-function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, selectedLength, setSelectedLength, setSelectedGenre, setSelectedAvatar, setSelectedName }) {
+function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, selectedLength, setSelectedLength, setSelectedGenre, setSelectedAvatar, setSelectedName, handleRestart }) {
 
     const [currentStep, setCurrentStep] = useState(1); // State to keep track of the current step within the form.
     const [isStepValid, setIsStepValid] = useState({ 1: false, 2: false, 3: false, 4: false }); // Validity of each selection to check if user selection was made.
@@ -38,6 +38,7 @@ function CustomizationPage({ selectedGenre, selectedAvatar, selectedName, select
 
             if (res.status === 200) {
                 console.log("form submission successful");
+                handleRestart();
                 navigate('/story');
             } else {
                 console.error("Couldn't post form data:", res.status);
@@ -129,7 +130,8 @@ CustomizationPage.propTypes = {
     setSelectedLength: PropTypes.func.isRequired,
     setSelectedAvatar: PropTypes.func.isRequired,
     setSelectedGenre: PropTypes.func.isRequired,
-    setSelectedName: PropTypes.func.isRequired
+    setSelectedName: PropTypes.func.isRequired,
+    handleRestart: PropTypes.func.isRequired,
 }
 
 StartButton.propTypes = {
