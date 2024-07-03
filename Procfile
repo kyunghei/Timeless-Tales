@@ -1,1 +1,1 @@
-web: npm run build --prefix frontend && npm install -g serve && serve -s frontend/build
+web: npm run build --prefix react-app && npm install -g serve && serve -s react-app/build
