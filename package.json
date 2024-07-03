@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/kyunghei/Timeless-Tales/issues"
   },
-  "homepage": "https://github.com/kyunghei/Timeless-Tales#readme"
+  "homepage": "https://github.com/kyunghei/Timeless-Tales#readme",
+  "dependencies": {
+    "flask": "^0.2.10"
+  }
 }
