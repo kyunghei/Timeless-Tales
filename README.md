@@ -1,7 +1,13 @@
 # Timeless Tales
 
-A web application utilizing AI to create custom choose-your-own-adventure stories with dynamic choices/outcomes and relevant artwork.
+Timeless Tales is an interactive storytelling web application that uses OpenAI's GPT API to dynamically generate story text and images. This project was developed by a collaborative team, with a frontend built using React and a backend developed in Python.
 
+## Features
+- **Dynamic Story Generation:** Utilizes OpenAI's GPT API to generate engaging and interactive story content.
+- **React Frontend:** Implements state management and ensures seamless story transitions for an enhanced user experience.
+- **Python Backend:** Developed a story engine that uses tagged prompts to create complex narrative structures.
+- **Agile Methodolgies:** Followed Agile practices, including daily stand-ups, sprint planning, and using project management tools to track progress and prioritize tasks.
+  
 ## Internal Terminology
 
 - **Story Beat**: A single scene of the story, including the image, generated paragraph, and presented choices.
