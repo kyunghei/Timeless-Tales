@@ -29,7 +29,8 @@ if my_key is None:
     exit()
 
 # Authenticate API token
-client = openai.OpenAI(api_key=my_key)
+# client = openai.OpenAI(api_key=my_key)
+openai.api_key = my_key
 
 
 def get_story_part(prompt: str, story_history: list) -> str:
@@ -40,7 +41,7 @@ def get_story_part(prompt: str, story_history: list) -> str:
     Output: story part (str)
     """
     if story_history:
-        completion = client.chat.completions.create(
+        completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "system",
                        "content": f"Story history for "
@@ -48,7 +49,7 @@ def get_story_part(prompt: str, story_history: list) -> str:
                       {"role": "user", "content": prompt}]
         )
     else:
-        completion = client.chat.completions.create(
+        completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}]
         )
@@ -65,7 +66,7 @@ def get_image_URL(img_prompt: str) -> str:
     Input: image prompt (str)
     Output: image URL (str)
     """
-    response = client.images.generate(
+    response = openai.Image.create(
         model="dall-e-3",
         prompt=img_prompt,
         size="1024x1024",
