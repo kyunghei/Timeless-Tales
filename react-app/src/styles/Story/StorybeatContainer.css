@@ -9,28 +9,33 @@
     left: 50%;
     transform: translate(-50%, -50%);
     height: 500px;
-    width: 1200px; 
+    width: 1200px;
 }
 
 #storybeat-container.fantasy {
     background-color: #F6F1DB;
     border: 3px solid #274466;
-    border-radius: 25px;;
+    border-radius: 25px;
+    ;
 }
+
 #storybeat-container.sciFi {
-    background-color: #D0E8EA;    
+    background-color: #D0E8EA;
 }
+
 #storybeat-container.western {
     background-color: #F0D899;
 }
+
 #storybeat-image-container {
-/* Contains the storybeat image and storybeat buttons */
+    /* Contains the storybeat image and storybeat buttons */
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-#storybeat-image-container.western{
+
+#storybeat-image-container.western {
     height: 500px;
 }
 
@@ -39,11 +44,14 @@
     width: 400px;
     margin-bottom: 15px;
 }
-#storybeat-image-container.western, #storybeat-image-container.fantasy img {
+
+#storybeat-image-container.western,
+#storybeat-image-container.fantasy img {
     border-radius: 44px;
 }
+
 #storybeat-text-container {
-/* Contains the progress bar and storybeat text/choices */
+    /* Contains the progress bar and storybeat text/choices */
     display: flex;
     flex-direction: column;
     justify-self: center;
@@ -57,15 +65,20 @@
     background-color: white;
     padding: 10px;
 }
+
 #storybeat-text {
     font-size: 25px;
     overflow: auto;
     height: auto;
 }
-#choice1, #choice2, #choice3 {
+
+#choice1,
+#choice2,
+#choice3 {
     font-size: 25px;
 }
+
 #choice2 {
     margin-top: 30px;
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
 }
