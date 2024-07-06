@@ -7,7 +7,30 @@ Timeless Tales is an interactive storytelling web application that uses OpenAI's
 - **React Frontend:** Implements state management and ensures seamless story transitions for an enhanced user experience.
 - **Python Backend:** Developed a story engine that uses tagged prompts to create complex narrative structures.
 - **Agile Methodolgies:** Followed Agile practices, including daily stand-ups, sprint planning, and using project management tools to track progress and prioritize tasks.
-  
+
+## Setting Up the Project
+Follow these steps to set up and run the frontend locally:
+
+### 1. Clone the Repository
+Close the repository to your local machine using the following command:
+
+```bash
+git clone https://github.com/kyunghei/Timeless-Tales.git
+cd react-app
+```
+### 2. Install Dependencies
+Install the necessary dependencies using npm or yarn:
+
+```bash
+npm install
+```
+### 3. Run the Development Server
+Start the development server using the following command:
+```bash
+npm run dev
+```
+The application will be available at `http://localhost:5173`.
+
 ## Internal Terminology
 
 - **Story Beat**: A single scene of the story, including the image, generated paragraph, and presented choices.
